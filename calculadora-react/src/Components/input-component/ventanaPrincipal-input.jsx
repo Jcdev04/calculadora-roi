@@ -2,12 +2,18 @@
 
 export default class ventanaPrincipalComponent extends Component{
     render(){
-        const {input,meta,title,...props} = this.props
+
+        const CSS = {
+            title:{
+                marginBottom: 8,
+            }
+        }
+        const {input,value,meta,title,...props} = this.props
         return(
             <div>
-                {title && <span>{title}</span>}
-                <input {...input} {...props} />
-                {meta.submitFailed && meta.error && <span>{meta.error}</span>
+                {title && <p style={CSS.title}>{title}</p>}
+                <input {...value} {...input} {...props} />
+                {meta.touched && meta.error && <span>{meta.error}</span>
                 }
             </div>
         )

@@ -1,0 +1,85 @@
+.principal-container{
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+}
+
+.proceso{
+    display: flex;   
+    justify-content: space-between;
+    margin: 15px 0px;
+}
+
+.CRUD-container{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 5px;
+    padding: 10px;
+    width: 100%;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
+/* Nombre del proceso */
+.nombreProceso{
+    width: 50%;
+    font-size: 18px;
+    padding-left: 12px;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: rgb(77, 77, 77);
+}
+
+/* Botones */
+/* Otras propiedades colocadas en react */
+.btnEliminar{
+    background-color: #FF0015;
+    color: #48060C;
+}
+
+.btnEliminar:hover{
+    background-color: #c80b0b;
+    color: #f7e3e3;
+}
+
+.btnEditar{
+    background-color:#ffd555;
+    color: #A67A00;
+}
+.btnEditar:hover{
+    background-color:#e6ae07;
+    color: #fef0ca;
+}
+
+
+/* .btnEditar:hover{
+
+} */
+
+.seleccionar{
+    align-self: center;
+}
+
+
+/* button agregar-proceso */
+.agregar-proceso{
+    width: 100%;
+    display: flex;
+    margin-top: 15px;
+    justify-content: center;  
+}
+.agregar-proceso button{
+    color: white;
+    background-color: #43CA40;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition:ease-in-out;
+    transition-duration: 200ms;
+}
+
+.agregar-proceso button:hover{
+    background-color: #4ee34c;
+}

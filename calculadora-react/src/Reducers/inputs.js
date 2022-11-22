@@ -9,7 +9,7 @@ const initialState = {procesos:[
                 hTrabajadasXDia: 0,
                 dLaborablesXSemana:0,
                 tXOperacionMinutos: 0,
-                rateEmpleado: 0,
+                rateEmpleado: 5.5
             },
             salarioPromedio: 0,
             costoImplementacion: 0,
@@ -45,9 +45,9 @@ export const modificarCheck = (index)=>({
     payload: {index}
 })
 
-export const modificarFTE = (index,values) =>({
+export const modificarInputs = (index,valores) =>({
     type: MODIFICARINPUTS,
-    payload: {index,values}
+    payload: {index,valores}
 })
 
 export default function inputs(state = initialState,action){
@@ -65,7 +65,7 @@ export default function inputs(state = initialState,action){
                             hTrabajadasXDia: 0,
                             dLaborablesXSemana:0,
                             tXOperacionMinutos: 0,
-                            rateEmpleado: 0,
+                            rateEmpleado: 5.5,
                         },
                         salarioPromedio: 0,
                         costoImplementacion: 0,
@@ -95,7 +95,8 @@ export default function inputs(state = initialState,action){
                         return objectToReturn
                     }
                     return value
-                })
+                }) 
+
             }
         case MODIFICARCHECK:
             return{
@@ -114,9 +115,21 @@ export default function inputs(state = initialState,action){
                 procesos: state.procesos.map(({...value},i)=>{
                     if(action.payload.index===i){
                         const objectToReturn = value
-                        objectToReturn.costoImplementacion=action.payload.costoImplementacion
-                        objectToReturn.salarioPromedio=action.payload.salarioPromedio
-                        objectToReturn.nPersonas=action.payload.nPersonas
+
+                        objectToReturn.nPersonas=parseInt(action.payload.valores.nPersonas|| "0")
+                        const aux = {
+                            nOpDiarias: parseInt(action.payload.valores.nOperaciones|| "0"),
+                            hTrabajadasXDia: parseInt(action.payload.valores.nHorasXDia || "0"),
+                            dLaborablesXSemana: parseInt(action.payload.valores.diasLaborables|| "0"),
+                            tXOperacionMinutos: parseInt(action.payload.valores.tiempoXOperacion|| "0"),
+                            rateEmpleado : parseFloat(action.payload.valores.rendimiento)
+                        } 
+                        objectToReturn.FTE = {...aux}
+
+                        objectToReturn.salarioPromedio=parseInt(action.payload.valores.salarioPromedio|| "0")
+                        objectToReturn.costoImplementacion=  parseInt(action.payload.valores.costoImplementacion|| "0")
+                        console.log(objectToReturn)
+
                         return objectToReturn
                     }
                     return value
