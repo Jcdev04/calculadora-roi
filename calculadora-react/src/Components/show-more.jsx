@@ -24,13 +24,17 @@ function ShowMore(props) {
         const [botonEditar,setBotonEditar] = useState(false);
         /* console.log(todosProcesos) */
         let objeto = {}
-        let value = 0
+        const [index,setIndex] = useState(0)
+
+        /* Función para obtener el index del botón presionado */
+        const handler = function(e){
+            setIndex(e.target.getAttribute("data-index")); //will log the index of the clicked item
+        };
         return(
             <div className="principal-container">
                 {todosProcesos.map((data,i)=>{
                     let numeroProceso = `Proceso ${String(i+1).padStart(3, '0')}`
                     objeto = {...data}
-                    value = i
                     return(
                         <div className="proceso" key={numeroProceso}>
                             {/* NOMBRE DEL PROCESO */}
@@ -39,9 +43,10 @@ function ShowMore(props) {
                                 props.modificarProceso1(e.target.value,i)}/>
                             <div>
                                 {/* EDITAR */}
-                                <button style={CSS.button} className="btnEditar" onClick={(e)=>{
+                                <button style={CSS.button} data-index={i} className="btnEditar" onClick={(e)=>{
                                         e.preventDefault()
                                         setBotonEditar(true)
+                                        handler(e)
                                     }
                                 }
                                 >Editar</button>
@@ -63,13 +68,13 @@ function ShowMore(props) {
                                     ()=>props.modificarCheck(i)
                                 }/>
                             </div>
-                            <VentanaPrincipal FTEvalue={objeto.FTE} onSubmit = {(payload)=>{
-                                props.modificarInputs(value,payload)                                
-                                }} trigger={botonEditar} setTrigger = {setBotonEditar}/>
                         </div>
                     )
                 }
                 )}
+                <VentanaPrincipal FTEvalue={todosProcesos[parseInt(index)]} onSubmit = {(payload)=>{
+                    props.modificarInputs(parseInt(index),payload)                                
+                    }} trigger={botonEditar} setTrigger = {setBotonEditar}/>
                 <div className="agregar-proceso" >
                     <button style={{fontSize:15}} onClick = {props.agregarProceso}>Agregar Proceso</button> 
                 </div>

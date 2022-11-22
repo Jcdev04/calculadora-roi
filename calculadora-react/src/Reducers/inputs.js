@@ -128,7 +128,7 @@ export default function inputs(state = initialState,action){
 
                         objectToReturn.salarioPromedio=parseInt(action.payload.valores.salarioPromedio|| "0")
                         objectToReturn.costoImplementacion=  parseInt(action.payload.valores.costoImplementacion|| "0")
-                        console.log(objectToReturn)
+                        console.log(state)
 
                         return objectToReturn
                     }

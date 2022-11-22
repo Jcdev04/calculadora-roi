@@ -146,16 +146,17 @@ class VentanaPrincipal extends Component{
         
         const ventanaPrincipal = ()=>{
             /* EXTRAYENDO los valores de la clase FTE */
-            let nOpDiarias = FTEvalue.nOpDiarias,
-            hTrabajadasXDia =  FTEvalue.hTrabajadasXDia,
-            dLaborablesXSemana = FTEvalue.dLaborablesXSemana,
-            tXOperacionMinutos = FTEvalue.tXOperacionMinutos,
-            rateEmpleado = FTEvalue.rateEmpleado
+            let nOpDiarias = FTEvalue.FTE.nOpDiarias,
+            hTrabajadasXDia =  FTEvalue.FTE.hTrabajadasXDia,
+            dLaborablesXSemana = FTEvalue.FTE.dLaborablesXSemana,
+            tXOperacionMinutos = FTEvalue.FTE.tXOperacionMinutos,
+            rateEmpleado = FTEvalue.FTE.rateEmpleado
             
             rateEmpleado = (rateEmpleado*0.022)+0.68
-
+            
             let FTEresultado = (nOpDiarias*dLaborablesXSemana*4*tXOperacionMinutos)/(hTrabajadasXDia*dLaborablesXSemana*60*4*rateEmpleado)
             FTEresultado = (FTEresultado*100).toFixed(2)
+            
             if(isNaN(FTEresultado)){
                 FTEresultado = 0
             }
@@ -179,6 +180,7 @@ class VentanaPrincipal extends Component{
                             <button onClick={()=>abrirFTE()} style={{...CSS.btnRegistrar,...CSS.btnGeneral}} type="button">Registrar</button>
                             {/* Este input se cambia automáticamente */}
                             <div style={CSS.porcentajeFTE} name="FTE" type="number">
+                                {/* MOSTRANDO el resultado de calcular el FTE */}
                                 <h1 style={{fontSize: 22, margin: 0}}>{FTEresultado}%</h1>
                                 </div>
                         </div>
@@ -204,7 +206,7 @@ class VentanaPrincipal extends Component{
                 </div>
             )
         }
-        const ventanaSecundaria = ()=>{
+        const ventanaFTE = ()=>{
             return(
                 <div style={{...CSS.formCostosROI,width:280, padding:"20px 40px"}}>
                     <VentanaFTE Pristine={pristine} Submitting={submitting} estilos={CSS} openVentanaFTE={abrirFTE}/>
@@ -212,11 +214,15 @@ class VentanaPrincipal extends Component{
             )
         }
 
+        const ventanaCostosExtras = () =>{
+            
+        }
+
         /* FUNCION PRINCIPAL */
         if(trigger){
             return(
             <form style={CSS.principalBox} onSubmit={handleSubmit}>
-                {popUp ? ventanaSecundaria():ventanaPrincipal()}
+                {popUp ? ventanaFTE():ventanaPrincipal()}
             </form>)}
         }
 }
