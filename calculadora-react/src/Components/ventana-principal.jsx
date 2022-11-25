@@ -5,6 +5,7 @@ import '../Styles/ventana-principal.css';
 import ventanaPrincipalComponent from './input-component/ventanaPrincipal-input';
 import {reset} from 'redux-form';
 import VentanaFTE from './ventana-fte'
+import VentanaCostosExtras from './ventana-costosExtras'
 
 const validate= values=> {
     const errors= {};
@@ -86,10 +87,15 @@ const CSS = {
     },
     btnRegistrar:{
         height: 27,
+        backgroundColor: "#00C922",
+        color: "white",
     },
     btnAgregarCostos:{
-    },
-    btnCalcular:{
+        backgroundColor: "#43CA40",
+        width: "180px",
+        height: "32px",
+        fontSize: 15,
+        color: "white"
     },
     porcentajeBox:{
         display:"grid",
@@ -116,6 +122,7 @@ class VentanaPrincipal extends Component{
         super(props);
         this.state = {
             popUp: false,
+            popUp2: false,
         }
     }
     
@@ -129,6 +136,12 @@ class VentanaPrincipal extends Component{
                 popUp: !state.popUp
             }))
         }
+        
+        const abrirCostosExtras = () =>{
+            this.setState(state=>({
+                popUp2: !state.popUp2
+            }))
+        }
 
         const {trigger
                 ,setTrigger
@@ -137,11 +150,16 @@ class VentanaPrincipal extends Component{
                 ,pristine
                 ,submitting
                 ,FTEvalue
+                ,index
             } = this.props
-        const {popUp} = this.state
+        const {popUp, popUp2} = this.state
         /* Inicializar valores */
-        const valoresIniciales = {
-            nPersonas: FTEvalue.nPersonas
+        try{
+            const valoresIniciales = {
+                nPersonas: FTEvalue.nPersonas
+            }
+        }catch(Exception){
+            
         }
         
         const ventanaPrincipal = ()=>{
@@ -196,12 +214,12 @@ class VentanaPrincipal extends Component{
                         <Field style={{...CSS.inputs,...CSS.inputStyle}} name="costoImplementacion" type="number" component={ventanaPrincipalComponent} placeholder="0" title="Estimación del costo por la implementación del robot"/>
                     </div>
                     {/* AGREGARCOSTOS */}
-                    <div style={CSS.inputBoxes}>
-                        <button style={{...CSS.btnAgregarCostos,...CSS.btnGeneral}} type="button">Agregar costos extras</button>
+                    <div style={{...CSS.inputBoxes, marginTop: 35, display: "flex", justifyContent: "center"}}>
+                        <button onClick={()=>abrirCostosExtras()} style={{...CSS.btnAgregarCostos,...CSS.btnGeneral}} type="button">Agregar costos extras</button>
                     </div>
                     {/* BOTONCALCULAR */}
-                    <div>
-                        <button style={{...CSS.btnCalcular,...CSS.btnGeneral}} disabled={pristine || submitting}>Calcular</button>
+                    <div style={{marginTop: 30, marginBottom: 3, display: "flex", justifyContent: "center"}}>
+                        <button className="btnCalcular" disabled={(pristine || submitting)}>Calcular</button>
                     </div>
                 </div>
             )
@@ -215,14 +233,26 @@ class VentanaPrincipal extends Component{
         }
 
         const ventanaCostosExtras = () =>{
-            
+            return(
+                <div style={{...CSS.formCostosROI, width:280, padding:"20px 40px"}}>
+                    <VentanaCostosExtras index={index} openVentanaCostosExtras= {abrirCostosExtras} />
+                </div> 
+            )
         }
-
+        const popUps = ()=>{
+            if(popUp){
+                return ventanaFTE()
+            }
+            if(popUp2){
+                return ventanaCostosExtras()
+            }
+            return ventanaPrincipal()
+        }
         /* FUNCION PRINCIPAL */
         if(trigger){
             return(
             <form style={CSS.principalBox} onSubmit={handleSubmit}>
-                {popUp ? ventanaFTE():ventanaPrincipal()}
+                {popUps()}
             </form>)}
         }
 }

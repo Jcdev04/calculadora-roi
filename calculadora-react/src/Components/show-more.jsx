@@ -1,5 +1,6 @@
 import React, { useState, Component } from "react"
 import VentanaPrincipal from "./ventana-principal"
+import Tabla from "./tabla"
 import { connect} from "react-redux"
 import { agregarProceso,eliminarProceso,modificarProceso1,modificarCheck, modificarInputs } from "../Reducers/inputs";
 import '../Styles/show-more.css';
@@ -39,28 +40,32 @@ function ShowMore(props) {
                         <div className="proceso" key={numeroProceso}>
                             {/* NOMBRE DEL PROCESO */}
                             <div className="CRUD-container">
-                            <input className="nombreProceso" placeholder={numeroProceso} type="text" value={objeto.nombreProceso} onChange={(e)=>
-                                props.modificarProceso1(e.target.value,i)}/>
-                            <div>
-                                {/* EDITAR */}
-                                <button style={CSS.button} data-index={i} className="btnEditar" onClick={(e)=>{
-                                        e.preventDefault()
-                                        setBotonEditar(true)
-                                        handler(e)
+                            {/* 1 */}
+                                <input className="nombreProceso" placeholder={numeroProceso} type="text" value={objeto.nombreProceso} onChange={(e)=>
+                                    props.modificarProceso1(e.target.value,i)}/>
+                                {/* 2 */}
+                                <div style={{justifySelf: "end"}}>
+                                    {/* EDITAR */}
+                                    <button style={CSS.button} data-index={i} className="btnEditar" onClick={(e)=>{
+                                            e.preventDefault()
+                                            setBotonEditar(true)
+                                            handler(e)
+                                        }
                                     }
-                                }
-                                >Editar</button>
-                                {/* ELIMINAR */}
-                                <button style={CSS.button} className="btnEliminar" onClick={()=>props.eliminarProceso(i)}>Eliminar</button>
-                                {/* DESPLEGAR */}
-                                <button className="btnSeleccionar" onClick={
-                                    (e)=>{
-                                        e.preventDefault()
-                                    }
-                                }>Desplegar</button>
-
-                            </div>
-                            {/* <div>TABLAA</div> */}
+                                    >Editar</button>
+                                    {/* ELIMINAR */}
+                                    <button style={CSS.button} className="btnEliminar" onClick={()=>props.eliminarProceso(i)}>Eliminar</button>
+                                    {/* DESPLEGAR */}
+                                    <button className="btnSeleccionar" onClick={
+                                        (e)=>{
+                                            e.preventDefault()
+                                        }
+                                    }>Desplegar</button>
+                                </div>
+                                {/* 3 */}
+                                <div className="tabla">
+                                    <Tabla valores={objeto}/>
+                                </div> 
                             </div>
                             <div className="seleccionar">
                                 {/* SELECCIONAR */}
@@ -72,7 +77,7 @@ function ShowMore(props) {
                     )
                 }
                 )}
-                <VentanaPrincipal FTEvalue={todosProcesos[parseInt(index)]} onSubmit = {(payload)=>{
+                <VentanaPrincipal index={parseInt(index)} FTEvalue={todosProcesos[parseInt(index)]} onSubmit = {(payload)=>{
                     props.modificarInputs(parseInt(index),payload)                                
                     }} trigger={botonEditar} setTrigger = {setBotonEditar}/>
                 <div className="agregar-proceso" >

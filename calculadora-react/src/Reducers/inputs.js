@@ -28,6 +28,7 @@ const ELIMINARPROCESO = "PROCESO/ELIMINARPROCESO";
 const MODIFICARPROCESO1 = "PROCESO/MODIFICARPROCESO1";
 const MODIFICARCHECK = "PROCESO/MODIFICARCHECK"
 const MODIFICARINPUTS = "PROCESO/MODIFICARINPUTS"
+const MODIFICARCOSTOSEXTRAS = "PROCESO/MODIFICARCOSTOSEXTRAS"
 
 export const agregarProceso = ()=>({
     type: AGREGARPROCESO,
@@ -48,6 +49,11 @@ export const modificarCheck = (index)=>({
 export const modificarInputs = (index,valores) =>({
     type: MODIFICARINPUTS,
     payload: {index,valores}
+})
+
+export const modificarCostosExtras = (index,valores)=>({
+    type: MODIFICARCOSTOSEXTRAS,
+    payload: {index, valores}
 })
 
 export default function inputs(state = initialState,action){
@@ -122,7 +128,7 @@ export default function inputs(state = initialState,action){
                             hTrabajadasXDia: parseInt(action.payload.valores.nHorasXDia || "0"),
                             dLaborablesXSemana: parseInt(action.payload.valores.diasLaborables|| "0"),
                             tXOperacionMinutos: parseInt(action.payload.valores.tiempoXOperacion|| "0"),
-                            rateEmpleado : parseFloat(action.payload.valores.rendimiento)
+                            rateEmpleado : (parseFloat(action.payload.valores.rendimiento)*0.022)+0.68
                         } 
                         objectToReturn.FTE = {...aux}
 
@@ -135,6 +141,20 @@ export default function inputs(state = initialState,action){
                     return value
                 })
             }
+
+        case MODIFICARCOSTOSEXTRAS:
+            return{
+                ...state,
+                procesos: state.procesos.map(({...value},i)=>{
+                    if(action.payload.index===i){
+                        const objectToReturn = value
+                        objectToReturn.costosExtras = action.payload.valores
+                        return objectToReturn
+                    }
+                    return value
+                })
+            }
+        
         default:
             return state
     }

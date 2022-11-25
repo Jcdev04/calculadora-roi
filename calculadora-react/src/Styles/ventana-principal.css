@@ -1,0 +1,20 @@
+.btnCalcular{
+    background-color: #FC4D19;
+    font-size: 17px;
+    width: 180px;
+    height: 35px;
+    color: white;
+    cursor: pointer;
+    border-radius: 0px;
+    border: none;
+    transition: all ease-in 200ms;
+}
+
+.btnCalcular:hover{
+    background-color: #D60718;
+}
+
+.btnCalcular:disabled{
+    background-color: #f8ab94;
+    cursor:default
+}
