@@ -1,0 +1,47 @@
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+thead{
+    background-color: #FC4D19;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+.content{
+    font-size: 13px;
+}
+.row2,.row3,.row4{
+    border-bottom: solid 1px rgb(234, 234, 234);
+}
+
+
+.table td, .table th{
+    padding: 20px 15px;
+    position: relative;
+    
+}
+
+.table .content{
+    text-align: center;
+}
+[data-label="Items"]{
+    max-width: 90px;
+    font-size: 10px;
+}
+.content{
+    box-sizing: border-box;
+}
+
+.net-roi{
+    background-color: #8D8D8E;
+    color: #FFFFFF;
+}
+
+.roi-acumulado{
+    background-color: #302F2F;
+    color: #E1E1E4;
+}

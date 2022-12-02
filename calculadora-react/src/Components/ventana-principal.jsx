@@ -1,4 +1,4 @@
-import {reduxForm,Field, initialize} from 'redux-form'
+import {reduxForm,Field} from 'redux-form'
 import { connect } from "react-redux"
 import React,{ Component } from "react";
 import '../Styles/ventana-principal.css';
@@ -6,6 +6,8 @@ import ventanaPrincipalComponent from './input-component/ventanaPrincipal-input'
 import {reset} from 'redux-form';
 import VentanaFTE from './ventana-fte'
 import VentanaCostosExtras from './ventana-costosExtras'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faCircleXmark,faPlusCircle, faUsers, faStopwatch, faMoneyBillWave, faRobot} from "@fortawesome/free-solid-svg-icons"
 
 const validate= values=> {
     const errors= {};
@@ -66,12 +68,13 @@ const CSS = {
         display : "flex",
         width: "100%",
         boxSizing: "border-box",
-        paddingLeft: 7
+        paddingLeft: 7,
+        borderStyle: "none",
+        boxShadow: "rgba(0,0,0, 0.35) 0px 1px 4px",
     },
     inputStyle:{
-        height: 25,
-        border: "1px solid rgba(0, 0, 0, 0.25)",
-        boxShadow: "0px 3px 10px rgba(0, 0, 0, 0.25)",
+        height: 23,
+        fontSize: 16
     },
     btnGeneral:{
       cursor: "pointer",  
@@ -84,6 +87,8 @@ const CSS = {
         cursor: "pointer",  
         right: 6,
         top: 6,
+        fontSize: 20,
+        color: "#D60718"
     },
     btnRegistrar:{
         height: 27,
@@ -92,10 +97,11 @@ const CSS = {
     },
     btnAgregarCostos:{
         backgroundColor: "#43CA40",
-        width: "180px",
         height: "32px",
-        fontSize: 15,
-        color: "white"
+        fontSize: 16,
+        color: "white",
+        display: "flex",
+        alignItems: "center"
     },
     porcentajeBox:{
         display:"grid",
@@ -114,6 +120,9 @@ const CSS = {
     },
     inputBoxes : {
         margin: "20px 0",
+    },
+    iconStyle: {
+        marginRight: 7
     }
 }
 
@@ -153,15 +162,9 @@ class VentanaPrincipal extends Component{
                 ,index
             } = this.props
         const {popUp, popUp2} = this.state
-        /* Inicializar valores */
-        try{
-            const valoresIniciales = {
-                nPersonas: FTEvalue.nPersonas
-            }
-        }catch(Exception){
-            
-        }
-        
+        /* Inicializar valores */       
+
+
         const ventanaPrincipal = ()=>{
             /* EXTRAYENDO los valores de la clase FTE */
             let nOpDiarias = FTEvalue.FTE.nOpDiarias,
@@ -182,17 +185,16 @@ class VentanaPrincipal extends Component{
                 <div style={CSS.formCostosROI}>
                     {/* BOTONCERRAR */}
                     <div style={{marginBottom: 10}}>
-                        <button style={CSS.btnCerrar} type="button" onClick={()=>botonCerrar()}>X</button>
+                        <FontAwesomeIcon style={CSS.btnCerrar} onClick={()=>botonCerrar()} icon={faCircleXmark} />
                     </div>
                     {/* NPERSONAS */}
                     <div style={CSS.inputBoxes}>
-                    <Field style={{...CSS.inputs, ...CSS.inputStyle}} name="nPersonas" type="number" component={ventanaPrincipalComponent} placeholder="0"
+                    <Field style={{...CSS.inputs, ...CSS.inputStyle}} icono={faUsers} iconoEstilo={{...CSS.iconStyle, color: "#FC4D19"}} name="nPersonas" type="number" component={ventanaPrincipalComponent} placeholder="0"
                     title="¿Cuántas personas están actualmente trabajando en esta actividad?" />
                     </div>
                     {/* FTE */}
                     <div style={{...CSS.inputBoxes, backgroundColor: "#5F0DFC", borderRadius: 15, padding: "10px 15px 15px 15px"}}>
-                        <p style={{marginBottom: 8, marginTop:0 , color: "white"}} htmlFor="">
-                        Porcentaje de tiempo invertido diariamente por las personas
+                        <p style={{marginBottom: 8, marginTop:0 , color: "white"}} htmlFor=""><FontAwesomeIcon style={{...CSS.iconStyle, color: "#FCCA3E"}} icon={faStopwatch}/>Porcentaje de tiempo invertido diariamente por las personas
                         </p>
                         <div style={CSS.porcentajeBox}>
                             <button onClick={()=>abrirFTE()} style={{...CSS.btnRegistrar,...CSS.btnGeneral}} type="button">Registrar</button>
@@ -205,17 +207,20 @@ class VentanaPrincipal extends Component{
                     </div>
                     {/* SALARIOPROMEDIO */}
                     <div style={CSS.inputBoxes}>
-                    <Field style={{...CSS.inputs, ...CSS.inputStyle}} name="salarioPromedio" type="number" component={ventanaPrincipalComponent} placeholder="0" title="Salario promedio mensual de las personas que realizan esta operación"/>
+                    <Field style={{...CSS.inputs, ...CSS.inputStyle}} icono={faMoneyBillWave} iconoEstilo={{...CSS.iconStyle, color:"#05BE50"}} name="salarioPromedio" type="number" component={ventanaPrincipalComponent} placeholder="0" title="Salario promedio mensual de las personas que realizan esta operación"/>
                     <div>
                     </div>
                     </div>
                     {/* COSTOIMPLEMENTACION */}
                     <div style={CSS.inputBoxes}>
-                        <Field style={{...CSS.inputs,...CSS.inputStyle}} name="costoImplementacion" type="number" component={ventanaPrincipalComponent} placeholder="0" title="Estimación del costo por la implementación del robot"/>
+                        <Field style={{...CSS.inputs,...CSS.inputStyle}} icono={faRobot}  iconoEstilo={{...CSS.iconStyle, color:"#4427F8"}} name="costoImplementacion" type="number" component={ventanaPrincipalComponent} placeholder="0" title="Estimación del costo por la implementación del robot"/>
                     </div>
                     {/* AGREGARCOSTOS */}
                     <div style={{...CSS.inputBoxes, marginTop: 35, display: "flex", justifyContent: "center"}}>
-                        <button onClick={()=>abrirCostosExtras()} style={{...CSS.btnAgregarCostos,...CSS.btnGeneral}} type="button">Agregar costos extras</button>
+                        <button onClick={()=>abrirCostosExtras()} style={{...CSS.btnAgregarCostos,...CSS.btnGeneral}} type="button">
+                            <FontAwesomeIcon  icon={faPlusCircle} style={{color: "#4427F8", marginRight: 5, fontSize: 17}}/>
+                            Agregar costos extras
+                            </button>
                     </div>
                     {/* BOTONCALCULAR */}
                     <div style={{marginTop: 30, marginBottom: 3, display: "flex", justifyContent: "center"}}>
@@ -234,8 +239,8 @@ class VentanaPrincipal extends Component{
 
         const ventanaCostosExtras = () =>{
             return(
-                <div style={{...CSS.formCostosROI, width:280, padding:"20px 40px"}}>
-                    <VentanaCostosExtras index={index} openVentanaCostosExtras= {abrirCostosExtras} />
+                <div style={{...CSS.formCostosROI, width:280, padding:"10px 20px", overflow:"hidden"}}>
+                    <VentanaCostosExtras index={index} actualizarCostosExtras={[...FTEvalue.costosExtras]} openVentanaCostosExtras= {abrirCostosExtras} />
                 </div> 
             )
         }

@@ -1,15 +1,39 @@
 import React, { Component } from "react"
 import '../Styles/tabla.css';
+const CSS={    
+    principalBox:{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        backgroundColor: "rgba(0,0,0,0.2)",
+        width: "100%",
+        height: "100vh",
+
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    tabla: {
+        maxWidth: 750,
+        margin: "0 10px",
+        width: "100%",
+        position: "relative",
+        padding: "20px 30px",
+        backgroundColor: "white",
+        borderRadius: 15,
+        boxShadow: "-20px -20px 60px #FFDDD3, 20px 20px 60px #dfdfdf",
+    },
+}
 export default class Tabla extends Component {
-    
     render(){
-        const {valores} = this.props
+        const {valores, trigger2, setTrigger2,i} = this.props
         //Extrayendo los valores del objeto guardado en redux
         let nOpDiarias = valores.FTE.nOpDiarias,
-            hTrabajadasXDia =  valores.FTE.hTrabajadasXDia,
-            dLaborablesXSemana = valores.FTE.dLaborablesXSemana,
-            tXOperacionMinutos = valores.FTE.tXOperacionMinutos,
-            rateEmpleado = valores.FTE.rateEmpleado
+        hTrabajadasXDia =  valores.FTE.hTrabajadasXDia,
+        dLaborablesXSemana = valores.FTE.dLaborablesXSemana,
+        tXOperacionMinutos = valores.FTE.tXOperacionMinutos,
+        rateEmpleado = valores.FTE.rateEmpleado
+        
         //Calculando el FTE
         let FTEresultado = (nOpDiarias*dLaborablesXSemana*4*tXOperacionMinutos)/(hTrabajadasXDia*dLaborablesXSemana*60*4*rateEmpleado)
         FTEresultado = (FTEresultado).toFixed(2)
@@ -17,11 +41,7 @@ export default class Tabla extends Component {
         let mantenimiento = 0
         for (const element of valores.costosExtras) {
             mantenimiento+=element.precioExtra
-            console.log(typeof mantenimiento)
-            console.log(valores.costosExtras)
-        }
-        console.log(mantenimiento)
-        
+        }        
         //Llenando matriz que irá en la tabla
         const tabla = {
                 //Fila 1
@@ -56,18 +76,22 @@ export default class Tabla extends Component {
         tabla.fila6_Y3=(((tabla.fila1_Y1Y5-tabla.fila4_Y1)*2 + tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1*2))*100);
         tabla.fila6_Y4=(((tabla.fila1_Y1Y5-tabla.fila4_Y1)*3+ tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1*3))*100);
         tabla.fila6_Y5=(((tabla.fila1_Y1Y5-tabla.fila4_Y1)*4+ tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1*4))*100);
-
         let notANumber = true
-        if(isNaN(tabla.fila1_Y1Y5)){
+        if(isNaN(tabla.fila1_Y1Y5) ){
             notANumber = false
         }
-
+        
         function escribir(valor){
             return notANumber ? valor.toFixed(): "-" 
         }
+        
 
-        return(
-            <table style={{margin:10}} className="table">
+        
+        if(trigger2){ 
+            return(
+            <div style={CSS.principalBox}>  
+            <button style={{position: "absolute",top:"120px"}} onClick={()=>setTrigger2(false)}>Cerrar</button>  
+            <table style={{...CSS.tabla,margin:10}} className="table">
                 <thead>
                     <th>Ítems</th>
                     <th>1 AÑO</th>
@@ -134,6 +158,9 @@ export default class Tabla extends Component {
                     </tr>
                 </tbody>
             </table>
-        )
+            </div>
+        )}else {
+           return ""
+        };
     }
 }

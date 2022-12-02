@@ -1,7 +1,8 @@
 import React,{ Component } from "react";
-import { reduxForm,Field } from "redux-form";
+import { Field } from "redux-form";
 import ventanaPrincipalComponent from "./input-component/ventanaPrincipal-input";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faChevronCircleLeft, faCalculator, faHourglassHalf,faCalendarDay, faClock, faStar} from "@fortawesome/free-solid-svg-icons"
 const CSS = {
     indicadoresSlider:{
         marginTop: -45, 
@@ -52,25 +53,31 @@ export default class VentanaFTE extends Component{
         }
         return(
             <div>
-                <button type="button" onClick={openVentanaFTE}>Regresar</button>
+                {/* REGRESAR */}
+                <FontAwesomeIcon style={{fontSize:25, color:"#D60718", cursor: "pointer", position:"absolute", top:10, left: 10}} onClick={openVentanaFTE} icon={faChevronCircleLeft} />
+                {/* NUMERODEOPERACIONESDIARIAS */}
                 <div style={estilos.inputBoxes}>
-                    <Field style={{...estilos.inputs, ...estilos.inputStyle}} name="nOperaciones" type="number" component={ventanaPrincipalComponent} placeholder="0"
+                    <Field icono={faCalculator} iconoEstilo={{...estilos.iconStyle, color:"#4427F8"}} style={{...estilos.inputs, ...estilos.inputStyle}} name="nOperaciones" type="number" component={ventanaPrincipalComponent} placeholder="0"
                 title="N° de operaciones diarias por persona"/>
                 </div>
+                {/* HORASTRABAJADASXDIA */}
                 <div style={estilos.inputBoxes}>
-                    <Field style={{...estilos.inputs, ...estilos.inputStyle}} name="nHorasXDia" type="number" component={ventanaPrincipalComponent} placeholder="0"
+                    <Field icono={faHourglassHalf} iconoEstilo={{...estilos.iconStyle, color: "#FC4D19"}} style={{...estilos.inputs, ...estilos.inputStyle}} name="nHorasXDia" type="number" component={ventanaPrincipalComponent} placeholder="0"
                 title="Horas trabajadas por día"/>
                 </div>
+                {/* DIASLABORABLESXSEMANA */}
                 <div style={estilos.inputBoxes}>
-                    <Field style={{...estilos.inputs, ...estilos.inputStyle}} name="diasLaborables" type="number" component={ventanaPrincipalComponent} placeholder="0"
+                    <Field icono={faCalendarDay} iconoEstilo={{...estilos.iconStyle, color:"#05BE50"}} style={{...estilos.inputs, ...estilos.inputStyle}} name="diasLaborables" type="number" component={ventanaPrincipalComponent} placeholder="0"
                 title="Días laborables por semana "/>
                 </div>
+                {/* TIEMPOPOROPERACIONENMINUTOS */}
                 <div style={estilos.inputBoxes}>
-                    <Field style={{...estilos.inputs, ...estilos.inputStyle}} name="tiempoXOperacion" type="number" component={ventanaPrincipalComponent} placeholder="0"
+                    <Field icono={faClock} iconoEstilo={{...estilos.iconStyle, color:"#4427F8"}} style={{...estilos.inputs, ...estilos.inputStyle}} name="tiempoXOperacion" type="number" component={ventanaPrincipalComponent} placeholder="0"
                 title="Tiempo por operación en minutos"/>
                 </div>
+                {/* RATEEMPLEADO */}
                 <div style={{...estilos.inputBoxes}}>
-                    <Field onChange={e=>changeValue(e.target.value)} step="0.5" min="1" max="10" style={{width:"100%", zIndex: 2}} name="rendimiento" type="range" component={ventanaPrincipalComponent}title="¿Cómo evalúas el desempeño del encargado en ese proceso?"/>
+                    <Field icono={faStar} iconoEstilo={{...estilos.iconStyle, color:"#FCCA3E"}} onChange={e=>changeValue(e.target.value)} step="0.5" min="1" max="10" style={{width:"100%", zIndex: 2}} name="rendimiento" type="range" component={ventanaPrincipalComponent}title="¿Cómo evalúas el desempeño del encargado en ese proceso?"/>
                     <div style={CSS.indicadoresSlider}>
                         <p style={{float:"left"}}>1</p>
                         <p style={{float:"right"}}>10</p>

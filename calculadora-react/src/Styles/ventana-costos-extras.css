@@ -3,11 +3,10 @@
     appearance: none;
     background: transparent;
     border: none;
-    color: #FC4D19;
-    font-size: 18px;
-    margin-bottom:12px;
+    color: rgb(58, 58, 58);
+    font-size: 16px;
 }
 .nombreCostoExtra::placeholder{
-    color: rgb(95, 95, 95);
+    color: rgb(58, 58, 58);
     font-size: 16px;
 }
