@@ -6,6 +6,8 @@ import { agregarProceso,eliminarProceso,modificarProceso1,modificarCheck, modifi
 import '../Styles/show-more.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPlusCircle, faCaretDown} from "@fortawesome/free-solid-svg-icons"
+import ProcesosComun from './procesos-comun';
+import VentanaExito from "./ventana-emergente/ventana-exito";
 const CSS = {
     button: {
         border: "none",
@@ -16,8 +18,7 @@ const CSS = {
         fontSize: "15px",
         cursor: "pointer",
         transition: "all ease-in 100ms"
-    }
-
+    },
 }
 
 
@@ -25,6 +26,8 @@ function ShowMore(props) {
         const todosProcesos = props.procesos.user.procesos
         const [botonEditar,setBotonEditar] = useState(false);
         const [botonEditar2,setBotonEditar2] = useState(false);
+
+        const [botonConfirmar,setBotonConfirmar] = useState(false);
         /* console.log(todosProcesos) */
         let objeto = {}
         const [index,setIndex] = useState(0)
@@ -89,14 +92,18 @@ function ShowMore(props) {
                 )}
                 
                 { (todosProcesos[parseInt(index2)] != null) ? <Tabla trigger2={botonEditar2} setTrigger2={setBotonEditar2} valores={todosProcesos[parseInt(index2)]}/>: ""}
-                
+                {/* VENTANA principal */}
                 <VentanaPrincipal index={parseInt(index)} FTEvalue={todosProcesos[parseInt(index)]} onSubmit = {(payload)=>{
-                    props.modificarInputs(parseInt(index),payload)                                
-                    }} trigger={botonEditar} setTrigger = {setBotonEditar}/>
+                    props.modificarInputs(parseInt(index),payload)
+                    setBotonConfirmar(true);
+                }} trigger={botonEditar} setTrigger = {setBotonEditar}/>
                 {/* AGREGAR PROCESO */}
                 <div className="agregar-proceso" >
                     <button style={{fontSize:17, display: "flex", alignItems: "center"}} onClick = {props.agregarProceso}><FontAwesomeIcon style={{color: "#4427F8", marginRight: 5}} icon={faPlusCircle}/> Agregar Proceso</button> 
                 </div>
+                {/* VENTANA exito */} 
+                <VentanaExito botonConfirmar={botonConfirmar} setBotonConfirmar={setBotonConfirmar} />
+                <ProcesosComun process={todosProcesos}/>
             </div>
     )
 }

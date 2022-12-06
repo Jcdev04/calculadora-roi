@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import '../Styles/tabla.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 const CSS={    
     principalBox:{
         position: "fixed",
@@ -8,14 +10,14 @@ const CSS={
         backgroundColor: "rgba(0,0,0,0.2)",
         width: "100%",
         height: "100vh",
-
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        flexDirection:"column",
+        padding: 10
     },
     tabla: {
         maxWidth: 750,
-        margin: "0 10px",
         width: "100%",
         position: "relative",
         padding: "20px 30px",
@@ -23,6 +25,23 @@ const CSS={
         borderRadius: 15,
         boxShadow: "-20px -20px 60px #FFDDD3, 20px 20px 60px #dfdfdf",
     },
+    close:{
+        padding: "5px 15px", 
+        fontSize:17,
+        zIndex:2,
+        borderRadius:20,
+        color: "white",
+        backgroundColor: "#b81522",
+        border: "none",
+        cursor: "pointer"
+    },
+    containerBotones:{
+        maxWidth: 750,
+        zIndex: 2,
+        width: "100%",
+        display:"flex",
+        justifyContent: "end",
+    }
 }
 export default class Tabla extends Component {
     render(){
@@ -48,7 +67,7 @@ export default class Tabla extends Component {
                 fila1_Y1Y5: valores.nPersonas*FTEresultado*valores.salarioPromedio,
                 fila1_Suma: 0,
                 //Fila 2
-                fila2_Y1Y5: valores.nPersonas*(hTrabajadasXDia*dLaborablesXSemana)*FTEresultado,
+                fila2_Y1Y5: valores.nPersonas*(hTrabajadasXDia*dLaborablesXSemana),
                 //Fila 3
                 fila3_Y1Y5: valores.nPersonas*FTEresultado*valores.salarioPromedio,
                 //Fila 4
@@ -66,23 +85,27 @@ export default class Tabla extends Component {
                 fila6_Y4:0,
                 fila6_Y5:0,
         }
+        //Fila 1
         tabla.fila1_Suma = tabla.fila1_Y1Y5*5;
+        //Fila 4
         tabla.fila4_Suma= tabla.fila4_Y1+(mantenimiento*4);
+        //Fila 5
         tabla.fila5_Y1 = tabla.fila4_Y1+tabla.fila1_Y1Y5;
         tabla.fila5_Y2Y5= tabla.fila1_Y1Y5-mantenimiento;
-        tabla.fila5_Suma= tabla.fila5_Y1*(tabla.fila5_Y2Y5*4);
+        tabla.fila5_Suma= tabla.fila5_Y1+(tabla.fila5_Y2Y5*4);
+        //Fila 6
         tabla.fila6_Y1=(tabla.fila5_Y1*100)/tabla.fila4_Y1;
         tabla.fila6_Y2=(((tabla.fila1_Y1Y5-tabla.fila4_Y1) + tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1))*100);
         tabla.fila6_Y3=(((tabla.fila1_Y1Y5-tabla.fila4_Y1)*2 + tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1*2))*100);
         tabla.fila6_Y4=(((tabla.fila1_Y1Y5-tabla.fila4_Y1)*3+ tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1*3))*100);
         tabla.fila6_Y5=(((tabla.fila1_Y1Y5-tabla.fila4_Y1)*4+ tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1*4))*100);
         let notANumber = true
-        if(isNaN(tabla.fila1_Y1Y5) ){
+        if(isNaN(tabla.fila1_Y1Y5) || isNaN(tabla.fila6_Y1)){
             notANumber = false
         }
-        
+
         function escribir(valor){
-            return notANumber ? valor.toFixed(): "-" 
+            return notANumber ? `$${valor.toFixed()}`: "-" 
         }
         
 
@@ -90,7 +113,11 @@ export default class Tabla extends Component {
         if(trigger2){ 
             return(
             <div style={CSS.principalBox}>  
-            <button style={{position: "absolute",top:"120px"}} onClick={()=>setTrigger2(false)}>Cerrar</button>  
+            <div style={CSS.containerBotones}>
+                <button style={CSS.close} onClick={()=>setTrigger2(false)}>
+                <FontAwesomeIcon style={{marginRight:5}} icon={faCircleXmark} />
+                Cerrar</button>  
+            </div>
             <table style={{...CSS.tabla,margin:10}} className="table">
                 <thead>
                     <th>Ítems</th>
@@ -103,7 +130,7 @@ export default class Tabla extends Component {
                 </thead>
                 <tbody>
                     <tr className="row2">
-                        <td data-label="Items"><i className="fa-solid fa-money-bill"></i>Costos actuales por FTEs</td>
+                        <td data-label="Items"><i className="fa-solid fa-money-bill"></i>Costos actuales por las horas dedicadas a realizar este trabajo</td>
                         <td className="content" data-label="1 AÑO">{escribir(tabla.fila1_Y1Y5)}</td>
                         <td className="content" data-label="2 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
                         <td className="content" data-label="3 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
@@ -112,7 +139,7 @@ export default class Tabla extends Component {
                         <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila1_Suma)}</td>
                     </tr>
                     <tr className="row3">
-                        <td data-label="Items"><i className="fa-regular fa-hourglass-half"></i>Horas por semana por FTEs</td>
+                        <td data-label="Items"><i className="fa-regular fa-hourglass-half"></i>Horas dedicadas a esta actividad en cada semana</td>
                         <td className="content" data-label="1 AÑO">{escribir(tabla.fila2_Y1Y5)}</td>
                         <td className="content" data-label="2 AÑOS">{escribir(tabla.fila2_Y1Y5)}</td>
                         <td className="content" data-label="3 AÑOS">{escribir(tabla.fila2_Y1Y5)}</td>
@@ -121,7 +148,7 @@ export default class Tabla extends Component {
                         <td className="content" data-label="5 AÑOS EN TOTAL">-</td>
                     </tr>
                     <tr className="row4">
-                        <td data-label="Items"><i className="fa-solid fa-calendar-week"></i>Costos por semana por FTEs</td>
+                        <td data-label="Items"><i className="fa-solid fa-calendar-week"></i>Costos por semana por las horas dedicadas a esta actividad</td>
                         <td className="content" data-label="1 AÑO">{escribir(tabla.fila3_Y1Y5)}</td>
                         <td className="content" data-label="2 AÑOS">{escribir(tabla.fila3_Y1Y5)}</td>
                         <td className="content" data-label="3 AÑOS">{escribir(tabla.fila3_Y1Y5)}</td>
