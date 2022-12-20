@@ -8,6 +8,7 @@ import VentanaFTE from './ventana-fte'
 import VentanaCostosExtras from './ventana-costosExtras'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCircleXmark,faPlusCircle, faUsers, faStopwatch, faMoneyBillWave, faRobot} from "@fortawesome/free-solid-svg-icons"
+import { isCompositeComponentWithType } from 'react-dom/test-utils';
 
 const validate= values=> {
     const errors= {};
@@ -162,9 +163,6 @@ class VentanaPrincipal extends Component{
                 ,index
             } = this.props
         const {popUp, popUp2} = this.state
-        /* Inicializar valores */       
-
-
         const ventanaPrincipal = ()=>{
             /* EXTRAYENDO los valores de la clase FTE */
             let nOpDiarias = FTEvalue.FTE.nOpDiarias,
@@ -261,13 +259,31 @@ class VentanaPrincipal extends Component{
             </form>)}
         }
 }
-const mapStateToProps = (state) => ({
-    initialValues: {
-        ...state,
-        rendimiento: "5.5"
+const mapStateToProps = (state,ownProps) => {
+    // Specify which pieces of state you want to pass down to your component as props
+    const {FTEvalue} = ownProps
+    let performance = ((FTEvalue.FTE.rateEmpleado-0.68)/0.022).toFixed(1)
+    console.log(performance)
+    return{
+        initialValues:{
+            nPersonas: FTEvalue.nPersonas,
+            salarioPromedio: FTEvalue.salarioPromedio,
+            costoImplementacion: FTEvalue.costoImplementacion,
+
+            nOperaciones: FTEvalue.FTE.nOpDiarias,
+            nHorasXDia: FTEvalue.FTE.hTrabajadasXDia,
+            diasLaborables: FTEvalue.FTE.dLaborablesXSemana,
+            tiempoXOperacion: FTEvalue.FTE.tXOperacionMinutos,
+            rendimiento: performance
+        }
     }
-})
-export default connect(mapStateToProps)(reduxForm({
-    form: 'v_principal',
-    validate,  
-})(VentanaPrincipal))
+}
+
+
+export default connect(mapStateToProps)(
+    reduxForm({
+        form: 'v_principal',
+        validate,  
+        enableReinitialize: true,
+    })(VentanaPrincipal)
+)

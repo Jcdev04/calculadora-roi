@@ -9,7 +9,7 @@ const initialState = {procesos:[
                 hTrabajadasXDia: 0,
                 dLaborablesXSemana:0,
                 tXOperacionMinutos: 0,
-                rateEmpleado: 5.5
+                rateEmpleado: (5.5*0.022)+0.68
             },
             salarioPromedio: 0,
             costoImplementacion: 0,
@@ -56,7 +56,7 @@ export const modificarCostosExtras = (index,valores)=>({
     payload: {index, valores}
 })
 
-export default function inputs(state = initialState,action){
+export default function inputs(state = {...initialState},action){
     switch(action.type){
         case AGREGARPROCESO:
             return {
@@ -71,7 +71,7 @@ export default function inputs(state = initialState,action){
                             hTrabajadasXDia: 0,
                             dLaborablesXSemana:0,
                             tXOperacionMinutos: 0,
-                            rateEmpleado: 5.5,
+                            rateEmpleado: (5.5*0.022)+0.68
                         },
                         salarioPromedio: 0,
                         costoImplementacion: 0,
@@ -152,7 +152,6 @@ export default function inputs(state = initialState,action){
                     return value
                 })
             }
-        
         default:
             return state
     }

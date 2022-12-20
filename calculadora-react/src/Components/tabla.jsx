@@ -54,7 +54,7 @@ export default class Tabla extends Component {
         rateEmpleado = valores.FTE.rateEmpleado
         
         //Calculando el FTE
-        let FTEresultado = (nOpDiarias*dLaborablesXSemana*4*tXOperacionMinutos)/(hTrabajadasXDia*dLaborablesXSemana*60*4*rateEmpleado)
+        let FTEresultado = (nOpDiarias*tXOperacionMinutos)/(hTrabajadasXDia*60*rateEmpleado)
         FTEresultado = (FTEresultado).toFixed(2)
         
         let mantenimiento = 0
@@ -64,50 +64,55 @@ export default class Tabla extends Component {
         //Llenando matriz que irá en la tabla
         const tabla = {
                 //Fila 1
-                fila1_Y1Y5: valores.nPersonas*FTEresultado*valores.salarioPromedio,
+                fila1_Y1Y5: 0,
                 fila1_Suma: 0,
                 //Fila 2
-                fila2_Y1Y5: valores.nPersonas*(hTrabajadasXDia*dLaborablesXSemana),
+                fila2_Y1Y5: 0,
                 //Fila 3
-                fila3_Y1Y5: valores.nPersonas*FTEresultado*valores.salarioPromedio,
+                fila3_Y1: 0,
+                fila3_Y2Y5: 0,
+                fila3_Suma: 0,
                 //Fila 4
-                fila4_Y1: valores.costoImplementacion,
-                fila4_Y2Y5: mantenimiento,
+                fila4_Y1: 0,
+                fila4_Y2Y5: 0,
                 fila4_Suma: 0,
                 //Fila 5
-                fila5_Y1: 0,
-                fila5_Y2Y5: 0,
-                fila5_Suma: 0,
-                //Fila 6
-                fila6_Y1:0,
-                fila6_Y2:0,
-                fila6_Y3:0,
-                fila6_Y4:0,
-                fila6_Y5:0,
+                fila5_Y1:0,
+                fila5_Y2:0,
+                fila5_Y3:0,
+                fila5_Y4:0,
+                fila5_Y5:0,
         }
-        //Fila 1
+        // Fila 1
+        tabla.fila1_Y1Y5 = valores.nPersonas*FTEresultado*(valores.salarioPromedio*12);
         tabla.fila1_Suma = tabla.fila1_Y1Y5*5;
-        //Fila 4
-        tabla.fila4_Suma= tabla.fila4_Y1+(mantenimiento*4);
-        //Fila 5
-        tabla.fila5_Y1 = tabla.fila4_Y1+tabla.fila1_Y1Y5;
-        tabla.fila5_Y2Y5= tabla.fila1_Y1Y5-mantenimiento;
-        tabla.fila5_Suma= tabla.fila5_Y1+(tabla.fila5_Y2Y5*4);
-        //Fila 6
-        tabla.fila6_Y1=(tabla.fila5_Y1*100)/tabla.fila4_Y1;
-        tabla.fila6_Y2=(((tabla.fila1_Y1Y5-tabla.fila4_Y1) + tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1))*100);
-        tabla.fila6_Y3=(((tabla.fila1_Y1Y5-tabla.fila4_Y1)*2 + tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1*2))*100);
-        tabla.fila6_Y4=(((tabla.fila1_Y1Y5-tabla.fila4_Y1)*3+ tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1*3))*100);
-        tabla.fila6_Y5=(((tabla.fila1_Y1Y5-tabla.fila4_Y1)*4+ tabla.fila5_Y1)/(tabla.fila4_Y1 + (tabla.fila4_Y1*4))*100);
+        // Fila 2
+        tabla.fila2_Y1Y5 = valores.nPersonas*(hTrabajadasXDia*dLaborablesXSemana)*52;
+        // Fila 3
+        tabla.fila3_Suma= tabla.fila3_Y1+(mantenimiento*4);
+        tabla.fila3_Y1 = valores.costoImplementacion+mantenimiento;
+        tabla.fila3_Y2Y5 = mantenimiento;
+        // Fila 4
+        tabla.fila4_Y1 = tabla.fila3_Y1-tabla.fila1_Y1Y5;
+        tabla.fila4_Y2Y5= tabla.fila1_Y1Y5-mantenimiento;
+        tabla.fila4_Suma= tabla.fila4_Y1+(tabla.fila4_Y2Y5*4);
+        // Fila 5
+        tabla.fila5_Y1=(tabla.fila4_Y1*100)/tabla.fila3_Y1;
+        tabla.fila5_Y2=(((tabla.fila1_Y1Y5-tabla.fila3_Y1) + tabla.fila4_Y1)/(tabla.fila3_Y1 + (tabla.fila3_Y1))*100);
+        tabla.fila5_Y3=(((tabla.fila1_Y1Y5-tabla.fila3_Y1)*2 + tabla.fila4_Y1)/(tabla.fila3_Y1 + (tabla.fila3_Y1*2))*100);
+        tabla.fila5_Y4=(((tabla.fila1_Y1Y5-tabla.fila3_Y1)*3+ tabla.fila4_Y1)/(tabla.fila3_Y1 + (tabla.fila3_Y1*3))*100);
+        tabla.fila5_Y5=(((tabla.fila1_Y1Y5-tabla.fila3_Y1)*4+ tabla.fila4_Y1)/(tabla.fila3_Y1 + (tabla.fila3_Y1*4))*100);
         let notANumber = true
-        if(isNaN(tabla.fila1_Y1Y5) || isNaN(tabla.fila6_Y1)){
+        if(isNaN(tabla.fila1_Y1Y5) || isNaN(tabla.fila2_Y1Y5) || isNaN(tabla.fila5_Y1)){
             notANumber = false
         }
 
         function escribir(valor){
             return notANumber ? `$${valor.toFixed()}`: "-" 
         }
-        
+        function escribirHoras(valor){
+            return notANumber ? `${valor.toFixed()}`: "-" 
+        }
 
         
         if(trigger2){ 
@@ -130,7 +135,7 @@ export default class Tabla extends Component {
                 </thead>
                 <tbody>
                     <tr className="row2">
-                        <td data-label="Items"><i className="fa-solid fa-money-bill"></i>Costos actuales por las horas dedicadas a realizar este trabajo</td>
+                        <td data-label="Items"><i className="fa-solid fa-money-bill"></i>Costos anuales por las horas dedicadas a realizar este trabajo</td>
                         <td className="content" data-label="1 AÑO">{escribir(tabla.fila1_Y1Y5)}</td>
                         <td className="content" data-label="2 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
                         <td className="content" data-label="3 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
@@ -139,25 +144,25 @@ export default class Tabla extends Component {
                         <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila1_Suma)}</td>
                     </tr>
                     <tr className="row3">
-                        <td data-label="Items"><i className="fa-regular fa-hourglass-half"></i>Horas dedicadas a esta actividad en cada semana</td>
-                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="5 AÑOS EN TOTAL">-</td>
-                    </tr>
-                    <tr className="row4">
-                        <td data-label="Items"><i className="fa-solid fa-calendar-week"></i>Costos por semana por las horas dedicadas a esta actividad</td>
-                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila3_Y1Y5)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila3_Y1Y5)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila3_Y1Y5)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila3_Y1Y5)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila3_Y1Y5)}</td>
+                        <td data-label="Items"><i className="fa-regular fa-hourglass-half"></i>Horas dedicadas a esta actividad en cada año por todos los trabajadores</td>
+                        <td className="content" data-label="1 AÑO">{escribirHoras(tabla.fila2_Y1Y5)}</td>
+                        <td className="content" data-label="2 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
+                        <td className="content" data-label="3 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
+                        <td className="content" data-label="4 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
+                        <td className="content" data-label="5 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
                         <td className="content" data-label="5 AÑOS EN TOTAL">-</td>
                     </tr>
                     <tr>
-                        <td data-label="Items"><i className="fa-solid fa-chart-line"></i> Costo total anual por implementación del bot (1 año) mantenimiento (+2 años)</td>
+                        <td data-label="Items"><i className="fa-solid fa-chart-line"></i> Costo total anual por implementación del bot (1 año) mantenimiento (+5 años)</td>
+                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila3_Y1)}</td>
+                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
+                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
+                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
+                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
+                        <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila3_Suma)}</td>
+                    </tr>
+                    <tr className="net-roi">
+                        <td data-label="Items"><i className="fa-solid fa-robot"></i> Net ROI</td>
                         <td className="content" data-label="1 AÑO">{escribir(tabla.fila4_Y1)}</td>
                         <td className="content" data-label="2 AÑOS">{escribir(tabla.fila4_Y2Y5)}</td>
                         <td className="content" data-label="3 AÑOS">{escribir(tabla.fila4_Y2Y5)}</td>
@@ -165,22 +170,13 @@ export default class Tabla extends Component {
                         <td className="content" data-label="5 AÑOS">{escribir(tabla.fila4_Y2Y5)}</td>
                         <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila4_Suma)}</td>
                     </tr>
-                    <tr className="net-roi">
-                        <td data-label="Items"><i className="fa-solid fa-robot"></i> Net ROI</td>
-                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila5_Y1)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila5_Y2Y5)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila5_Y2Y5)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila5_Y2Y5)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila5_Y2Y5)}</td>
-                        <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila5_Suma)}</td>
-                    </tr>
                     <tr className="roi-acumulado">
                         <td data-label="Items"><i className="fa-brands fa-android"></i> ROI acumulado anual</td>
-                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila6_Y1)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila6_Y2)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila6_Y3)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila6_Y4)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila6_Y5)}</td>
+                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila5_Y1)}</td>
+                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila5_Y2)}</td>
+                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila5_Y3)}</td>
+                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila5_Y4)}</td>
+                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila5_Y5)}</td>
                         <td className="content" data-label="5 AÑOS EN TOTAL">-</td>
                     </tr>
                 </tbody>

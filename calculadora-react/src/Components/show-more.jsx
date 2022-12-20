@@ -6,7 +6,6 @@ import { agregarProceso,eliminarProceso,modificarProceso1,modificarCheck, modifi
 import '../Styles/show-more.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPlusCircle, faCaretDown} from "@fortawesome/free-solid-svg-icons"
-import ProcesosComun from './procesos-comun';
 import VentanaExito from "./ventana-emergente/ventana-exito";
 const CSS = {
     button: {
@@ -47,7 +46,7 @@ function ShowMore(props) {
                     objeto = {...data}
                     return(
                         <div className="proceso" key={numeroProceso}>
-                            {/* NOMBRE DEL PROCESO */}
+                            {/*NOMBRE DEL PROCESO*/}
                             <div className="CRUD-container">
                             {/* 1 */}
                                 <input className="nombreProceso" placeholder={numeroProceso} type="text" value={objeto.nombreProceso} onChange={(e)=>
@@ -61,7 +60,6 @@ function ShowMore(props) {
                                             handler(e)
                                         }
                                     }
-
                                     >Editar</button>
                                     {/* ELIMINAR */}
                                     <button style={CSS.button} className="btnEliminar" onClick={()=>{props.eliminarProceso(i)
@@ -77,7 +75,7 @@ function ShowMore(props) {
                                         }
                                     }icon={faCaretDown} style={{color:"#FC4D19", fontSize: 35, cursor: "pointer", margin: "0px 10px"}}/>
                                 </div>
-                                {/* 3 */} 
+                                {/* 3 */}
                             </div>
                                 {/* SELECCIONAR */}
                                 <div className="checkbox-wrapper-13">
@@ -103,7 +101,6 @@ function ShowMore(props) {
                 </div>
                 {/* VENTANA exito */} 
                 <VentanaExito botonConfirmar={botonConfirmar} setBotonConfirmar={setBotonConfirmar} />
-                <ProcesosComun process={todosProcesos}/>
             </div>
     )
 }

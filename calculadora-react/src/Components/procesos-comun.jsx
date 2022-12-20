@@ -35,32 +35,19 @@ const CSS = {
     }
 }    
 class ProcesosComun extends Component{
-    constructor(props){
-        super(props)
-    }
+    
 
     render(){
-        const {process} = this.props
-        let arreglo = process.filter((i)=>i.procesoComun)
-        console.log(arreglo)
+        const {procesos} = this.props
+        let arreglo = procesos.user.procesos.filter((i)=>i.procesoComun)
         let sumaTotal =0;
         return(arreglo.length>0 ? (
             <div style={CSS.principalContainer}>
                 <h1 style={CSS.titulo}>Procesos en común:</h1>
                 <p style={CSS.subtitulo}>Selecciona los procesos que consideres en común y obtén la suma de sus precios</p>
                 {
+                    /* MOSTRAMOS todos los valores seleccionados */
                     arreglo.map((valores,i)=>{
-                        /* let FTEresultado = (valores.FTE.nOpDiarias*valores.FTE.dLaborablesXSemana*4*valores.FTE.tXOperacionMinutos)/(valores.FTE.hTrabajadasXDia*valores.FTE.dLaborablesXSemana*60*4*valores.FTE.rateEmpleado)
-                        FTEresultado = (FTEresultado).toFixed(2)
-
-                        let aux = valores.nPersonas*FTEresultado*valores.salarioPromedio
-                        let mantenimiento = 0
-                        for (const element of valores.costosExtras) {
-                            mantenimiento+=element.precioExtra
-                        }    
-                        let num1 = aux+valores.costoImplementacion
-                        let num2= aux-mantenimiento
-                        let total = num1+(num2*4) */
                         let mantenimiento = 0 
                         for (const element of valores.costosExtras) {
                             mantenimiento+=element.precioExtra
