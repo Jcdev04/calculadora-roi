@@ -2,7 +2,7 @@ import React, { useState} from "react"
 import VentanaPrincipal from "./ventana-principal"
 import Tabla from "./tabla"
 import { connect} from "react-redux"
-import { agregarProceso,eliminarProceso,modificarProceso1,modificarCheck, modificarInputs } from "../Reducers/inputs";
+import { agregarProceso,eliminarProceso,modificarProceso1,modificarCheck, modificarInputs} from "../Reducers/inputs";
 import '../Styles/show-more.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPlusCircle, faCaretDown} from "@fortawesome/free-solid-svg-icons"
@@ -19,7 +19,6 @@ const CSS = {
         transition: "all ease-in 100ms"
     },
 }
-
 
 function ShowMore(props) {
         const todosProcesos = props.procesos.user.procesos
@@ -44,6 +43,7 @@ function ShowMore(props) {
                 {todosProcesos.map((data,i)=>{
                     let numeroProceso = `Proceso ${String(i+1).padStart(3, '0')}`
                     objeto = {...data}
+
                     return(
                         <div className="proceso" key={numeroProceso}>
                             {/*NOMBRE DEL PROCESO*/}
@@ -88,8 +88,7 @@ function ShowMore(props) {
                     )
                 }
                 )}
-                
-                { (todosProcesos[parseInt(index2)] != null) ? <Tabla trigger2={botonEditar2} setTrigger2={setBotonEditar2} valores={todosProcesos[parseInt(index2)]}/>: ""}
+                { (todosProcesos[parseInt(index2)] != null) ? <Tabla index={index} trigger2={botonEditar2} setTrigger2={setBotonEditar2}/>: ""}
                 {/* VENTANA principal */}
                 <VentanaPrincipal index={parseInt(index)} FTEvalue={todosProcesos[parseInt(index)]} onSubmit = {(payload)=>{
                     props.modificarInputs(parseInt(index),payload)
@@ -108,14 +107,14 @@ const mapStateToProps = state=>{
     return {
         procesos: state
     }
-} 
+}
 
 const mapDispatchToProps = dispatch =>({
     agregarProceso: ()=> dispatch(agregarProceso()),
     eliminarProceso: index => dispatch(eliminarProceso(index)),
     modificarProceso1: (payload,index) => dispatch(modificarProceso1(payload,index)),
     modificarCheck: (index) => dispatch(modificarCheck(index)),
-    modificarInputs: (index,valores) => dispatch(modificarInputs(index,valores))
+    modificarInputs: (index,valores) => dispatch(modificarInputs(index,valores)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowMore);

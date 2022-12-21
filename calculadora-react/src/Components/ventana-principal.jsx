@@ -5,11 +5,10 @@ import '../Styles/ventana-principal.css';
 import ventanaPrincipalComponent from './input-component/ventanaPrincipal-input';
 import {reset} from 'redux-form';
 import VentanaFTE from './ventana-fte'
+import { modificarTabla } from "../Reducers/inputs";
 import VentanaCostosExtras from './ventana-costosExtras'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCircleXmark,faPlusCircle, faUsers, faStopwatch, faMoneyBillWave, faRobot} from "@fortawesome/free-solid-svg-icons"
-import { isCompositeComponentWithType } from 'react-dom/test-utils';
-
 const validate= values=> {
     const errors= {};
     if(!values.nPersonas){
@@ -126,6 +125,55 @@ const CSS = {
         marginRight: 7
     }
 }
+const procesarDatos = (valores)=>{
+    //Extrayendo los valores del objeto guardado en redux
+    let nOpDiarias = valores.FTE.nOpDiarias,
+    hTrabajadasXDia =  valores.FTE.hTrabajadasXDia,
+    dLaborablesXSemana = valores.FTE.dLaborablesXSemana,
+    tXOperacionMinutos = valores.FTE.tXOperacionMinutos,
+    rateEmpleado = valores.FTE.rateEmpleado
+    
+    //Calculando el FTE
+    let FTEresultado = (nOpDiarias*tXOperacionMinutos)/(hTrabajadasXDia*60*rateEmpleado)
+    FTEresultado = (FTEresultado).toFixed(2)
+    let mantenimiento = 0
+    for (const element of valores.costosExtras) {
+        mantenimiento+=element.precioExtra
+    }        
+    //Llenando matriz que irá en la tabla
+    const tabla = {
+    }
+    // Fila 1
+    tabla.fila1_Y1Y5 = valores.nPersonas*FTEresultado*(valores.salarioPromedio*12);
+    tabla.fila1_Suma = tabla.fila1_Y1Y5*5;
+    // Fila 2
+    tabla.fila2_Y1Y5 = valores.nPersonas*(hTrabajadasXDia*dLaborablesXSemana)*52;
+    tabla.fila2_Suma = tabla.fila2_Y1Y5*5;
+    // Fila 3
+    tabla.fila3_Y1 = valores.costoImplementacion+mantenimiento;
+    tabla.fila3_Y2Y5 = mantenimiento;
+    tabla.fila3_Suma= tabla.fila3_Y1+(mantenimiento*4);
+    // Fila 4
+    tabla.fila4_Y1 = tabla.fila1_Y1Y5-tabla.fila3_Y1;
+    tabla.fila4_Y2Y5= tabla.fila1_Y1Y5-mantenimiento;
+    tabla.fila4_Suma= tabla.fila4_Y1+(tabla.fila4_Y2Y5*4);
+    // Fila 5
+    tabla.fila5_Y1= (tabla.fila4_Y1*100)/tabla.fila3_Y1;
+
+    tabla.fila5_Y2 =(((tabla.fila1_Y1Y5- mantenimiento) + tabla.fila4_Y1) / (tabla.fila3_Y1 + (mantenimiento))*100) 
+
+    tabla.fila5_Y3=(((tabla.fila1_Y1Y5-mantenimiento)*2 + tabla.fila4_Y1) / (tabla.fila3_Y1 + (mantenimiento*2))*100)
+
+    tabla.fila5_Y4=(((tabla.fila1_Y1Y5-mantenimiento)*3 + tabla.fila4_Y1) / (tabla.fila3_Y1 + (mantenimiento*3))*100)
+
+    tabla.fila5_Y5=(((tabla.fila1_Y1Y5-mantenimiento)*4 + tabla.fila4_Y1) / (tabla.fila3_Y1 + (mantenimiento*4))*100)
+
+
+
+    console.log(valores);
+    console.log(tabla);
+    return tabla;
+}
 
 class VentanaPrincipal extends Component{
     constructor(props){
@@ -183,7 +231,10 @@ class VentanaPrincipal extends Component{
                 <div style={CSS.formCostosROI}>
                     {/* BOTONCERRAR */}
                     <div style={{marginBottom: 10}}>
-                        <FontAwesomeIcon style={CSS.btnCerrar} onClick={()=>botonCerrar()} icon={faCircleXmark} />
+                        <FontAwesomeIcon style={CSS.btnCerrar} onClick={()=>{
+                            botonCerrar();
+                            this.props.modificarTabla(index,procesarDatos(FTEvalue))
+                        }} icon={faCircleXmark} />
                     </div>
                     {/* NPERSONAS */}
                     <div style={CSS.inputBoxes}>
@@ -262,8 +313,13 @@ class VentanaPrincipal extends Component{
 const mapStateToProps = (state,ownProps) => {
     // Specify which pieces of state you want to pass down to your component as props
     const {FTEvalue} = ownProps
-    let performance = ((FTEvalue.FTE.rateEmpleado-0.68)/0.022).toFixed(1)
-    console.log(performance)
+    let performance;
+    try {
+        performance = ((FTEvalue.FTE.rateEmpleado-0.68)/0.022).toFixed(1)    
+    } catch (error) {
+        return {};
+    }
+
     return{
         initialValues:{
             nPersonas: FTEvalue.nPersonas,
@@ -278,9 +334,12 @@ const mapStateToProps = (state,ownProps) => {
         }
     }
 }
+const mapDispatchToProps = dispatch =>( {
+    modificarTabla: (index,tabla) => dispatch(modificarTabla(index,tabla))
+})
 
 
-export default connect(mapStateToProps)(
+export default connect(mapStateToProps, mapDispatchToProps)(
     reduxForm({
         form: 'v_principal',
         validate,  

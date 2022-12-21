@@ -18,7 +18,8 @@ const initialState = {procesos:[
                     nombreExtra: "",
                     precioExtra: 0,
                 }
-            ]   
+            ],
+            tabla: {}
         }
     ]}
 
@@ -26,9 +27,10 @@ const initialState = {procesos:[
 const AGREGARPROCESO = "PROCESO/AGREGARPROCESO";
 const ELIMINARPROCESO = "PROCESO/ELIMINARPROCESO";
 const MODIFICARPROCESO1 = "PROCESO/MODIFICARPROCESO1";
-const MODIFICARCHECK = "PROCESO/MODIFICARCHECK"
-const MODIFICARINPUTS = "PROCESO/MODIFICARINPUTS"
-const MODIFICARCOSTOSEXTRAS = "PROCESO/MODIFICARCOSTOSEXTRAS"
+const MODIFICARCHECK = "PROCESO/MODIFICARCHECK";
+const MODIFICARINPUTS = "PROCESO/MODIFICARINPUTS";
+const MODIFICARCOSTOSEXTRAS = "PROCESO/MODIFICARCOSTOSEXTRAS";
+const MODIFICARTABLA = "PROCESO/MODIFICARTABLA"
 
 export const agregarProceso = ()=>({
     type: AGREGARPROCESO,
@@ -56,6 +58,11 @@ export const modificarCostosExtras = (index,valores)=>({
     payload: {index, valores}
 })
 
+export const modificarTabla = (index,tabla)=>({
+    type: MODIFICARTABLA,
+    payload: {index,tabla}
+})
+
 export default function inputs(state = {...initialState},action){
     switch(action.type){
         case AGREGARPROCESO:
@@ -80,7 +87,8 @@ export default function inputs(state = {...initialState},action){
                                 nombreExtra: "",
                                 precioExtra: 0,
                             }
-                        ]   
+                        ],
+                        tabla: {}
                     }
                 ]
             }
@@ -139,7 +147,6 @@ export default function inputs(state = {...initialState},action){
                     return value
                 })
             }
-
         case MODIFICARCOSTOSEXTRAS:
             return{
                 ...state,
@@ -151,6 +158,18 @@ export default function inputs(state = {...initialState},action){
                     }
                     return value
                 })
+            }
+        case MODIFICARTABLA:
+            return{
+                ...state,
+                procesos: state.procesos.map(({...value},i)=>{
+                    if(action.payload.index === i){
+                        const objectToReturn = value
+                        objectToReturn.tabla = action.payload.tabla 
+                        return objectToReturn
+                    }
+                return value
+            })
             }
         default:
             return state

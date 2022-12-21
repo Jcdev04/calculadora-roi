@@ -1,7 +1,9 @@
 import React, { Component } from "react"
 import '../Styles/tabla.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faCircleInfo} from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+
 const CSS={    
     principalBox:{
         position: "fixed",
@@ -41,79 +43,36 @@ const CSS={
         width: "100%",
         display:"flex",
         justifyContent: "end",
+    },
+    moreInfo:{
+        color: "#c80b0b",
+        fontSize: 12,
+        marginRight: 3,
+        cursor: "pointer"
     }
 }
-export default class Tabla extends Component {
+ class Tabla extends Component {
     render(){
-        const {valores, trigger2, setTrigger2,i} = this.props
-        //Extrayendo los valores del objeto guardado en redux
-        let nOpDiarias = valores.FTE.nOpDiarias,
-        hTrabajadasXDia =  valores.FTE.hTrabajadasXDia,
-        dLaborablesXSemana = valores.FTE.dLaborablesXSemana,
-        tXOperacionMinutos = valores.FTE.tXOperacionMinutos,
-        rateEmpleado = valores.FTE.rateEmpleado
-        
-        //Calculando el FTE
-        let FTEresultado = (nOpDiarias*tXOperacionMinutos)/(hTrabajadasXDia*60*rateEmpleado)
-        FTEresultado = (FTEresultado).toFixed(2)
-        
-        let mantenimiento = 0
-        for (const element of valores.costosExtras) {
-            mantenimiento+=element.precioExtra
-        }        
-        //Llenando matriz que irá en la tabla
-        const tabla = {
-                //Fila 1
-                fila1_Y1Y5: 0,
-                fila1_Suma: 0,
-                //Fila 2
-                fila2_Y1Y5: 0,
-                //Fila 3
-                fila3_Y1: 0,
-                fila3_Y2Y5: 0,
-                fila3_Suma: 0,
-                //Fila 4
-                fila4_Y1: 0,
-                fila4_Y2Y5: 0,
-                fila4_Suma: 0,
-                //Fila 5
-                fila5_Y1:0,
-                fila5_Y2:0,
-                fila5_Y3:0,
-                fila5_Y4:0,
-                fila5_Y5:0,
-        }
-        // Fila 1
-        tabla.fila1_Y1Y5 = valores.nPersonas*FTEresultado*(valores.salarioPromedio*12);
-        tabla.fila1_Suma = tabla.fila1_Y1Y5*5;
-        // Fila 2
-        tabla.fila2_Y1Y5 = valores.nPersonas*(hTrabajadasXDia*dLaborablesXSemana)*52;
-        // Fila 3
-        tabla.fila3_Suma= tabla.fila3_Y1+(mantenimiento*4);
-        tabla.fila3_Y1 = valores.costoImplementacion+mantenimiento;
-        tabla.fila3_Y2Y5 = mantenimiento;
-        // Fila 4
-        tabla.fila4_Y1 = tabla.fila3_Y1-tabla.fila1_Y1Y5;
-        tabla.fila4_Y2Y5= tabla.fila1_Y1Y5-mantenimiento;
-        tabla.fila4_Suma= tabla.fila4_Y1+(tabla.fila4_Y2Y5*4);
-        // Fila 5
-        tabla.fila5_Y1=(tabla.fila4_Y1*100)/tabla.fila3_Y1;
-        tabla.fila5_Y2=(((tabla.fila1_Y1Y5-tabla.fila3_Y1) + tabla.fila4_Y1)/(tabla.fila3_Y1 + (tabla.fila3_Y1))*100);
-        tabla.fila5_Y3=(((tabla.fila1_Y1Y5-tabla.fila3_Y1)*2 + tabla.fila4_Y1)/(tabla.fila3_Y1 + (tabla.fila3_Y1*2))*100);
-        tabla.fila5_Y4=(((tabla.fila1_Y1Y5-tabla.fila3_Y1)*3+ tabla.fila4_Y1)/(tabla.fila3_Y1 + (tabla.fila3_Y1*3))*100);
-        tabla.fila5_Y5=(((tabla.fila1_Y1Y5-tabla.fila3_Y1)*4+ tabla.fila4_Y1)/(tabla.fila3_Y1 + (tabla.fila3_Y1*4))*100);
+        const {trigger2, setTrigger2} = this.props
+        /* Extraemos la tabla */
+        const {tabla} = this.props
         let notANumber = true
-        if(isNaN(tabla.fila1_Y1Y5) || isNaN(tabla.fila2_Y1Y5) || isNaN(tabla.fila5_Y1)){
-            notANumber = false
+        /* VERIFICAR que al momento de procesor todo esté bien */
+        if(tabla!=null){
+            if(isNaN(tabla.fila1_Y1Y5) || isNaN(tabla.fila2_Y1Y5) || isNaN(tabla.fila5_Y1)){
+                notANumber = false
+            }
         }
 
         function escribir(valor){
-            return notANumber ? `$${valor.toFixed()}`: "-" 
+            return notANumber ? `$${valor.toFixed()}`: "-"
         }
         function escribirHoras(valor){
             return notANumber ? `${valor.toFixed()}`: "-" 
         }
-
+        function escribirPorcentaje(valor){
+            return notANumber ? `${valor.toFixed()}%`: "-" 
+        }
         
         if(trigger2){ 
             return(
@@ -135,7 +94,7 @@ export default class Tabla extends Component {
                 </thead>
                 <tbody>
                     <tr className="row2">
-                        <td data-label="Items"><i className="fa-solid fa-money-bill"></i>Costos anuales por las horas dedicadas a realizar este trabajo</td>
+                        <td data-label="Items"><FontAwesomeIcon style={CSS.moreInfo} icon={faCircleInfo} />Costos anuales por las horas dedicadas a realizar este trabajo</td>
                         <td className="content" data-label="1 AÑO">{escribir(tabla.fila1_Y1Y5)}</td>
                         <td className="content" data-label="2 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
                         <td className="content" data-label="3 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
@@ -144,16 +103,16 @@ export default class Tabla extends Component {
                         <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila1_Suma)}</td>
                     </tr>
                     <tr className="row3">
-                        <td data-label="Items"><i className="fa-regular fa-hourglass-half"></i>Horas dedicadas a esta actividad en cada año por todos los trabajadores</td>
+                        <td data-label="Items"><FontAwesomeIcon style={CSS.moreInfo} icon={faCircleInfo} />Horas dedicadas a esta actividad en cada año por todos los trabajadores</td>
                         <td className="content" data-label="1 AÑO">{escribirHoras(tabla.fila2_Y1Y5)}</td>
                         <td className="content" data-label="2 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
                         <td className="content" data-label="3 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
                         <td className="content" data-label="4 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
                         <td className="content" data-label="5 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="5 AÑOS EN TOTAL">-</td>
+                        <td className="content" data-label="5 AÑOS EN TOTAL">{escribirHoras(tabla.fila2_Suma)}</td>
                     </tr>
                     <tr>
-                        <td data-label="Items"><i className="fa-solid fa-chart-line"></i> Costo total anual por implementación del bot (1 año) mantenimiento (+5 años)</td>
+                        <td data-label="Items"><FontAwesomeIcon style={CSS.moreInfo} icon={faCircleInfo} />Costo total anual por implementación del bot (1 año) mantenimiento (+5 años)</td>
                         <td className="content" data-label="1 AÑO">{escribir(tabla.fila3_Y1)}</td>
                         <td className="content" data-label="2 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
                         <td className="content" data-label="3 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
@@ -162,7 +121,7 @@ export default class Tabla extends Component {
                         <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila3_Suma)}</td>
                     </tr>
                     <tr className="net-roi">
-                        <td data-label="Items"><i className="fa-solid fa-robot"></i> Net ROI</td>
+                        <td data-label="Items"><FontAwesomeIcon style={CSS.moreInfo} icon={faCircleInfo} />Net ROI</td>
                         <td className="content" data-label="1 AÑO">{escribir(tabla.fila4_Y1)}</td>
                         <td className="content" data-label="2 AÑOS">{escribir(tabla.fila4_Y2Y5)}</td>
                         <td className="content" data-label="3 AÑOS">{escribir(tabla.fila4_Y2Y5)}</td>
@@ -171,12 +130,12 @@ export default class Tabla extends Component {
                         <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila4_Suma)}</td>
                     </tr>
                     <tr className="roi-acumulado">
-                        <td data-label="Items"><i className="fa-brands fa-android"></i> ROI acumulado anual</td>
-                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila5_Y1)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila5_Y2)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila5_Y3)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila5_Y4)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila5_Y5)}</td>
+                        <td data-label="Items"><FontAwesomeIcon style={{...CSS.moreInfo, color:"#FC4D19"}} icon={faCircleInfo} /> <FontAwesomeIcon style={{...CSS.moreInfo, color: "FFD848"}} icon={faCircleInfo}/>ROI acumulado anual</td>
+                        <td className="content" data-label="1 AÑO">{escribirPorcentaje(tabla.fila5_Y1)}</td>
+                        <td className="content" data-label="2 AÑOS">{escribirPorcentaje(tabla.fila5_Y2)}</td>
+                        <td className="content" data-label="3 AÑOS">{escribirPorcentaje(tabla.fila5_Y3)}</td>
+                        <td className="content" data-label="4 AÑOS">{escribirPorcentaje(tabla.fila5_Y4)}</td>
+                        <td className="content" data-label="5 AÑOS">{escribirPorcentaje(tabla.fila5_Y5)}</td>
                         <td className="content" data-label="5 AÑOS EN TOTAL">-</td>
                     </tr>
                 </tbody>
@@ -187,3 +146,10 @@ export default class Tabla extends Component {
         };
     }
 }
+
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        tabla: state.user.procesos[ownProps.index].tabla
+    }
+} 
+export default connect(mapStateToProps)(Tabla);
