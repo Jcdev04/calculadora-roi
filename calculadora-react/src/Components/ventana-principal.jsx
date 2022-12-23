@@ -167,11 +167,6 @@ const procesarDatos = (valores)=>{
     tabla.fila5_Y4=(((tabla.fila1_Y1Y5-mantenimiento)*3 + tabla.fila4_Y1) / (tabla.fila3_Y1 + (mantenimiento*3))*100)
 
     tabla.fila5_Y5=(((tabla.fila1_Y1Y5-mantenimiento)*4 + tabla.fila4_Y1) / (tabla.fila3_Y1 + (mantenimiento*4))*100)
-
-
-
-    console.log(valores);
-    console.log(tabla);
     return tabla;
 }
 

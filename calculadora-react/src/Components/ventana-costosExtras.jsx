@@ -73,9 +73,7 @@ class VentanaCostosExtras extends Component{
         }
         const eliminarCosto=(i)=>{
             const elemento = [...costosExtras]
-            console.log(elemento)
             elemento.splice(i,1)
-            console.log(elemento)
             this.setState(()=>({
                 costosExtras: elemento
             })
@@ -130,7 +128,7 @@ class VentanaCostosExtras extends Component{
                         )
                     })}
                     <div style={{width: "100%", display: "flex", justifyContent: "end"}}>
-                        <FontAwesomeIcon icon={faCirclePlus} onClick={()=>{agregarCosto();console.log(costosExtras)}} style={{color: "#05BE50",fontSize:50, cursor: "pointer"}} />
+                        <FontAwesomeIcon icon={faCirclePlus} onClick={()=>{agregarCosto();}} style={{color: "#05BE50",fontSize:50, cursor: "pointer"}} />
                     </div>
                     
                 </div>

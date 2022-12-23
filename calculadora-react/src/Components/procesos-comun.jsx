@@ -2,14 +2,16 @@ import React,{Component} from "react";
 import { connect} from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faDollarSign} from "@fortawesome/free-solid-svg-icons";
+import "../Styles/proceso-comun.css"
 const CSS = {
     principalContainer:{
-        maxWidth: 700,
+        maxWidth: 650,
         width: "100%",
-        margin: "50px auto",
+        margin: "30px auto",
         padding: "10px 35px",
         boxShadow: "0px 5px 16px rgba(0, 0, 0, 0.27)",
         borderRadius: "20px",
+        boxSizing: "border-box"
     },
     titulo:{
         fontSize: 30,
@@ -25,6 +27,7 @@ const CSS = {
     precios:{
         fontSize: 20,
         fontWeight: 400,
+        margin: "15px 0",
         color:"#2E2E2E"
     },
     boxProceso:{
@@ -42,7 +45,8 @@ class ProcesosComun extends Component{
         let arreglo = procesos.user.procesos.filter((i)=>i.procesoComun)
         let sumaTotal =0;
         return(arreglo.length>0 ? (
-            <div style={CSS.principalContainer}>
+            <div style={{ padding: "0 10px"}}>
+            <div className="contenedorPrincipal" style={CSS.principalContainer}>
                 <h1 style={CSS.titulo}>Procesos en común:</h1>
                 <p style={CSS.subtitulo}>Selecciona los procesos que consideres en común y obtén la suma de sus precios</p>
                 {
@@ -58,8 +62,9 @@ class ProcesosComun extends Component{
                             total=0
                         }
                         sumaTotal+=total
+                        let key = "Proceso"+i
                         return(
-                            <div style={CSS.boxProceso}>
+                            <div key={key} style={CSS.boxProceso}>
                                 <h2 style={CSS.precios}>{valores.nombreProceso!==""?`${valores.nombreProceso}`:`Proceso ${String(i+1).padStart(3, '0')}`}</h2>
                                 <h2 style={CSS.precios}><FontAwesomeIcon style={{color:"#43CA40"}} icon={faDollarSign}/>{total.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>
                             </div>
@@ -70,6 +75,7 @@ class ProcesosComun extends Component{
                     <h2 style={{...CSS.precios, color: "#FC4D19", fontWeight: 500}}>Suma total</h2>
                     <h2 style={{...CSS.precios, color: "#FC4D19", fontWeight: 500}}><FontAwesomeIcon style={{color:"#43CA40"}} icon={faDollarSign}/>{sumaTotal.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>
                 </div>
+            </div>
             </div>
         ):"")
     }

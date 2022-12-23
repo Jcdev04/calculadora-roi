@@ -5,7 +5,7 @@ import { connect} from "react-redux"
 import { agregarProceso,eliminarProceso,modificarProceso1,modificarCheck, modificarInputs} from "../Reducers/inputs";
 import '../Styles/show-more.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faPlusCircle, faCaretDown} from "@fortawesome/free-solid-svg-icons"
+import {faPlusCircle, faCaretDown, faTrash, faEdit} from "@fortawesome/free-solid-svg-icons"
 import VentanaExito from "./ventana-emergente/ventana-exito";
 const CSS = {
     button: {
@@ -18,6 +18,16 @@ const CSS = {
         cursor: "pointer",
         transition: "all ease-in 100ms"
     },
+    iconos:{
+        border: "none",
+        borderRadius: "15px",
+        height: "28px",
+        margin: "0 2.5px",
+        fontSize: "17px",
+        cursor: "pointer",
+        transition: "all ease-in 100ms",
+        color: "#232323",
+    }
 }
 
 function ShowMore(props) {
@@ -29,15 +39,35 @@ function ShowMore(props) {
         /* console.log(todosProcesos) */
         let objeto = {}
         const [index,setIndex] = useState(0)
-        const [index2,setIndex2] = useState(0)
 
         /* Función para obtener el index del botón presionado */
-        const handler = function(e){
-            setIndex(e.target.getAttribute("data-index")); //will log the index of the clicked item
+        const handler = (i)=>{
+            setIndex(i); //will log the index of the clicked item
         };
-        const handler2 = function(index){
-            setIndex2(index); //will log the index of the clicked item
-        };
+        /* EDITAR */
+        const editar = (i)=>()=>{
+            setBotonEditar(true)
+            handler(i)
+        }
+        /* ELIMINAR */
+        const eliminar = (i)=>()=>{
+            if(todosProcesos.length>1){
+                props.eliminarProceso(i)
+            }else{
+                alert("No se puede eliminar el último proceso")
+            }
+        }
+        /* DESPLEGAR */
+        const desplegar = (i)=>()=>{
+            setBotonEditar2(true)
+            handler(i)
+        }
+        /* SUBMIT */
+        const submit = (payload)=>{
+            props.modificarInputs(parseInt(index),payload)
+            setBotonConfirmar(true);
+        }
+
         return(
             <div className="principal-container">
                 {todosProcesos.map((data,i)=>{
@@ -45,35 +75,29 @@ function ShowMore(props) {
                     objeto = {...data}
 
                     return(
-                        <div className="proceso" key={numeroProceso}>
+                        <div className="proceso" style={{padding:"0 10px"}} key={numeroProceso}>
                             {/*NOMBRE DEL PROCESO*/}
                             <div className="CRUD-container">
                             {/* 1 */}
+                                {/* NOMBRE */}
                                 <input className="nombreProceso" placeholder={numeroProceso} type="text" value={objeto.nombreProceso} onChange={(e)=>
                                     props.modificarProceso1(e.target.value,i)}/>
                                 {/* 2 */}
-                                <div style={{justifySelf: "end", display: "flex", alignItems: "center"}}>
+                                <div className="botonesCRUD" style={{ display: "flex", alignItems: "center", justifySelf: "end"}}>
                                     {/* EDITAR */}
-                                    <button style={CSS.button} data-index={i} className="btnEditar" onClick={(e)=>{
-                                            e.preventDefault()
-                                            setBotonEditar(true)
-                                            handler(e)
-                                        }
-                                    }
-                                    >Editar</button>
+                                    <button onClick={editar(i)} className="botonIcono" style={{...CSS.iconos,backgroundColor:"#ffd555"}}>
+                                        <FontAwesomeIcon icon={faEdit}/>
+                                    </button>
+                                    <button  style={CSS.button}  className="btnEditar" onClick={editar(i)}
+                                    > 
+                                    Editar</button>
                                     {/* ELIMINAR */}
-                                    <button style={CSS.button} className="btnEliminar" onClick={()=>{props.eliminarProceso(i)
-                                    handler2(0)
-                                    }
-                                    }>Eliminar</button>
+                                    <button onClick={eliminar(i)} className="botonIcono" style={{...CSS.iconos, backgroundColor:"#FF0015"}}>
+                                        <FontAwesomeIcon icon={faTrash}/>
+                                    </button>
+                                    <button  style={CSS.button} className="btnEliminar" onClick={eliminar(i)}>Eliminar</button>
                                     {/* DESPLEGAR */}
-                                    <FontAwesomeIcon data-index2={i} onClick={
-                                        (e)=>{
-                                            e.preventDefault()
-                                            setBotonEditar2(true)
-                                            handler2(i)
-                                        }
-                                    }icon={faCaretDown} style={{color:"#FC4D19", fontSize: 35, cursor: "pointer", margin: "0px 10px"}}/>
+                                    <FontAwesomeIcon onClick={desplegar(i)} icon={faCaretDown} style={{color:"#FC4D19", fontSize: 35, cursor: "pointer", margin: "0px 10px"}}/>
                                 </div>
                                 {/* 3 */}
                             </div>
@@ -88,12 +112,9 @@ function ShowMore(props) {
                     )
                 }
                 )}
-                { (todosProcesos[parseInt(index2)] != null) ? <Tabla index={index} trigger2={botonEditar2} setTrigger2={setBotonEditar2}/>: ""}
+                { (todosProcesos[parseInt(index)] != null) ? <Tabla index={index} trigger2={botonEditar2} setTrigger2={setBotonEditar2}/>: ""}
                 {/* VENTANA principal */}
-                <VentanaPrincipal index={parseInt(index)} FTEvalue={todosProcesos[parseInt(index)]} onSubmit = {(payload)=>{
-                    props.modificarInputs(parseInt(index),payload)
-                    setBotonConfirmar(true);
-                }} trigger={botonEditar} setTrigger = {setBotonEditar}/>
+                <VentanaPrincipal index={parseInt(index)} FTEvalue={todosProcesos[parseInt(index)]} onSubmit={payload=>submit(payload)} trigger={botonEditar} setTrigger = {setBotonEditar}/>
                 {/* AGREGAR PROCESO */}
                 <div className="agregar-proceso" >
                     <button style={{fontSize:17, display: "flex", alignItems: "center"}} onClick = {props.agregarProceso}><FontAwesomeIcon style={{color: "#4427F8", marginRight: 5}} icon={faPlusCircle}/> Agregar Proceso</button> 

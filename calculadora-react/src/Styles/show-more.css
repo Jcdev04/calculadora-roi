@@ -40,6 +40,7 @@
 
 /* Botones */
 /* Otras propiedades colocadas en react */
+/* ELIMINAR */
 .btnEliminar{
     background-color: #FF0015;
     color: #48060C;
@@ -49,7 +50,7 @@
     background-color: #c80b0b;
     color: #f7e3e3;
 }
-
+/* EDITAR */
 .btnEditar{
     background-color:#ffd555;
     color: #A67A00;
@@ -58,12 +59,25 @@
     background-color:#e6ae07;
     color: #fef0ca;
 }
+.botonIcono{
+  display:  none;
+}
 
 
-/* .btnEditar:hover{
+@media (max-width: 530px) {
+    .botonIcono{
+      display:  block;
+    }
+    .btnEditar, .btnEliminar{
+      display: none;
+    }
+    .nombreProceso{
+      width: 80%;
+    }
+}
 
-} */
-  /* Boton proceso común */
+
+/* Boton proceso común */
 .checkbox-wrapper-13{
     display: flex;
     align-items: center;
