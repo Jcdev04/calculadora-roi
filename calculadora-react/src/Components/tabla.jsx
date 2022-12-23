@@ -4,6 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleInfo} from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import VentanaFormula from "./ventana-emergente/ventana-formula"
+/* SLIDER */
+import {Swiper, SwiperSlide} from "swiper/react"
+import { Pagination } from "swiper";
+import 'swiper/swiper-bundle.min.css'
+
 
 const CSS={    
     principalBox:{
@@ -17,16 +22,18 @@ const CSS={
         justifyContent: "center",
         alignItems: "center",
         flexDirection:"column",
-        padding: 10
+        padding: "0 15px",
+        boxSizing: "border-box"
+
     },
     tabla: {
-        maxWidth: 750,
+        maxWidth: 850,
         width: "100%",
         position: "relative",
-        padding: "20px 30px",
         backgroundColor: "white",
         borderRadius: 15,
         boxShadow: "-20px -20px 60px #FFDDD3, 20px 20px 60px #dfdfdf",
+        overflow: "hidden",
     },
     close:{
         padding: "5px 15px", 
@@ -160,64 +167,90 @@ const CSS={
                 <FontAwesomeIcon style={{marginRight:5}} icon={faCircleXmark} />
                 Cerrar</button>  
             </div>
-            <table style={{...CSS.tabla,margin:10}} className="table">
-                <thead>
-                    <th>Ítems</th>
-                    <th>1 AÑO</th>
-                    <th>2 AÑOS</th>
-                    <th>3 AÑOS</th>
-                    <th>4 AÑOS</th>
-                    <th>5 AÑOS</th>
-                    <th>5 AÑOS EN TOTAL</th>
-                </thead>
-                <tbody>
-                    <tr className="row2">
-                        <td data-label="Items"><FontAwesomeIcon onClick={setTrigger(content.costoAnual)} style={CSS.moreInfo} icon={faCircleInfo} />Costos anuales por las horas dedicadas a realizar este trabajo</td>
-                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila1_Y1Y5)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila1_Y1Y5)}</td>
-                        <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila1_Suma)}</td>
-                    </tr>
-                    <tr className="row3">
-                        <td data-label="Items"><FontAwesomeIcon onClick={setTrigger(content.horasAnuales)} style={CSS.moreInfo} icon={faCircleInfo} />Horas dedicadas a esta actividad en cada año por todos los trabajadores</td>
-                        <td className="content" data-label="1 AÑO">{escribirHoras(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribirHoras(tabla.fila2_Y1Y5)}</td>
-                        <td className="content" data-label="5 AÑOS EN TOTAL">{escribirHoras(tabla.fila2_Suma)}</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Items"><FontAwesomeIcon onClick={setTrigger(content.costoRobot)} style={CSS.moreInfo} icon={faCircleInfo} />Costo total anual por implementación del bot (1 año) mantenimiento (+5 años)</td>
-                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila3_Y1)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila3_Y2Y5)}</td>
-                        <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila3_Suma)}</td>
-                    </tr>
-                    <tr className="net-roi">
-                        <td data-label="Items"><FontAwesomeIcon onClick={setTrigger(content.netROI)} style={CSS.moreInfo} icon={faCircleInfo} />Net ROI</td>
-                        <td className="content" data-label="1 AÑO">{escribir(tabla.fila4_Y1)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribir(tabla.fila4_Y2Y5)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribir(tabla.fila4_Y2Y5)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribir(tabla.fila4_Y2Y5)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribir(tabla.fila4_Y2Y5)}</td>
-                        <td className="content" data-label="5 AÑOS EN TOTAL">{escribir(tabla.fila4_Suma)}</td>
-                    </tr>
-                    <tr className="roi-acumulado">
-                        <td data-label="Items"><FontAwesomeIcon onClick={setTrigger(content.ROIAcumulado1)} style={{...CSS.moreInfo, color:"#FC4D19"}} icon={faCircleInfo} /> <FontAwesomeIcon onClick={setTrigger(content.ROIAcumulado2_5)} style={{...CSS.moreInfo, color: "FFD848"}} icon={faCircleInfo}/>ROI acumulado anual</td>
-                        <td className="content" data-label="1 AÑO">{escribirPorcentaje(tabla.fila5_Y1)}</td>
-                        <td className="content" data-label="2 AÑOS">{escribirPorcentaje(tabla.fila5_Y2)}</td>
-                        <td className="content" data-label="3 AÑOS">{escribirPorcentaje(tabla.fila5_Y3)}</td>
-                        <td className="content" data-label="4 AÑOS">{escribirPorcentaje(tabla.fila5_Y4)}</td>
-                        <td className="content" data-label="5 AÑOS">{escribirPorcentaje(tabla.fila5_Y5)}</td>
-                        <td className="content" data-label="5 AÑOS EN TOTAL">-</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div style={{...CSS.tabla,margin:10}} className="tabla">
+                 <div className="items">
+                    <div className="cabecera-box"><h2 className="cabecera">Ítems</h2></div>
+                    <div className="item1 "><p><FontAwesomeIcon onClick={setTrigger(content.costoAnual)} style={CSS.moreInfo} icon={faCircleInfo} />Costos anuales por las horas dedicadas a realizar este trabajo</p></div>
+                    <div className="item2 "><p><FontAwesomeIcon onClick={setTrigger(content.horasAnuales)} style={CSS.moreInfo} icon={faCircleInfo} />Horas dedicadas a esta actividad en cada año por todos los trabajadores</p></div>
+                    <div className="item3 "><p><FontAwesomeIcon onClick={setTrigger(content.costoRobot)} style={CSS.moreInfo} icon={faCircleInfo} />Costo total anual por implementación del bot (1 año) mantenimiento (+5 años)</p></div>                
+                    <div className="item4 net-roi"><p><FontAwesomeIcon onClick={setTrigger(content.netROI)} style={CSS.moreInfo} icon={faCircleInfo} />Net ROI</p></div>
+                    <div className="item5 roi-acumulado"><p><FontAwesomeIcon onClick={setTrigger(content.ROIAcumulado1)} style={{...CSS.moreInfo, color:"#FC4D19"}} icon={faCircleInfo} /> <FontAwesomeIcon onClick={setTrigger(content.ROIAcumulado2_5)} style={{...CSS.moreInfo, color: "FFD848"}} icon={faCircleInfo}/>ROI acumulado anual</p></div>  
+                </div>
+                <Swiper slidesPerView={6}
+                    spaceBetween={0}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    breakpoints={{
+                      240: {
+                        slidesPerView: 1,
+                      },
+                      400:{
+                        slidesPerView: 2,
+                      },
+                      500:{
+                        slidesPerView: 3,
+                      },
+                      678: {
+                        slidesPerView: 4,
+                      },
+                      850: {
+                        slidesPerView: 6,
+                      },
+                    }}
+                    modules={[Pagination]}
+                    className="mySwiper"
+                >
+                    <SwiperSlide>
+                        <div className="cabecera-box"><h2 className="cabecera">1 AÑO</h2></div>
+                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                        <div className="item3"><h3>{escribir(tabla.fila3_Y1)}</h3></div>                
+                        <div className="item4"><h3>{escribir(tabla.fila4_Y1)}</h3></div>
+                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y1)}</h3></div>                                           
+                    </SwiperSlide>               
+                    <SwiperSlide>
+                        <div className="cabecera-box"><h2 className="cabecera">2 AÑOS</h2></div>
+                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                        <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
+                        <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
+                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y2)}</h3></div>                                         
+                    </SwiperSlide>               
+                    <SwiperSlide>
+                        <div className="cabecera-box"><h2 className="cabecera">3 AÑOS</h2></div>
+                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                        <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
+                        <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
+                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y3)}</h3></div>                                           
+                    </SwiperSlide>               
+                    <SwiperSlide>
+                        <div className="cabecera-box"><h2 className="cabecera">4 AÑOS</h2></div>
+                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                        <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
+                        <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
+                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y4)}</h3></div>                                         
+                    </SwiperSlide>               
+                    <SwiperSlide>
+                        <div className="cabecera-box"><h2 className="cabecera">5 AÑOS</h2></div>
+                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                        <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
+                        <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
+                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y5)}</h3></div>                                     
+                    </SwiperSlide>               
+                    <SwiperSlide>
+                        <div className="cabecera-box"><h2 className="cabecera">5 AÑOS EN TOTAL</h2></div>
+                        <div className="item1"><h3>{escribir(tabla.fila1_Suma)}</h3></div>
+                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Suma)}</h3></div>
+                        <div className="item3"><h3>{escribir(tabla.fila3_Suma)}</h3></div>                
+                        <div className="item4"><h3>{escribir(tabla.fila4_Suma)}</h3></div>
+                        <div className="item5"><h3>-</h3></div>                                         
+                    </SwiperSlide>               
+                </Swiper>
+            </div>
 
             <VentanaFormula contentMostrar={contentMostrarAux} trigger={trigger} setTrigger={setTrigger()} />    
             
