@@ -1,9 +1,11 @@
 import React, { Component } from "react"
 import '../Styles/tabla.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faCircleInfo} from "@fortawesome/free-solid-svg-icons";
+
+import { faCircleXmark, faCircleInfo, faEye} from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import VentanaFormula from "./ventana-emergente/ventana-formula"
+import VentanaDatosBrutos from "./ventana-datosBrutos"
 /* SLIDER */
 import {Swiper, SwiperSlide} from "swiper/react"
 import { Pagination } from "swiper";
@@ -45,6 +47,17 @@ const CSS={
         border: "none",
         cursor: "pointer"
     },
+    verDatos:{
+        padding: "5px 15px", 
+        fontSize:17,
+        zIndex:2,
+        borderRadius:20,
+        color: "white",
+        backgroundColor: "#EE911D",
+        border: "none",
+        cursor: "pointer",
+        marginRight: 10
+    },
     containerBotones:{
         maxWidth: 750,
         zIndex: 2,
@@ -64,6 +77,7 @@ const CSS={
         super(props);
         this.state={
             trigger: false,
+            triggerDB: false,
             content:{
                 costoAnual: {
                     nombre: "Costo anual",
@@ -127,9 +141,9 @@ const CSS={
 
     
     render(){
-        const {trigger2, setTrigger2,tabla} = this.props
+        const {trigger2, setTrigger2,tabla, index} = this.props
         /* Extraemos la tabla */
-        const { trigger, content, contentMostrarAux} = this.state
+        const { trigger,triggerDB, content, contentMostrarAux} = this.state
 
         let notANumber = true
         /* CONTENIDO que irá dentro de la fórmula */
@@ -146,7 +160,11 @@ const CSS={
                 trigger: !state.trigger,
                 contentMostrarAux: {...content}
             }))
-            
+        }
+        const setTriggerDB = ()=>()=>{
+            this.setState(state=>({
+                triggerDB: !state.triggerDB,
+            }))
         }
 
         function escribir(valor){
@@ -163,12 +181,19 @@ const CSS={
             return(
             <div style={CSS.principalBox}>  
             <div style={CSS.containerBotones}>
+                {/* VENTANA DATOS BRUTOS */}
+                <button style={CSS.verDatos} onClick={setTriggerDB()}>
+                    <FontAwesomeIcon style={{marginRight:5}} icon={faEye}/>
+                    Ver datos
+                </button>
+                {/* VENTANA DATOS BRUTOS */}
                 <button style={CSS.close} onClick={()=>setTrigger2(false)}>
-                <FontAwesomeIcon style={{marginRight:5}} icon={faCircleXmark} />
-                Cerrar</button>  
+                    <FontAwesomeIcon style={{marginRight:5}} icon={faCircleXmark} />
+                    Cerrar
+                </button>  
             </div>
             <div style={{...CSS.tabla,margin:10}} className="tabla">
-                 <div className="items">
+                <div className="items">
                     <div className="cabecera-box"><h2 className="cabecera">Ítems</h2></div>
                     <div className="item1 "><p><FontAwesomeIcon onClick={setTrigger(content.costoAnual)} style={CSS.moreInfo} icon={faCircleInfo} />Costos anuales por las horas dedicadas a realizar este trabajo</p></div>
                     <div className="item2 "><p><FontAwesomeIcon onClick={setTrigger(content.horasAnuales)} style={CSS.moreInfo} icon={faCircleInfo} />Horas dedicadas a esta actividad en cada año por todos los trabajadores</p></div>
@@ -253,7 +278,7 @@ const CSS={
             </div>
 
             <VentanaFormula contentMostrar={contentMostrarAux} trigger={trigger} setTrigger={setTrigger()} />    
-            
+            <VentanaDatosBrutos index={index} trigger={triggerDB} setTrigger={setTriggerDB()}/>
             </div>
         )}else {
             return ""

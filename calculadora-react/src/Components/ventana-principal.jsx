@@ -143,6 +143,9 @@ const procesarDatos = (valores)=>{
     //Llenando matriz que irá en la tabla
     const tabla = {
     }
+    /* EXTRAS */
+    tabla.FTEresultado = FTEresultado;
+    tabla.mantenimiento = mantenimiento;
     // Fila 1
     tabla.fila1_Y1Y5 = valores.nPersonas*FTEresultado*(valores.salarioPromedio*12);
     tabla.fila1_Suma = tabla.fila1_Y1Y5*5;
@@ -210,13 +213,10 @@ class VentanaPrincipal extends Component{
             /* EXTRAYENDO los valores de la clase FTE */
             let nOpDiarias = FTEvalue.FTE.nOpDiarias,
             hTrabajadasXDia =  FTEvalue.FTE.hTrabajadasXDia,
-            dLaborablesXSemana = FTEvalue.FTE.dLaborablesXSemana,
             tXOperacionMinutos = FTEvalue.FTE.tXOperacionMinutos,
             rateEmpleado = FTEvalue.FTE.rateEmpleado
-            
-            rateEmpleado = (rateEmpleado*0.022)+0.68
-            
-            let FTEresultado = (nOpDiarias*dLaborablesXSemana*4*tXOperacionMinutos)/(hTrabajadasXDia*dLaborablesXSemana*60*4*rateEmpleado)
+                        
+            let FTEresultado = (nOpDiarias*tXOperacionMinutos)/(hTrabajadasXDia*60*rateEmpleado)
             FTEresultado = (FTEresultado*100).toFixed(2)
             
             if(isNaN(FTEresultado)){
@@ -276,7 +276,7 @@ class VentanaPrincipal extends Component{
         const ventanaFTE = ()=>{
             return(
                 <div style={{...CSS.formCostosROI,width:280, padding:"20px 40px"}}>
-                    <VentanaFTE Pristine={pristine} Submitting={submitting} estilos={CSS} openVentanaFTE={abrirFTE}/>
+                    <VentanaFTE Pristine={pristine} rendimiento={FTEvalue.FTE.rateEmpleado} Submitting={submitting} estilos={CSS} openVentanaFTE={abrirFTE}/>
                 </div>
             )
         }

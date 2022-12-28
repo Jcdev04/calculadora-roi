@@ -42,6 +42,13 @@ export default class VentanaFTE extends Component{
         }
     }
     
+    componentDidMount(){
+        this.setState({
+            sliderValue: ((this.props.rendimiento-0.68)/0.022).toFixed(1) 
+        })
+    }
+
+
     render(){
         const {openVentanaFTE, estilos} = this.props
         const {sliderValue} = this.state
@@ -76,11 +83,11 @@ export default class VentanaFTE extends Component{
                 title="Tiempo por operación en minutos"/>
                 </div>
                 {/* RATEEMPLEADO */}
-                <div style={{...estilos.inputBoxes}}>
-                    <Field icono={faStar} iconoEstilo={{...estilos.iconStyle, color:"#FCCA3E"}} onChange={e=>changeValue(e.target.value)} step="0.5" min="1" max="10" style={{width:"100%", zIndex: 2}} name="rendimiento" type="range" component={ventanaPrincipalComponent}title="¿Cómo evalúas el desempeño del encargado en ese proceso?"/>
+                <div style={{...estilos.inputBoxes, position: "relative"}}>
+                    <Field icono={faStar} value={sliderValue} iconoEstilo={{...estilos.iconStyle, color:"#FCCA3E"}} onChange={e=>changeValue(e.target.value)} step="0.5" min="1" max="10" style={{width:"100%", zIndex: 2}} name="rendimiento" type="range" component={ventanaPrincipalComponent}title="¿Cómo evalúas el desempeño del encargado en ese proceso?"/>
                     <div style={CSS.indicadoresSlider}>
-                        <p style={{float:"left"}}>1</p>
-                        <p style={{float:"right"}}>10</p>
+                        <p style={{position:"absolute",bottom: "45%" }}>1</p>
+                        <p style={{position:"absolute",right:0,bottom: "45%"}}>10</p>
                     </div>
                     <div style={CSS.valorSlider}>
                         <p style={{margin: 0}}>{sliderValue}</p>
