@@ -1,9 +1,12 @@
+import nanoId from "nano-id";
 
 const initialState = {procesos:[
         {
+            id: nanoId(4),
             procesoComun:false,
             nombreProceso:"",
             nPersonas: 0,
+            rotation:false,
             FTE: {
                 nOpDiarias: 0,
                 hTrabajadasXDia: 0,
@@ -21,8 +24,7 @@ const initialState = {procesos:[
             ],
             tabla: {}
         }
-    ]}
-
+]}
 
 const AGREGARPROCESO = "PROCESO/AGREGARPROCESO";
 const ELIMINARPROCESO = "PROCESO/ELIMINARPROCESO";
@@ -31,6 +33,7 @@ const MODIFICARCHECK = "PROCESO/MODIFICARCHECK";
 const MODIFICARINPUTS = "PROCESO/MODIFICARINPUTS";
 const MODIFICARCOSTOSEXTRAS = "PROCESO/MODIFICARCOSTOSEXTRAS";
 const MODIFICARTABLA = "PROCESO/MODIFICARTABLA"
+const ROTATION = "PROCESO/ROTATION"
 
 export const agregarProceso = ()=>({
     type: AGREGARPROCESO,
@@ -63,6 +66,11 @@ export const modificarTabla = (index,tabla)=>({
     payload: {index,tabla}
 })
 
+export const rotation = (index)=>({
+    type: ROTATION,
+    payload: {index}
+})
+
 export default function inputs(state = {...initialState},action){
     switch(action.type){
         case AGREGARPROCESO:
@@ -70,9 +78,11 @@ export default function inputs(state = {...initialState},action){
                 ...state,
                 procesos: [...state.procesos, 
                     {
+                        id: nanoId(4),
                         procesoComun:false,
                         nombreProceso:'',
                         nPersonas: 0,
+                        rotation:false,
                         FTE: {
                             nOpDiarias: 0,
                             hTrabajadasXDia: 0,
@@ -170,6 +180,17 @@ export default function inputs(state = {...initialState},action){
                     }
                 return value
             })
+            }
+        case ROTATION:
+            return{
+                ...state,
+                procesos: state.procesos.map(({...value},i)=>{
+                    if(action.payload.index === i){
+                        const objectToReturn = value
+                        objectToReturn.rotation = !(value.rotation)
+                        return objectToReturn
+                    }
+                return value})
             }
         default:
             return state

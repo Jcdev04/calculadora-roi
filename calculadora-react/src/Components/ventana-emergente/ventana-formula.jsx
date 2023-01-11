@@ -2,6 +2,8 @@ import React,{Component} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCalculator} from "@fortawesome/free-solid-svg-icons"
 import '../../Styles/ventana-formula.css';
+import nanoid from 'nano-id';
+import {motion} from "framer-motion/dist/framer-motion"
 
 
 const CSS={
@@ -59,48 +61,70 @@ const CSS={
 
     },
 }
-
+const dropIn={
+    hidden:{
+        opacity: 0,
+    },
+    visible:{
+        opacity: 1,
+        transition:{
+            duration: 0.1,
+            type: "spring",
+            damping: 50,
+            stiffness: 500,
+        }
+    },
+    exit:{
+        opacity: 0,
+    }
+}
 export default class VentanaFormula extends Component{
     constructor(props){
         super(props);
     }
     render(){
-        const {setTrigger,trigger, contentMostrar} = this.props;
-        return( trigger ?(
-            <div style={CSS.principalBox}>
-                <div style={CSS.formFormula}>
-                    {/* cabecera */}
-                    <div style={CSS.cabecera}>
-                        <FontAwesomeIcon style={{color:"#FFD848", fontSize:25, marginRight: 10}} icon={faCalculator}/>
-                        <h2 style={{fontsize:20}}>¿Cómo se calcula?</h2>
-                    </div>
-                    {/* formula */}
-                    <div style={CSS.formula}>
-                        <div style={{marginBottom: 15}}>
-                            <h3 style={{fontSize: 16, color:"#FC4D19", textDecoration: "underline"}}>{contentMostrar.nombre}:</h3>
+        const {setTrigger, contentMostrar} = this.props;
+        return( 
+            <motion.div
+                variants={dropIn}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                style={CSS.principalBox}
+            >  
+                    <div style={CSS.formFormula}>
+                        {/* cabecera */}
+                        <div style={CSS.cabecera}>
+                            <FontAwesomeIcon style={{color:"#FFD848", fontSize:25, marginRight: 10}} icon={faCalculator}/>
+                            <h2 style={{fontsize:20}}>¿Cómo se calcula?</h2>
                         </div>
-                        <div style={{textAlign: "center", color: "#373838"}}>
-                            <h3 style={{fontSize: 18}}>{contentMostrar.formula}</h3>
+                        {/* formula */}
+                        <div style={CSS.formula}>
+                            <div style={{marginBottom: 15}}>
+                                <h3 style={{fontSize: 16, color:"#FC4D19", textDecoration: "underline"}}>{contentMostrar.nombre}:</h3>
+                            </div>
+                            <div style={{textAlign: "center", color: "#373838"}}>
+                                <h3 style={{fontSize: 18}}>{contentMostrar.formula}</h3>
+                            </div>
                         </div>
+                        {/* Leyenda */}
+                        <ul className="leyenda" style={{alignSelf: "start", paddingLeft: 10}}>
+                        {
+                        contentMostrar.leyenda.map((element,i)=>{
+                                return(
+                                    <li key={`${nanoid(2)}`}>
+                                        <p style={{fontSize: 15}}>{element}</p>
+                                    </li>
+                                )
+                            })
+                        }
+                        </ul>
+
+                        {/* botón */}
+
+                        <button className="btnCerrar" onClick={setTrigger} style={CSS.boton}>Cerrar</button>
                     </div>
-                    {/* Leyenda */}
-                    <ul className="leyenda" style={{alignSelf: "start", paddingLeft: 10}}>
-                    {
-                    contentMostrar.leyenda.map((element,i)=>{
-                            const key = "element"+i;
-                            return(
-                                <li key={key}>
-                                    <p style={{fontSize: 15}}>{element}</p>
-                                </li>
-                            )
-                        })
-                    }
-                    </ul>
-
-                    {/* botón */}
-
-                    <button className="btnCerrar" onClick={setTrigger} style={CSS.boton}>Cerrar</button>
-                </div>
-            </div>):"")
+            </motion.div>
+            )
     }
 } 

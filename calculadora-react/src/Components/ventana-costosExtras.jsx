@@ -89,6 +89,16 @@ class VentanaCostosExtras extends Component{
             )
         }
 
+        const regresar = ()=>()=>{
+            modificarCostosExtras(index,[...costosExtras]);
+            openVentanaCostosExtras()
+        }
+
+        const eliminar =(i)=>()=>{
+            if(costosExtras.length>1)eliminarCosto(i)
+            else alert("No se puede eliminar el último costo extra")
+        }
+
         const handleChangePrecio = (newValue,i) => {
             const elemento = [...costosExtras]
             const procesoComunValor = elemento[i]
@@ -99,20 +109,20 @@ class VentanaCostosExtras extends Component{
             })
             )
         }
+        const agregar = ()=>()=>{
+            agregarCosto()
+        }
         return(
             <>
                 <div style={{backgroundColor:"#FC4D19",position:"absolute",top:0,left:0, right:0, height:68}}>
-                    <FontAwesomeIcon style={CSS.btnRegresar} onClick={()=>{
-                        modificarCostosExtras(index,[...costosExtras]);
-                        openVentanaCostosExtras()
-                    }
-                    } icon={faChevronCircleLeft}/>
+                    <FontAwesomeIcon style={CSS.btnRegresar} onClick={regresar()} icon={faChevronCircleLeft}/>
                     <h2 style={{color:"white",fontSize:25, margin:"28px 0px 0px 50px"}}>Costos extras</h2>
                 </div>
                 <div style={{marginTop: 95}}>
                     {costosExtras.map((data, i)=>{
+                        let key = "costoExtra"+i
                         return(
-                            <div style={CSS.boxCosto} className="boxCosto" key={i}>
+                            <div style={CSS.boxCosto} className="boxCosto" key={key}>
                                 <div>
                                     <section style={{display:"flex",marginTop:5}}>
                                         <FontAwesomeIcon style={{color:"#FF0015", marginTop: 3, marginRight:5}} icon={faPenToSquare}/>
@@ -123,12 +133,12 @@ class VentanaCostosExtras extends Component{
                                         <input onChange={(e)=> handleChangePrecio(e.target.value,i)} value={data.precioExtra} placeholder="0.00" style={{...CSS.inputCosto ,width:"100%", boxSizing: "border-box"}} type="number"/>
                                     </section>
                                 </div>
-                                <FontAwesomeIcon onClick={()=>{if(costosExtras.length>1)eliminarCosto(i)}} icon={faTrash} style={{color:"#BC0017",fontSize:23, marginLeft: 15, cursor: "pointer"}} />
+                                <FontAwesomeIcon onClick={eliminar(i)} icon={faTrash} style={{color:"#BC0017",fontSize:23, marginLeft: 15, cursor: "pointer"}} />
                             </div>
                         )
                     })}
                     <div style={{width: "100%", display: "flex", justifyContent: "end"}}>
-                        <FontAwesomeIcon icon={faCirclePlus} onClick={()=>{agregarCosto();}} style={{color: "#05BE50",fontSize:50, cursor: "pointer"}} />
+                        <FontAwesomeIcon icon={faCirclePlus} onClick={agregar()} style={{color: "#05BE50",fontSize:50, cursor: "pointer"}} />
                     </div>
                     
                 </div>

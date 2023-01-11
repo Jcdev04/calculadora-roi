@@ -2,11 +2,14 @@ import React, { useState} from "react"
 import VentanaPrincipal from "./ventana-principal"
 import Tabla from "./tabla"
 import { connect} from "react-redux"
-import { agregarProceso,eliminarProceso,modificarProceso1,modificarCheck, modificarInputs} from "../Reducers/inputs";
+import { agregarProceso,eliminarProceso,modificarProceso1,modificarCheck, modificarInputs, rotation} from "../Reducers/inputs";
 import '../Styles/show-more.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPlusCircle, faCaretDown, faTrash, faEdit} from "@fortawesome/free-solid-svg-icons"
 import VentanaExito from "./ventana-emergente/ventana-exito";
+import { motion,AnimatePresence } from "framer-motion/dist/framer-motion"
+
+
 const CSS = {
     button: {
         border: "none",
@@ -29,6 +32,25 @@ const CSS = {
         color: "#232323",
     }
 }
+const dropIn={
+    hidden:{
+        opacity: 0,
+        height: 0,
+    },
+    visible:{
+        opacity: 1,
+        transition:{
+            duration: 0.5,
+            type: "spring",
+            damping: 40,
+            stiffness: 500,
+        },
+        height: "auto",
+    },
+    exit:{
+        opacity: 0,
+    }
+}
 
 function ShowMore(props) {
         const todosProcesos = props.procesos.user.procesos
@@ -36,6 +58,7 @@ function ShowMore(props) {
         const [botonEditar2,setBotonEditar2] = useState(false);
 
         const [botonConfirmar,setBotonConfirmar] = useState(false);
+
         /* console.log(todosProcesos) */
         let objeto = {}
         const [index,setIndex] = useState(0)
@@ -58,24 +81,30 @@ function ShowMore(props) {
             }
         }
         /* DESPLEGAR */
-        const desplegar = (i)=>()=>{
+        const desplegar = (i, objeto)=>()=>{
             setBotonEditar2(true)
             handler(i)
+            props.rotation(i)
         }
         /* SUBMIT */
         const submit = (payload)=>{
             props.modificarInputs(parseInt(index),payload)
-            setBotonConfirmar(true);
         }
+
 
         return(
             <div className="principal-container">
                 {todosProcesos.map((data,i)=>{
                     let numeroProceso = `Proceso ${String(i+1).padStart(3, '0')}`
                     objeto = {...data}
-
                     return(
-                        <div className="proceso" style={{padding:"0 10px"}} key={numeroProceso}>
+                        <motion.div 
+                            variants={dropIn}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"    
+                            className="proceso" style={{padding:"0 10px"}} key={objeto.id}
+                        >
                             {/*NOMBRE DEL PROCESO*/}
                             <div className="CRUD-container">
                             {/* 1 */}
@@ -97,7 +126,7 @@ function ShowMore(props) {
                                     </button>
                                     <button  style={CSS.button} className="btnEliminar" onClick={eliminar(i)}>Eliminar</button>
                                     {/* DESPLEGAR */}
-                                    <FontAwesomeIcon onClick={desplegar(i)} icon={faCaretDown} style={{color:"#FC4D19", fontSize: 35, cursor: "pointer", margin: "0px 10px"}}/>
+                                    <FontAwesomeIcon onClick={desplegar(i, objeto.rotation)} icon={faCaretDown} style={{color:"#FC4D19", fontSize: 35, cursor: "pointer", margin: "0px 10px" , transform: (objeto.rotation?"rotate(180deg)":"rotate(0deg)"),transition: `all 200ms ease-in-out` }}/>
                                 </div>
                                 {/* 3 */}
                             </div>
@@ -106,20 +135,37 @@ function ShowMore(props) {
                                     <input className="c1-13" type="checkbox" checked={objeto.procesoComun} onChange={
                                     ()=>props.modificarCheck(i)
                                     }/>
-                                    <label for="c1-13"></label>
+                                    <label htmlFor="c1-13"></label>
                                 </div>
-                        </div>
+                        </motion.div>
                     )
                 }
                 )}
-                { (todosProcesos[parseInt(index)] != null) ? <Tabla index={index} trigger2={botonEditar2} setTrigger2={setBotonEditar2}/>: ""}
+                {/* TABLA */}
+                {
+                    (todosProcesos[parseInt(index)] !== null) &&
+                    <AnimatePresence
+                        initial = {false}
+                        exitBeforeEnter = {true}
+                        onExitComplete = {()=>null}
+                    >   
+                        {botonEditar2 && <Tabla index={index} trigger2={botonEditar2} setTrigger2={setBotonEditar2}/>}
+                    </AnimatePresence>
+                }
                 {/* VENTANA principal */}
-                <VentanaPrincipal index={parseInt(index)} FTEvalue={todosProcesos[parseInt(index)]} onSubmit={payload=>submit(payload)} trigger={botonEditar} setTrigger = {setBotonEditar}/>
+                <AnimatePresence
+                    initial = {false}
+                    exitBeforeEnter = {true}
+                    onExitComplete = {()=>null}
+                >   
+                    {botonEditar && <VentanaPrincipal index={parseInt(index)} FTEvalue={todosProcesos[parseInt(index)]} 
+                    onSubmit={payload=>(submit(payload))}  setTrigger = {setBotonEditar}/>}
+                </AnimatePresence>
                 {/* AGREGAR PROCESO */}
                 <div className="agregar-proceso" >
-                    <button style={{fontSize:17, display: "flex", alignItems: "center"}} onClick = {props.agregarProceso}><FontAwesomeIcon style={{color: "#4427F8", marginRight: 5}} icon={faPlusCircle}/> Agregar Proceso</button> 
+                    <button style={{fontSize:17, display: "flex", alignItems: "center"}} onClick = {props.agregarProceso}><FontAwesomeIcon style={{color: "#4427F8", marginRight: 5}} icon={faPlusCircle}/>Agregar Proceso</button> 
                 </div>
-                {/* VENTANA exito */} 
+                {/* VENTANA exito */}
                 <VentanaExito botonConfirmar={botonConfirmar} setBotonConfirmar={setBotonConfirmar} />
             </div>
     )
@@ -136,6 +182,7 @@ const mapDispatchToProps = dispatch =>({
     modificarProceso1: (payload,index) => dispatch(modificarProceso1(payload,index)),
     modificarCheck: (index) => dispatch(modificarCheck(index)),
     modificarInputs: (index,valores) => dispatch(modificarInputs(index,valores)),
+    rotation: (index) => dispatch(rotation(index)), 
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowMore);

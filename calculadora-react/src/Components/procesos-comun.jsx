@@ -3,6 +3,8 @@ import { connect} from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faDollarSign} from "@fortawesome/free-solid-svg-icons";
 import "../Styles/proceso-comun.css"
+import nanoid from 'nano-id';
+import { motion, AnimatePresence } from "framer-motion/dist/framer-motion";
 const CSS = {
     principalContainer:{
         maxWidth: 650,
@@ -37,16 +39,46 @@ const CSS = {
         justifyContent:"space-between"
     }
 }    
-class ProcesosComun extends Component{
-    
+const dropIn={
+    hidden:{
+        opacity: 0,
+        y: "-100px"
+    },
+    visible:{
+        opacity: 1,
+        transition:{
+            duration: 0.5,
+            type: "spring",
+            damping: 40,
+            stiffness: 500,
+        },
+        y: "0px",
+    },
+    exit:{
+        opacity: 0,
+        y: "-15px",
+    }
+}
 
+class ProcesosComun extends Component{
     render(){
         const {procesos} = this.props
         let arreglo = procesos.user.procesos.filter((i)=>i.procesoComun)
         let sumaTotal =0;
-        return(arreglo.length>0 ? (
+        return(
+        <AnimatePresence
+            initial = {false}
+            exitBeforeEnter = {true}
+            onExitComplete = {()=>null}
+        >
+            {arreglo.length>0 && (
             <div style={{ padding: "0 10px"}}>
-            <div className="contenedorPrincipal" style={CSS.principalContainer}>
+            <motion.div 
+                variants={dropIn}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+            className="contenedorPrincipal" style={CSS.principalContainer}>
                 <h1 style={CSS.titulo}>Procesos en común:</h1>
                 <p style={CSS.subtitulo}>Selecciona los procesos que consideres en común y obtén la suma de sus precios</p>
                 {
@@ -62,9 +94,8 @@ class ProcesosComun extends Component{
                             total=0
                         }
                         sumaTotal+=total
-                        let key = "Proceso"+i
                         return(
-                            <div key={key} style={CSS.boxProceso}>
+                            <div key={`${nanoid(4)}`} style={CSS.boxProceso}>
                                 <h2 style={CSS.precios}>{valores.nombreProceso!==""?`${valores.nombreProceso}`:`Proceso ${String(i+1).padStart(3, '0')}`}</h2>
                                 <h2 style={CSS.precios}><FontAwesomeIcon style={{color:"#43CA40"}} icon={faDollarSign}/>{total.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>
                             </div>
@@ -75,9 +106,11 @@ class ProcesosComun extends Component{
                     <h2 style={{...CSS.precios, color: "#FC4D19", fontWeight: 500}}>Suma total</h2>
                     <h2 style={{...CSS.precios, color: "#FC4D19", fontWeight: 500}}><FontAwesomeIcon style={{color:"#43CA40"}} icon={faDollarSign}/>{sumaTotal.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>
                 </div>
+            </motion.div>
             </div>
-            </div>
-        ):"")
+            )}
+        </AnimatePresence>
+        )
     }
 }
 

@@ -5,10 +5,14 @@ import '../Styles/ventana-principal.css';
 import ventanaPrincipalComponent from './input-component/ventanaPrincipal-input';
 import {reset} from 'redux-form';
 import VentanaFTE from './ventana-fte'
-import { modificarTabla } from "../Reducers/inputs";
+import { modificarTabla} from "../Reducers/inputs";
 import VentanaCostosExtras from './ventana-costosExtras'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCircleXmark,faPlusCircle, faUsers, faStopwatch, faMoneyBillWave, faRobot} from "@fortawesome/free-solid-svg-icons"
+import {motion} from "framer-motion/dist/framer-motion"
+
+
+
 const validate= values=> {
     const errors= {};
     if(!values.nPersonas){
@@ -172,6 +176,43 @@ const procesarDatos = (valores)=>{
     tabla.fila5_Y5=(((tabla.fila1_Y1Y5-mantenimiento)*4 + tabla.fila4_Y1) / (tabla.fila3_Y1 + (mantenimiento*4))*100)
     return tabla;
 }
+const dropIn={
+    hidden:{
+        opacity: 0,
+    },
+    visible:{
+        opacity: 1,
+        transition:{
+            duration: 0.1,
+            type: "spring",
+            damping: 50,
+            stiffness: 500,
+        }
+    },
+    exit:{
+        opacity: 0,
+    }
+}
+const dropInWindows={
+    hidden:{
+        opacity: 0,
+        y: "100px"
+    },
+    visible:{
+        y:"0",
+        opacity: 1,
+        transition:{
+            duration: 0.1,
+            type: "spring",
+            damping: 40,
+            stiffness: 500,
+        }
+    },
+    exit:{
+        opacity: 0,
+        y: "100vh"
+    }
+}
 
 class VentanaPrincipal extends Component{
     constructor(props){
@@ -186,21 +227,25 @@ class VentanaPrincipal extends Component{
         const botonCerrar = () =>{
             setTrigger(false)
             dispatch(reset('v_principal'))
+            
         }
-        const abrirFTE = () =>{
+        const abrirFTE = () =>()=>{
             this.setState(state=>({
                 popUp: !state.popUp
             }))
         }
         
-        const abrirCostosExtras = () =>{
+        const abrirCostosExtras = ()=>()=>{
             this.setState(state=>({
                 popUp2: !state.popUp2
             }))
         }
+        const cerrar=()=>()=>{
+            botonCerrar();
+            this.props.modificarTabla(index,procesarDatos(FTEvalue))
+        }
 
-        const {trigger
-                ,setTrigger
+        const { setTrigger
                 ,handleSubmit
                 ,dispatch
                 ,pristine
@@ -222,88 +267,106 @@ class VentanaPrincipal extends Component{
             if(isNaN(FTEresultado)){
                 FTEresultado = 0
             }
-            return (
-                <div style={CSS.formCostosROI}>
-                    {/* BOTONCERRAR */}
-                    <div style={{marginBottom: 10}}>
-                        <FontAwesomeIcon style={CSS.btnCerrar} onClick={()=>{
-                            botonCerrar();
-                            this.props.modificarTabla(index,procesarDatos(FTEvalue))
-                        }} icon={faCircleXmark} />
-                    </div>
-                    {/* NPERSONAS */}
-                    <div style={CSS.inputBoxes}>
-                    <Field style={{...CSS.inputs, ...CSS.inputStyle}} icono={faUsers} iconoEstilo={{...CSS.iconStyle, color: "#FC4D19"}} name="nPersonas" type="number" component={ventanaPrincipalComponent} placeholder="0"
-                    title="¿Cuántas personas están actualmente trabajando en esta actividad?" />
-                    </div>
-                    {/* FTE */}
-                    <div style={{...CSS.inputBoxes, backgroundColor: "#5F0DFC", borderRadius: 15, padding: "10px 15px 15px 15px"}}>
-                        <p style={{marginBottom: 8, marginTop:0 , color: "white"}} htmlFor=""><FontAwesomeIcon style={{...CSS.iconStyle, color: "#FCCA3E"}} icon={faStopwatch}/>Porcentaje de tiempo invertido diariamente por las personas
-                        </p>
-                        <div style={CSS.porcentajeBox}>
-                            <button onClick={()=>abrirFTE()} style={{...CSS.btnRegistrar,...CSS.btnGeneral}} type="button">Registrar</button>
-                            {/* Este input se cambia automáticamente */}
-                            <div style={CSS.porcentajeFTE} name="FTE" type="number">
-                                {/* MOSTRANDO el resultado de calcular el FTE */}
-                                <h1 style={{fontSize: 22, margin: 0}}>{FTEresultado}%</h1>
-                                </div>
+            return ( 
+                <motion.div
+                    variants={dropInWindows}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                > 
+                    <div style={CSS.formCostosROI}>
+                        {/* BOTONCERRAR */}
+                        <div style={{marginBottom: 10}}>
+                            <FontAwesomeIcon style={CSS.btnCerrar} onClick={cerrar()} icon={faCircleXmark} />
+                        </div>
+                        {/* NPERSONAS */}
+                        <div style={CSS.inputBoxes}>
+                        <Field style={{...CSS.inputs, ...CSS.inputStyle}} icono={faUsers} iconoEstilo={{...CSS.iconStyle, color: "#FC4D19"}} name="nPersonas" type="number" component={ventanaPrincipalComponent} placeholder="0"
+                        title="¿Cuántas personas están actualmente trabajando en esta actividad?" />
+                        </div>
+                        {/* FTE */}
+                        <div style={{...CSS.inputBoxes, backgroundColor: "#5F0DFC", borderRadius: 15, padding: "10px 15px 15px 15px"}}>
+                            <p style={{marginBottom: 8, marginTop:0 , color: "white"}} htmlFor=""><FontAwesomeIcon style={{...CSS.iconStyle, color: "#FCCA3E"}} icon={faStopwatch}/>Porcentaje de tiempo invertido diariamente por las personas
+                            </p>
+                            <div style={CSS.porcentajeBox}>
+                                <button onClick={abrirFTE()} style={{...CSS.btnRegistrar,...CSS.btnGeneral}} type="button">Registrar</button>
+                                {/* Este input se cambia automáticamente */}
+                                <div style={CSS.porcentajeFTE} name="FTE" type="number">
+                                    {/* MOSTRANDO el resultado de calcular el FTE */}
+                                    <h1 style={{fontSize: 22, margin: 0}}>{FTEresultado}%</h1>
+                                    </div>
+                            </div>
+                        </div>
+                        {/* SALARIOPROMEDIO */}
+                        <div style={CSS.inputBoxes}>
+                        <Field style={{...CSS.inputs, ...CSS.inputStyle}} icono={faMoneyBillWave} iconoEstilo={{...CSS.iconStyle, color:"#05BE50"}} name="salarioPromedio" type="number" component={ventanaPrincipalComponent} placeholder="0" title="Salario promedio mensual de las personas que realizan esta operación"/>
+                        <div>
+                        </div>
+                        </div>
+                        {/* COSTOIMPLEMENTACION */}
+                        <div style={CSS.inputBoxes}>
+                            <Field style={{...CSS.inputs,...CSS.inputStyle}} icono={faRobot}  iconoEstilo={{...CSS.iconStyle, color:"#4427F8"}} name="costoImplementacion" type="number" component={ventanaPrincipalComponent} placeholder="0" title="Estimación del costo por la implementación del robot"/>
+                        </div>
+                        {/* AGREGARCOSTOS */}
+                        <div style={{...CSS.inputBoxes, marginTop: 35, display: "flex", justifyContent: "center"}}>
+                            <button onClick={abrirCostosExtras()} style={{...CSS.btnAgregarCostos,...CSS.btnGeneral}} type="button">
+                                <FontAwesomeIcon  icon={faPlusCircle} style={{color: "#4427F8", marginRight: 5, fontSize: 17}}/>
+                                Agregar costos extras
+                                </button>
+                        </div>
+                        {/* BOTONCALCULAR */}
+                        <div style={{marginTop: 30, marginBottom: 3, display: "flex", justifyContent: "center"}}>
+                            <button className="btnCalcular" disabled={(pristine || submitting)}>Calcular</button>
                         </div>
                     </div>
-                    {/* SALARIOPROMEDIO */}
-                    <div style={CSS.inputBoxes}>
-                    <Field style={{...CSS.inputs, ...CSS.inputStyle}} icono={faMoneyBillWave} iconoEstilo={{...CSS.iconStyle, color:"#05BE50"}} name="salarioPromedio" type="number" component={ventanaPrincipalComponent} placeholder="0" title="Salario promedio mensual de las personas que realizan esta operación"/>
-                    <div>
-                    </div>
-                    </div>
-                    {/* COSTOIMPLEMENTACION */}
-                    <div style={CSS.inputBoxes}>
-                        <Field style={{...CSS.inputs,...CSS.inputStyle}} icono={faRobot}  iconoEstilo={{...CSS.iconStyle, color:"#4427F8"}} name="costoImplementacion" type="number" component={ventanaPrincipalComponent} placeholder="0" title="Estimación del costo por la implementación del robot"/>
-                    </div>
-                    {/* AGREGARCOSTOS */}
-                    <div style={{...CSS.inputBoxes, marginTop: 35, display: "flex", justifyContent: "center"}}>
-                        <button onClick={()=>abrirCostosExtras()} style={{...CSS.btnAgregarCostos,...CSS.btnGeneral}} type="button">
-                            <FontAwesomeIcon  icon={faPlusCircle} style={{color: "#4427F8", marginRight: 5, fontSize: 17}}/>
-                            Agregar costos extras
-                            </button>
-                    </div>
-                    {/* BOTONCALCULAR */}
-                    <div style={{marginTop: 30, marginBottom: 3, display: "flex", justifyContent: "center"}}>
-                        <button className="btnCalcular" disabled={(pristine || submitting)}>Calcular</button>
-                    </div>
-                </div>
+                </motion.div>
             )
         }
         const ventanaFTE = ()=>{
             return(
+                <motion.div
+                    variants={dropInWindows}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                >    
                 <div style={{...CSS.formCostosROI,width:280, padding:"20px 40px"}}>
-                    <VentanaFTE Pristine={pristine} rendimiento={FTEvalue.FTE.rateEmpleado} Submitting={submitting} estilos={CSS} openVentanaFTE={abrirFTE}/>
+                    <VentanaFTE Pristine={pristine} rendimiento={FTEvalue.FTE.rateEmpleado} Submitting={submitting} estilos={CSS} openVentanaFTE={abrirFTE()}/>
                 </div>
+                </motion.div>
             )
         }
 
         const ventanaCostosExtras = () =>{
             return(
-                <div style={{...CSS.formCostosROI, width:280, padding:"10px 20px", overflow:"hidden"}}>
-                    <VentanaCostosExtras index={index} actualizarCostosExtras={[...FTEvalue.costosExtras]} openVentanaCostosExtras= {abrirCostosExtras} />
-                </div> 
+                <motion.div
+                    variants={dropInWindows}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                >    
+                    <div style={{...CSS.formCostosROI, width:280, padding:"10px 20px", overflow:"hidden"}}>
+                        <VentanaCostosExtras index={index} actualizarCostosExtras={[...FTEvalue.costosExtras]} openVentanaCostosExtras={abrirCostosExtras()} />
+                    </div>
+                </motion.div>    
             )
         }
-        const popUps = ()=>{
-            if(popUp){
-                return ventanaFTE()
-            }
-            if(popUp2){
-                return ventanaCostosExtras()
-            }
-            return ventanaPrincipal()
-        }
         /* FUNCION PRINCIPAL */
-        if(trigger){
-            return(
-            <form style={CSS.principalBox} onSubmit={handleSubmit}>
-                {popUps()}
-            </form>)}
-        }
+            return(            
+                    <motion.div
+                    variants ={dropIn}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    >
+                        <form style={CSS.principalBox} onSubmit={handleSubmit}>    
+                            {popUp && ventanaFTE()}
+                            {popUp2 && ventanaCostosExtras()}
+                            {(!popUp && !popUp2) && ventanaPrincipal()}
+                        </form>
+                    </motion.div>
+                    )
+    }
 }
 const mapStateToProps = (state,ownProps) => {
     // Specify which pieces of state you want to pass down to your component as props
@@ -330,7 +393,7 @@ const mapStateToProps = (state,ownProps) => {
     }
 }
 const mapDispatchToProps = dispatch =>( {
-    modificarTabla: (index,tabla) => dispatch(modificarTabla(index,tabla))
+    modificarTabla: (index,tabla) => dispatch(modificarTabla(index,tabla)),
 })
 
 

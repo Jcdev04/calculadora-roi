@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import '../Styles/tabla.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { rotation } from "../Reducers/inputs";
 import { faCircleXmark, faCircleInfo, faEye} from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import VentanaFormula from "./ventana-emergente/ventana-formula"
@@ -10,6 +10,7 @@ import VentanaDatosBrutos from "./ventana-datosBrutos"
 import {Swiper, SwiperSlide} from "swiper/react"
 import { Pagination } from "swiper";
 import 'swiper/swiper-bundle.min.css'
+import {motion, AnimatePresence} from "framer-motion/dist/framer-motion"
 
 
 const CSS={    
@@ -72,7 +73,25 @@ const CSS={
         cursor: "pointer"
     }
 }
- class Tabla extends Component {
+const dropIn={
+    hidden:{
+        opacity: 0,
+    },
+    visible:{
+        opacity: 1,
+        transition:{
+            duration: 0.1,
+            type: "spring",
+            damping: 50,
+            stiffness: 500,
+        }
+    },
+    exit:{
+        opacity: 0,
+    }
+}
+
+class Tabla extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -141,7 +160,7 @@ const CSS={
 
     
     render(){
-        const {trigger2, setTrigger2,tabla, index} = this.props
+        const {setTrigger2,tabla, index} = this.props
         /* Extraemos la tabla */
         const { trigger,triggerDB, content, contentMostrarAux} = this.state
 
@@ -177,112 +196,131 @@ const CSS={
             return notANumber ? `${valor.toFixed()}%`: "-" 
         }
 
-        if(trigger2){ 
-            return(
-            <div style={CSS.principalBox}>  
-            <div style={CSS.containerBotones}>
-                {/* VENTANA DATOS BRUTOS */}
-                <button style={CSS.verDatos} onClick={setTriggerDB()}>
-                    <FontAwesomeIcon style={{marginRight:5}} icon={faEye}/>
-                    Ver datos
-                </button>
-                {/* VENTANA DATOS BRUTOS */}
-                <button style={CSS.close} onClick={()=>setTrigger2(false)}>
-                    <FontAwesomeIcon style={{marginRight:5}} icon={faCircleXmark} />
-                    Cerrar
-                </button>  
-            </div>
-            <div style={{...CSS.tabla,margin:10}} className="tabla">
-                <div className="items">
-                    <div className="cabecera-box"><h2 className="cabecera">Ítems</h2></div>
-                    <div className="item1 "><p><FontAwesomeIcon onClick={setTrigger(content.costoAnual)} style={CSS.moreInfo} icon={faCircleInfo} />Costos anuales por las horas dedicadas a realizar este trabajo</p></div>
-                    <div className="item2 "><p><FontAwesomeIcon onClick={setTrigger(content.horasAnuales)} style={CSS.moreInfo} icon={faCircleInfo} />Horas dedicadas a esta actividad en cada año por todos los trabajadores</p></div>
-                    <div className="item3 "><p><FontAwesomeIcon onClick={setTrigger(content.costoRobot)} style={CSS.moreInfo} icon={faCircleInfo} />Costo total anual por implementación del bot (1 año) mantenimiento (+5 años)</p></div>                
-                    <div className="item4 net-roi"><p><FontAwesomeIcon onClick={setTrigger(content.netROI)} style={CSS.moreInfo} icon={faCircleInfo} />Net ROI</p></div>
-                    <div className="item5 roi-acumulado"><p><FontAwesomeIcon onClick={setTrigger(content.ROIAcumulado1)} style={{...CSS.moreInfo, color:"#FC4D19"}} icon={faCircleInfo} /> <FontAwesomeIcon onClick={setTrigger(content.ROIAcumulado2_5)} style={{...CSS.moreInfo, color: "FFD848"}} icon={faCircleInfo}/>ROI acumulado anual</p></div>  
+        return(
+            <motion.div
+                    variants={dropIn}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                > 
+                <div style={CSS.principalBox}>  
+                <div style={CSS.containerBotones}>
+                    {/* VENTANA DATOS BRUTOS */}
+                    <button style={CSS.verDatos} onClick={setTriggerDB()}>
+                        <FontAwesomeIcon style={{marginRight:5}} icon={faEye}/>
+                        Ver datos
+                    </button>
+                    {/* VENTANA DATOS BRUTOS */}
+                    <button style={CSS.close} onClick={()=>{
+                        setTrigger2(false);
+                        this.props.rotation(index)
+                    }}>
+                        <FontAwesomeIcon style={{marginRight:5}} icon={faCircleXmark} />
+                        Cerrar
+                    </button>  
                 </div>
-                <Swiper slidesPerView={6}
-                    spaceBetween={0}
-                    pagination={{
-                      clickable: true,
-                    }}
-                    breakpoints={{
-                      240: {
-                        slidesPerView: 1,
-                      },
-                      400:{
-                        slidesPerView: 2,
-                      },
-                      500:{
-                        slidesPerView: 3,
-                      },
-                      678: {
-                        slidesPerView: 4,
-                      },
-                      850: {
-                        slidesPerView: 6,
-                      },
-                    }}
-                    modules={[Pagination]}
-                    className="mySwiper"
+                <div style={{...CSS.tabla,margin:10}} className="tabla">
+                    <div className="items">
+                        <div className="cabecera-box"><h2 className="cabecera">Ítems</h2></div>
+                        <div className="item1 "><p><FontAwesomeIcon onClick={setTrigger(content.costoAnual)} style={CSS.moreInfo} icon={faCircleInfo} />Costos anuales por las horas dedicadas a realizar este trabajo</p></div>
+                        <div className="item2 "><p><FontAwesomeIcon onClick={setTrigger(content.horasAnuales)} style={CSS.moreInfo} icon={faCircleInfo} />Horas dedicadas a esta actividad en cada año por todos los trabajadores</p></div>
+                        <div className="item3 "><p><FontAwesomeIcon onClick={setTrigger(content.costoRobot)} style={CSS.moreInfo} icon={faCircleInfo} />Costo total anual por implementación del bot (1 año) mantenimiento (+5 años)</p></div>                
+                        <div className="item4 net-roi"><p><FontAwesomeIcon onClick={setTrigger(content.netROI)} style={CSS.moreInfo} icon={faCircleInfo} />Net ROI</p></div>
+                        <div className="item5 roi-acumulado"><p><FontAwesomeIcon onClick={setTrigger(content.ROIAcumulado1)} style={{...CSS.moreInfo, color:"#FC4D19"}} icon={faCircleInfo} /> <FontAwesomeIcon onClick={setTrigger(content.ROIAcumulado2_5)} style={{...CSS.moreInfo, color: "FFD848"}} icon={faCircleInfo}/>ROI acumulado anual</p></div>  
+                    </div>
+                    <Swiper slidesPerView={6}
+                        spaceBetween={0}
+                        pagination={{
+                        clickable: true,
+                        }}
+                        breakpoints={{
+                        240: {
+                            slidesPerView: 1,
+                        },
+                        400:{
+                            slidesPerView: 2,
+                        },
+                        500:{
+                            slidesPerView: 3,
+                        },
+                        678: {
+                            slidesPerView: 4,
+                        },
+                        850: {
+                            slidesPerView: 6,
+                        },
+                        }}
+                        modules={[Pagination]}
+                        className="mySwiper"
+                    >
+                        <SwiperSlide>
+                            <div className="cabecera-box"><h2 className="cabecera">1 AÑO</h2></div>
+                            <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                            <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                            <div className="item3"><h3>{escribir(tabla.fila3_Y1)}</h3></div>                
+                            <div className="item4"><h3>{escribir(tabla.fila4_Y1)}</h3></div>
+                            <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y1)}</h3></div>                                           
+                        </SwiperSlide>               
+                        <SwiperSlide>
+                            <div className="cabecera-box"><h2 className="cabecera">2 AÑOS</h2></div>
+                            <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                            <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                            <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
+                            <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
+                            <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y2)}</h3></div>                                         
+                        </SwiperSlide>               
+                        <SwiperSlide>
+                            <div className="cabecera-box"><h2 className="cabecera">3 AÑOS</h2></div>
+                            <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                            <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                            <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
+                            <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
+                            <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y3)}</h3></div>                                           
+                        </SwiperSlide>               
+                        <SwiperSlide>
+                            <div className="cabecera-box"><h2 className="cabecera">4 AÑOS</h2></div>
+                            <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                            <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                            <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
+                            <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
+                            <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y4)}</h3></div>                                         
+                        </SwiperSlide>               
+                        <SwiperSlide>
+                            <div className="cabecera-box"><h2 className="cabecera">5 AÑOS</h2></div>
+                            <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
+                            <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
+                            <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
+                            <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
+                            <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y5)}</h3></div>                                     
+                        </SwiperSlide>               
+                        <SwiperSlide>
+                            <div className="cabecera-box"><h2 className="cabecera">5 AÑOS EN TOTAL</h2></div>
+                            <div className="item1"><h3>{escribir(tabla.fila1_Suma)}</h3></div>
+                            <div className="item2"><h3>{escribirHoras(tabla.fila2_Suma)}</h3></div>
+                            <div className="item3"><h3>{escribir(tabla.fila3_Suma)}</h3></div>                
+                            <div className="item4"><h3>{escribir(tabla.fila4_Suma)}</h3></div>
+                            <div className="item5"><h3>-</h3></div>                                         
+                        </SwiperSlide>               
+                    </Swiper>
+                </div>
+                <AnimatePresence
+                    initial = {false}
+                    exitBeforeEnter = {true}
+                    onExitComplete = {()=>null}
                 >
-                    <SwiperSlide>
-                        <div className="cabecera-box"><h2 className="cabecera">1 AÑO</h2></div>
-                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
-                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
-                        <div className="item3"><h3>{escribir(tabla.fila3_Y1)}</h3></div>                
-                        <div className="item4"><h3>{escribir(tabla.fila4_Y1)}</h3></div>
-                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y1)}</h3></div>                                           
-                    </SwiperSlide>               
-                    <SwiperSlide>
-                        <div className="cabecera-box"><h2 className="cabecera">2 AÑOS</h2></div>
-                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
-                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
-                        <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
-                        <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
-                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y2)}</h3></div>                                         
-                    </SwiperSlide>               
-                    <SwiperSlide>
-                        <div className="cabecera-box"><h2 className="cabecera">3 AÑOS</h2></div>
-                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
-                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
-                        <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
-                        <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
-                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y3)}</h3></div>                                           
-                    </SwiperSlide>               
-                    <SwiperSlide>
-                        <div className="cabecera-box"><h2 className="cabecera">4 AÑOS</h2></div>
-                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
-                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
-                        <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
-                        <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
-                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y4)}</h3></div>                                         
-                    </SwiperSlide>               
-                    <SwiperSlide>
-                        <div className="cabecera-box"><h2 className="cabecera">5 AÑOS</h2></div>
-                        <div className="item1"><h3>{escribir(tabla.fila1_Y1Y5)}</h3></div>
-                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3></div>
-                        <div className="item3"><h3>{escribir(tabla.fila3_Y2Y5)}</h3></div>                
-                        <div className="item4"><h3>{escribir(tabla.fila4_Y2Y5)}</h3></div>
-                        <div className="item5"><h3>{escribirPorcentaje(tabla.fila5_Y5)}</h3></div>                                     
-                    </SwiperSlide>               
-                    <SwiperSlide>
-                        <div className="cabecera-box"><h2 className="cabecera">5 AÑOS EN TOTAL</h2></div>
-                        <div className="item1"><h3>{escribir(tabla.fila1_Suma)}</h3></div>
-                        <div className="item2"><h3>{escribirHoras(tabla.fila2_Suma)}</h3></div>
-                        <div className="item3"><h3>{escribir(tabla.fila3_Suma)}</h3></div>                
-                        <div className="item4"><h3>{escribir(tabla.fila4_Suma)}</h3></div>
-                        <div className="item5"><h3>-</h3></div>                                         
-                    </SwiperSlide>               
-                </Swiper>
-            </div>
-
-            <VentanaFormula contentMostrar={contentMostrarAux} trigger={trigger} setTrigger={setTrigger()} />    
-            <VentanaDatosBrutos index={index} trigger={triggerDB} setTrigger={setTriggerDB()}/>
-            </div>
-        )}else {
-            return ""
-        };
+                    {trigger && <VentanaFormula contentMostrar={contentMostrarAux} setTrigger={setTrigger()}/>}    
+                </AnimatePresence>
+                
+                <AnimatePresence
+                    initial = {false}
+                    exitBeforeEnter = {true}
+                    onExitComplete = {()=>null}
+                >
+                    {triggerDB && <VentanaDatosBrutos index={index} setTrigger={setTriggerDB()}/>}
+                </AnimatePresence>
+                </div>
+            </motion.div>
+        )
     }
 }
 
@@ -296,4 +334,10 @@ const mapStateToProps = (state,ownProps)=>{
         return {tabla: {}}
     }   
 } 
-export default connect(mapStateToProps)(Tabla);
+
+const mapDispatchToProps = dispatch =>( {
+    rotation: (index) => dispatch(rotation(index)),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tabla);

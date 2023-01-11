@@ -17,7 +17,7 @@ class App extends Component {
       const {nombre, nombreEmpresa} = this.state
       return (
         <div className="App">
-          <VentanaInicio /> 
+          {/* <VentanaInicio /> */}
           <ShowMore/>
           <ProcesosComun/>
         </div>  

@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPersonDigging, faPercent, faBagShopping, faRobot, faMoneyBill, faAngleDown, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import "../Styles/ventana-datos-brutos.css";
+import nanoid from 'nano-id';
+import {motion} from "framer-motion/dist/framer-motion"
+
 
 const CSS={
     principalBox:{
@@ -100,6 +103,24 @@ const CSS={
         padding: 10,
     },
 }
+const dropIn={
+    hidden:{
+        opacity: 0,
+    },
+    visible:{
+        opacity: 1,
+        transition:{
+            duration: 0.1,
+            type: "spring",
+            damping: 50,
+            stiffness: 500,
+        }
+    },
+    exit:{
+        opacity: 0,
+        y: "100vh",
+    }
+}
 
 class VentanaDatosBrutos extends Component{
     constructor(props){
@@ -122,10 +143,22 @@ class VentanaDatosBrutos extends Component{
         }
     }
     
-    
     render(){
-        const {trigger,setTrigger, datos} = this.props;
-        const {verMas1, verMas2, rotateVM1, rotateVM2, active1, active2, active3, active4, active5, rotate1, rotate2, rotate3, rotate4, rotate5} = this.state;
+        const {setTrigger, datos} = this.props;
+        const {verMas1, 
+               verMas2, 
+               rotateVM1, 
+               rotateVM2, 
+               active1, 
+               active2, 
+               active3, 
+               active4, 
+               active5, 
+               rotate1, 
+               rotate2, 
+               rotate3, 
+               rotate4, 
+               rotate5} = this.state;
         
         function escribir(valor){
             return (valor===undefined||isNaN(valor)? 0 : valor)
@@ -178,10 +211,20 @@ class VentanaDatosBrutos extends Component{
                 rotateVM2: state.rotateVM2===0 ? 180 : 0,
             }))
         }
-
-        return( trigger ?
-            <div style={CSS.principalBox}>
-                <div className='container-tabla' style={CSS.containerTabla}>
+        return(
+            <motion.div style={CSS.principalBox}
+                initial={{opacity:0}}
+                animate={{opacity:1}}
+                exit={{opacity:0}}
+            >
+                <motion.div 
+                    variants={dropIn}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className='container-tabla'
+                    style={CSS.containerTabla}
+                >
                     <div className='container-circle' style={CSS.containerCircle}>
                         <h2 className="title-circle" style={CSS.titleCirle}>Resumen</h2>
                     </div>
@@ -218,15 +261,14 @@ class VentanaDatosBrutos extends Component{
                             </div>
                             
                             {/* VERMAS 1 NOMBRES*/}
-                            {verMas1?
+                            {verMas1&&
                             <div style={CSS.verMasContainer}>
                                 <p>N° de operaciones diarias por persona </p>
                                 <p>Horas trabajadas por día</p>
                                 <p>Días laborables por semana</p>
                                 <p>Tiempo por operación en minutos</p>
                                 <p>Desempeño del encargado del proceso</p>
-                            </div> 
-                            :""}
+                            </div>}
 
                             {/* TERCERAFILA */}
                             <div className="content" style={CSS.content1}>
@@ -269,18 +311,16 @@ class VentanaDatosBrutos extends Component{
                             </div>
                             </div>
                             {/* VERMAS 2 Nombres */}
-                            {verMas2?
+                            {verMas2&&
                             <div style={{...CSS.verMasContainer,height: 120}}>
                                 {
-                                    datos.costosExtras.map((item,index)=>{
-                                        let key = "CostoExtra"+index;
+                                    datos.costosExtras.map((item,index)=>{ 
                                         return(
-                                            <p key={key}>{item.nombreExtra}</p>
+                                            <p key={`${nanoid(4)}`}>{item.nombreExtra}</p>
                                         )
                                     })
                                 }
-                            </div> 
-                            :""}
+                            </div>}
                         </div>
                         {/* SEGUNDA COLUMNA */}
                         <div className='eliminar' style={{borderRight:"solid 1px #EFEFEF"}}>
@@ -289,59 +329,52 @@ class VentanaDatosBrutos extends Component{
                             <div style={{...CSS.content2, justifyContent:"center"}}><p>{escribir(datos.tabla.FTEresultado)*100}%</p></div>
                             
                             {/* VERMAS 1 VALORES */}
-                            {verMas1?
+                            {verMas1&&
                             <div style={{...CSS.verMasContainer, textAlign: "center"}}>
                                 <p>{datos.FTE.nOpDiarias}</p>
                                 <p>{datos.FTE.hTrabajadasXDia}</p>
                                 <p>{datos.FTE.dLaborablesXSemana}</p>
                                 <p>{datos.FTE.tXOperacionMinutos}</p>
                                 <p>{((datos.FTE.rateEmpleado-0.68)/0.022).toFixed(1)}</p>
-                            </div> 
-                            :""}
+                            </div>}
                             
                             <div style={{...CSS.content1, justifyContent:"center"}}><p>${datos.salarioPromedio}</p></div>
                             <div style={{...CSS.content2, justifyContent:"center"}}><p>${datos.costoImplementacion}</p></div>
                             <div style={{...CSS.content1, justifyContent:"center"}}><p>${escribir(datos.tabla.mantenimiento)}</p></div>
                             {/* VERMAS 2  */}
-                            {verMas2?
+                            {verMas2&&
                             <div style={{...CSS.verMasContainer,height: 120, textAlign: "center"}}>
                                 {
-                                    datos.costosExtras.map((item,index)=>{
-                                        let key = "CostoExtra"+index;
+                                    datos.costosExtras.map((item)=>{
                                         return(
-                                            <p key={key}>{item.precioExtra}</p>
+                                            <p key={`${nanoid(4)}`}>{item.precioExtra}</p>
                                         )
                                     })
                                 }
-                            </div> 
-                            :""}
+                            </div>}
                         </div>
                         {/* TERCERA COLUMNA */}
                         <div className='eliminar'>
                             <div className='cabecera-2' style={CSS.header}><h2 style={CSS.headerFont}>INFO.</h2></div>
                             <div style={{...CSS.content1,justifyContent:"center"}}></div>
                             <div style={{...CSS.content2,justifyContent:"center"}}><p onClick={cerrarVerMas1()} style={CSS.verMas}>Ver más <FontAwesomeIcon style={{transform: `rotate(${rotateVM1}deg)`}} className="animarFaAngle" icon={faAngleDown}/></p></div>
-                            
                             {/* VERMAS 1 box */}
-                            {verMas1?
-                            <div style={{height: 120}}>
-                            </div> 
-                            :""}
+                            {verMas1&&
+                            <div style={{height: 108}}>
+                            </div>}
 
                             <div style={{...CSS.content1,justifyContent:"center"}}></div>
                             <div style={{...CSS.content2,justifyContent:"center"}}></div>
                             <div style={{...CSS.content1,justifyContent:"center"}}><p onClick={cerrarVerMas2()} style={CSS.verMas}>Ver más <FontAwesomeIcon style={{transform: `rotate(${rotateVM2}deg)`}} className="animarFaAngle" icon={faAngleDown}/></p></div>
                             {/* VERMAS 2 box */}
-                            {verMas2?
+                            {verMas2&&
                             <div style={{height: 120}}>
-                            </div> 
-                            :""}
+                            </div>}
                         </div>
                     </div>
                     <button style={CSS.btnCerrar} onClick={setTrigger}>Cerrar</button>
-                </div>
-            </div>: ""
-        )
+                </motion.div>
+            </motion.div>)
     }
 }
 const mapStateToProps = (state,ownProps)=>{

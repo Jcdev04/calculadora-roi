@@ -203,3 +203,42 @@
 .agregar-proceso button:hover{
     background-color: #4ee34c;
 }
+/* ENTER */
+.v_principal-enter,.v_exito-enter,.tabla-enter{
+  opacity: 0;
+}
+.v_principal-enter-active,.v_exito-enter-active,.tabla-enter-active{
+  opacity: 1;
+  transition: opacity 500ms;
+}
+.v_principal-enter-done,.v_exito-enter-done,.tabla-enter-done{
+  opacity: 1;
+}
+.fade-appear {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.fade-appear-active{
+  opacity: 1;
+  height: 60px;
+  transition: opacity 175ms cubic-bezier(0.075, 0.82, 0.165, 1),height 175ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.fade-appear-done{
+  opacity: 1;
+  height: 60px;
+}
+/* EXIT */
+.v_principal-exit, .v_exito-exit, .tabla-exit{
+  opacity: 1;
+}
+.v_principal-exit-active,.v_exito-exit-active,.tabla-exit-active{
+  opacity: 0;
+  transition: opacity 500ms;
+}
+.v_principal-exit-done,.v_exito-exit-done,.tabla-exit-done{
+  opacity: 0;
+}
+
