@@ -1,0 +1,53 @@
+.implementar-container {
+  padding: 0px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.implementar {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  gap: 40px;
+}
+.implementar .first-section {
+  width: 65%;
+}
+.implementar .first-section h3 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 30px;
+}
+.implementar .first-section p {
+  font-size: 20px;
+  margin-bottom: 60px;
+  text-align: justify;
+}
+.button-group-4 {
+  display: flex;
+  justify-content: center;
+}
+.button-group-4 button {
+  font-size: 20px;
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid #000;
+  background-color: white;
+  font-weight: bold;
+  transition: var(--default-animation);
+}
+.button-group-4 button:hover {
+  background-color: black;
+  color: white;
+}
+.implementar .second-section {
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.implementar .second-section img {
+  width: 100%;
+}

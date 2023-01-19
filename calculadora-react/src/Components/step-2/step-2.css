@@ -1,0 +1,61 @@
+.detalles-procesos-container {
+  padding: 0px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.detalles-procesos {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  gap: 40px;
+}
+.detalles-procesos .first-section {
+  width: 65%;
+}
+.detalles-procesos .first-section h3 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 30px;
+}
+.detalles-procesos .first-section p {
+  font-size: 20px;
+  margin-bottom: 60px;
+  text-align: justify;
+}
+.button-group-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.button-group-2 button {
+  font-size: 24px;
+  padding: 20px 30px;
+  transition: var(--default-animation);
+}
+.button-group-2 button:hover {
+  transform: scale(1.05);
+}
+.button-group-2 .first {
+  background-color: #000;
+  color: white;
+  border-radius: 20px;
+}
+.button-group-2 .second {
+  border-radius: 20px 0px;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.detalles-procesos .second-section {
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detalles-procesos .second-section img {
+  width: 100%;
+}

@@ -1,0 +1,127 @@
+/* PORTADA */
+.portada-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 20px;
+}
+
+.portada {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  max-width: 1200px;
+  width: 100%;
+  gap: 50px;
+}
+
+.portada .columna1 {
+  position: relative;
+  z-index: 600;
+  width: 50%;
+}
+.portada .columna2 {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* *Primera columna */
+.portada h1 {
+  font-size: clamp(40px, 5vw, 75px);
+  font-weight: bolder;
+  margin-bottom: 20px;
+  margin-top: 0;
+  line-height: 0.9;
+}
+.portada p {
+  line-height: 1.5;
+  font-size: clamp(14px, 1.7vw, 18px);
+}
+
+.portada .botones {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+}
+.portada button {
+  width: 185px;
+  height: clamp(45px, 5.5vw, 65px);
+  font-size: clamp(15px, 3vw, 21px);
+  font-weight: 500;
+  border-radius: 30px;
+  border: 2px solid var(--negro);
+  background: transparent;
+  transition: var(--default-animation);
+}
+.portada .comencemos button {
+  background-color: var(--anaranjado);
+  color: #fff;
+  border: none;
+  box-shadow: 4px 2px 10px rgba(0, 0, 0, 0.25);
+}
+.portada button:hover {
+  transform: scale(1.05);
+}
+/* *Segunda Columna */
+.portada img {
+  object-fit: cover;
+  width: 100%;
+  position: relative;
+  z-index: 600;
+}
+/* *Manchas */
+.portada .mancha1,
+.portada .mancha2,
+.portada .mancha3,
+.portada .mancha4 {
+  width: 520px;
+  height: 370px;
+  position: absolute;
+  z-index: 500;
+}
+.portada .mancha1 {
+  left: 130px;
+  bottom: -285px;
+}
+.portada .mancha2 {
+  left: 310px;
+  top: -215px;
+}
+.portada .mancha3 {
+  right: 100px;
+  top: 50px;
+}
+.portada .mancha4 {
+  right: -450px;
+  bottom: -50px;
+}
+@media (max-width: 1020px) {
+  .portada {
+    flex-direction: column;
+    max-width: 500px;
+  }
+  .portada .botones {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .botones button {
+    width: 100%;
+  }
+  .portada {
+    gap: 15px;
+  }
+  .portada .columna1,
+  .portada .columna2 {
+    width: 100%;
+    text-align: center;
+  }
+  .portada p {
+    line-height: 1.1;
+  }
+  .portada img {
+    width: 65%;
+  }
+}

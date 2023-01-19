@@ -1,0 +1,93 @@
+.area-automatizar-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.area-automatizar {
+  max-width: 1200px;
+}
+.area-automatizar-header h2,
+.area-automatizar-header strong {
+  font-size: 25px;
+  font-weight: 1000;
+  line-height: 0.98;
+}
+.area-automatizar-header {
+  margin-bottom: 10px;
+}
+.area-automatizar-portada {
+  margin-bottom: 30px;
+}
+.area-automatizar-portada h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 30px;
+}
+.area-automatizar-portada p {
+  font-size: 20px;
+  text-align: justify;
+}
+
+.area-automatizar-opciones .title {
+  text-align: center;
+  font-weight: 100;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+}
+.area-automatizar-opciones .title span {
+  text-align: center;
+  background: linear-gradient(115.28deg, #ffa14a 25.59%, #ff0015 75.25%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 1000;
+}
+.area-automatizar-opciones section {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  position: relative;
+}
+.area-automatizar-opciones .buttons {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.area-automatizar-opciones button {
+  width: 280px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 130px 362px rgba(0, 0, 0, 0.13),
+    0px 94.5547px 243.996px rgba(0, 0, 0, 0.105219),
+    0px 65.8125px 157.809px rgba(0, 0, 0, 0.08775),
+    0px 18px 97.9238px rgba(0, 0, 0, 0.28);
+  padding: 20px 10px;
+  text-align: start;
+  font-size: 15px;
+  transition: var(--default-animation);
+}
+.area-automatizar-opciones button:hover {
+  transform: scale(1.1);
+}
+.area-automatizar-opciones button span {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.area-automatizar-opciones .button-1 {
+  background-color: #fc4d19;
+  color: white;
+}
+.area-automatizar-opciones .button-2 {
+  background-color: white;
+  color: black;
+}
+.area-automatizar-opciones .button-2 span {
+  color: #fc4d19;
+}
+.area-automatizar-opciones img {
+  width: 30%;
+}

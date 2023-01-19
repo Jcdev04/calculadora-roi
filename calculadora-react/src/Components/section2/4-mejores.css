@@ -1,0 +1,195 @@
+.somos-container {
+  background: var(--anaranjadoDegradado);
+  height: 200vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 20px;
+}
+.somos {
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.somos-container h2 {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #fff;
+}
+.somos .linea {
+  position: absolute;
+  width: 5px;
+  height: 85%;
+  background-color: #646464;
+  border-radius: 5px;
+  z-index: 600;
+  margin-top: 45px;
+  left: 50%;
+  top: 25px;
+  transform: translate(-50%);
+}
+
+/* Circulo */
+.somos .circulo {
+  border-radius: 50%;
+  background-color: #fff;
+  min-width: 80px;
+  min-height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+.somos .icons {
+  color: #646464;
+  font-size: 30px;
+}
+/* *Contenido y nada */
+
+.somos .card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 700;
+  justify-content: space-between;
+}
+.izquierda {
+  flex-direction: row-reverse;
+}
+.izquierda .contenido {
+  text-align: end;
+}
+.derecha {
+  text-align: end;
+}
+/* nada */
+.somos .nada {
+  min-width: 40%;
+}
+.somos .nada .icons {
+  color: #fff;
+  font-size: 80px;
+}
+/* contenido */
+.somos .contenido {
+  width: 40%;
+}
+
+.somos .contenedor-cards {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.somos h3 {
+  font-size: 25px;
+  margin-bottom: 18px;
+  color: #fff;
+}
+.somos p {
+  color: #fff;
+}
+
+.somos .ultimo {
+  margin-bottom: 0;
+}
+.somos .mobile {
+  display: none;
+}
+@media screen and (max-width: 1240px) {
+  .somos h2 {
+    font-size: 30px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+  }
+  .somos h3 {
+    font-size: 20px;
+  }
+  .somos p {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .somos h2 {
+    font-size: 23px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+  }
+  .somos h3 {
+    font-size: 20px;
+  }
+  .somos p {
+    font-size: 12px;
+  }
+  .somos .circulo {
+    position: relative;
+    left: 0;
+    transform: none;
+  }
+
+  .somos .card {
+    margin-bottom: 35px;
+  }
+  .somos .nada {
+    display: none;
+  }
+  .somos .pc {
+    display: none;
+  }
+  .somos .mobile {
+    display: block;
+  }
+  .somos .card {
+    justify-content: start;
+    align-items: flex-start;
+  }
+  .somos .izquierda {
+    flex-direction: row;
+  }
+
+  .somos .izquierda .contenido {
+    text-align: start;
+  }
+  .somos .contenido {
+    width: auto;
+    margin-left: 30px;
+  }
+  .somos .circulo {
+    margin: 0 20px;
+  }
+  .somos .linea {
+    align-self: flex-start;
+    left: 40px;
+    height: 80%;
+    margin: 0 20px;
+  }
+}
+@media (max-width: 380px) {
+  .somos .contenido {
+    margin-left: 5px;
+  }
+  .somos .linea {
+    align-self: flex-start;
+    left: 40px;
+    height: 80%;
+    margin: 0 -5px;
+    left: 40px;
+  }
+
+  .somos .circulo {
+    margin: 0 10px;
+    min-width: 50px;
+    min-height: 50px;
+  }
+  .somos .icons {
+    font-size: 17px;
+  }
+}

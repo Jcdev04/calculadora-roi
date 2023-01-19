@@ -1,0 +1,58 @@
+.apoyo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0px 20px;
+}
+.apoyo {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.apoyo .heading {
+  text-align: center;
+  font-size: 35px;
+  color: #fc4d19;
+}
+.apoyo .description {
+  font-size: 25px;
+  text-align: center;
+  color: #606060;
+  margin-bottom: 40px;
+}
+
+.areas-container {
+  width: 60%;
+}
+
+.areas {
+  width: 100%;
+  border-radius: 20px;
+  border: 1px #fc4d19 solid;
+  color: #fc4d19;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 15px 0px 25px;
+  background-color: white;
+  margin-bottom: 15px;
+  transition: all ease-in-out 100ms;
+  overflow: hidden;
+}
+.areas:hover {
+  background-color: #fc4d19;
+  color: white;
+}
+.areas h4 {
+  font-weight: 100;
+  font-size: 20px;
+}
+.areas .icon {
+  font-size: 25px;
+  transition: var(--default-animation);
+  transform: rotate(0deg);
+}

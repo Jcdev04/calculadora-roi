@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+button {
+  cursor: pointer;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+:root {
+  --default-animation: all 0.3s ease-in-out;
+  --primary-color: #fc4d19;
+  --soft-black: #1c1b1e;
+  --anaranjado: #ff815b;
+  --anaranjadoClaro: #ffc8b8;
+  --rojo: #de6262;
+  --negro: #373737;
+  --negroClaro: #565656;
+  --anaranjadoDegradado: linear-gradient(
+    180deg,
+    rgba(255, 184, 140, 1) 0%,
+    rgba(222, 98, 98, 1) 100%
+  );
+  --gris: #e8e8e8;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: white !important;
+  top: 85% !important;
+  width: 30px !important;
+  height: 30px !important;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  padding: 20px;
+  transition: var(--default-animation);
+  position: fixed !important;
+}
+.swiper-button-prev {
+  left: 5% !important;
+}
+.swiper-button-next {
+  right: 5% !important;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  transform: scale(1.05);
+}
+
+.swiper-button-prev:active,
+.swiper-button-next:active {
+  transform: scale(0.6);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 35px !important;
+  font-weight: bold;
+}
+
+.swiper-wrapper {
+  transition-duration: 300ms !important;
+}
+
+.navigation-buttons {
+  position: fixed;
+  z-index: 10;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+}
+.container-buttons-slide {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+.container-buttons-slide > *::after {
+  content: "";
+  width: 20px;
+  height: 2px;
+  background-color: var(--soft-black);
+  position: absolute;
+  margin-left: 76px;
+}
+.container-buttons-slide > *:nth-child(8)::after {
+  content: "";
+  width: 0;
+  height: 0;
+}
+.buttons-slide {
+  list-style: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: white;
+  border: 3px solid var(--soft-black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: var(--default-animation);
+}
+.buttons-slide p {
+  font-size: 24px;
+  font-weight: 500;
+}
+.buttons-slide:hover {
+  color: white;
+  background-color: var(--soft-black);
+}

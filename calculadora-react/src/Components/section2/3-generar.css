@@ -1,0 +1,84 @@
+.necesitas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0px 20px;
+  box-sizing: border-box;
+}
+.necesitas {
+  max-width: 1200px;
+  width: 100%;
+}
+.necesitas h2 {
+  font-size: 40px;
+  font-weight: bolder;
+  margin-bottom: 70px;
+  text-align: center;
+}
+.necesitas h3 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 13px;
+}
+.necesitas .cards {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 600;
+  gap: 10px;
+}
+
+.necesitas .card {
+  width: 100%;
+  max-width: 370px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.necesitas .icons {
+  color: var(--rojo);
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1169px) {
+  .necesitas h2 {
+    font-size: 30px;
+    margin-bottom: 40px;
+  }
+  .necesitas-container {
+    height: 200vh;
+  }
+  .necesitas .cards {
+    gap: 10px;
+  }
+  .necesitas {
+    max-width: 500px;
+    width: 100%;
+  }
+  .necesitas .icons {
+    color: var(--rojo);
+    font-size: 60px;
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 786px) {
+  .necesitas .cards {
+    gap: 15px;
+  }
+}
+@media (max-width: 340px) {
+  .necesitas h2 {
+    font-size: 25px;
+  }
+  .necesitas h3 {
+    font-size: 18px;
+  }
+}
