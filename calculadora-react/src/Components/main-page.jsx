@@ -48,6 +48,8 @@ function MainPage() {
     if (!responsive) {
       if (activeIndex === 1) {
         setHeight("500vh");
+      } else if (activeIndex === 3) {
+        setHeight("auto");
       } else {
         setHeight("100vh");
       }
