@@ -1,9 +1,21 @@
 import React from "react";
-import primeraSeccion from "../../../img/primera-seccion.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHandPointer } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion/dist/framer-motion";
+import primeraSeccion from "../../img/primera-seccion.svg";
 import "./portada.css";
-function Portada() {
+function Portada({ setOption }) {
+  function handleOption(option) {
+    setOption(option);
+  }
   return (
-    <div className="area-automatizar-container">
+    <motion.div
+      className="area-automatizar-container"
+      initial={{ y: "-100vh" }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.2 }}
+      exit={{ y: "-100vh" }}
+    >
       <div className="area-automatizar">
         <div className="area-automatizar-header">
           <h2>
@@ -25,16 +37,28 @@ function Portada() {
         </div>
         <div className="area-automatizar-opciones">
           <h2 className="title">
-            Elige cursor una de las <span>dos opciones</span>
+            Elige{" "}
+            <span
+              className="hand-pointer-container"
+              style={{ position: "relative" }}
+            >
+              <FontAwesomeIcon className="hand-pointer" icon={faHandPointer} />
+            </span>{" "}
+            una de las <span>dos opciones</span>
           </h2>
           <section>
-            <img src={primeraSeccion} alt="img primera sección" />
             <div className="buttons">
-              <button className="button-1">
+              <button
+                onClick={() => handleOption("personalizada")}
+                className="button-1"
+              >
                 <span>A.</span> Que nos compartas el proceso candidato a
                 automatizar
               </button>
-              <button className="button-2">
+              <button
+                onClick={() => handleOption("areas")}
+                className="button-2"
+              >
                 <span>B.</span> Que Dignita te recomiende el proceso candidato a
                 automatizar
               </button>
@@ -42,7 +66,7 @@ function Portada() {
           </section>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

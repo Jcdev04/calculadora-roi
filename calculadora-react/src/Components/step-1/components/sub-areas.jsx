@@ -1,71 +1,100 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion/dist/framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
+import Procesos from "./procesos";
 
-function SubAreas({ subArea }) {
-  const [areas, setAreas] = useState(subArea);
-  const [areaEspecifica, setAreaEspecifica] = useState(false),
+function SubAreas({
+  thisArea,
+  subArea,
+  setAreas,
+  areas,
+  indexArea,
+  setActivateSuccess,
+}) {
+  const [subAreaEspecifica, setSubAreaEspecifica] = useState(false),
     [index, setIndex] = useState(0);
-  const handleDisplayArea = (index) => {
-    const newAreas = [...areas];
-    newAreas[index].desplegar = !newAreas[index].desplegar;
-    setAreas(newAreas);
-    setAreaEspecifica(!areaEspecifica);
+
+  const handleDisplaySubArea = (index) => {
+    thisArea.subArea[index].desplegar = !subArea[index].desplegar;
+    setSubAreaEspecifica(!subAreaEspecifica);
   };
-  const handleDisplayAreaOnly = () => {
-    const newAreas = [...areas];
-    newAreas[index].desplegar = !newAreas[index].desplegar;
-    setAreaEspecifica(!areaEspecifica);
-    setAreas(newAreas);
-  };
+  function handleDisplaySubAreaOnly() {
+    thisArea.subArea[index].desplegar = !subArea[index].desplegar;
+    setSubAreaEspecifica(!subAreaEspecifica);
+  }
   return (
-    <motion.div>
-      {subArea
-        .filter((subArea) => subArea.desplegar === areaEspecifica)
-        .map((subArea, index) => {
-          return (
-            <div className="areas-container" key={area.nombre}>
-              {/* BOTÓN */}
-              <motion.button
-                initial={{ height: 0, margin: 0, opacity: 0 }}
-                animate={{
-                  height: 40,
-                  margin: "0px 0px 15px 0px",
-                  opacity: 1,
-                }}
-                transition={{
-                  ease: "ease",
-                  duration: 0.5,
-                }}
-                exit={{ height: 0, margin: 0, opacity: 0 }}
-                onClick={() => {
-                  if (!areaEspecifica) {
-                    handleDisplayArea(index);
-                    setIndex(index);
-                  } else {
-                    handleDisplayAreaOnly();
-                  }
-                }}
-                className="areas"
-                style={{ backgroundColor: area.desplegar && "#fc4d19" }}
-              >
-                <h4 style={{ color: area.desplegar && "white" }}>
-                  {area.nombre}
-                </h4>
-                <FontAwesomeIcon
+    <motion.div
+      className="sub-area"
+      initial={{ height: "auto" }}
+      transition={{ duration: 1 }}
+      exit={{ height: 0 }}
+    >
+      <AnimatePresence>
+        {subArea
+          .filter((subArea) => subArea.desplegar === subAreaEspecifica)
+          .map((subArea, i) => {
+            return (
+              <div className="sub-area__item" key={subArea.key}>
+                <motion.button
+                  className="sub-area__item__title"
                   style={{
-                    transform: `rotate(${area.desplegar ? "90" : "0"}deg)`,
-                    color: area.desplegar && "white",
+                    backgroundColor: subArea.desplegar && "#e42118",
+                    color: subArea.desplegar && "white",
                   }}
-                  className="icon"
-                  icon={faChevronCircleRight}
-                />
-              </motion.button>
-              {/* CONTENIDO SUB-AREAS */}
-              {desplegar && <SubAreas subArea={area.subArea} />}
-            </div>
-          );
-        })}
+                  initial={{
+                    opacity: 0,
+                    height: 0,
+                    marginBottom: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    height: "auto",
+                    marginBottom: 10,
+                  }}
+                  transition={{
+                    ease: "easeInOut",
+                    duration: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    height: 0,
+                    marginBottom: 0,
+                  }}
+                  onClick={() => {
+                    if (!subAreaEspecifica) {
+                      setIndex(i);
+                      handleDisplaySubArea(i);
+                    } else {
+                      handleDisplaySubAreaOnly();
+                    }
+                  }}
+                >
+                  <h3>{subArea.nombre}</h3>
+                  <FontAwesomeIcon
+                    style={{
+                      transform: `rotate(${subArea.desplegar ? "90" : "0"}deg)`,
+                    }}
+                    className="icon"
+                    icon={faChevronCircleRight}
+                  />
+                </motion.button>
+                <AnimatePresence>
+                  {subArea.desplegar && (
+                    <Procesos
+                      setAreas={setAreas}
+                      areas={areas}
+                      procesos={subArea.proceso}
+                      indexArea={indexArea}
+                      indexSubArea={i}
+                      setActivateSuccess={setActivateSuccess}
+                    />
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+      </AnimatePresence>
     </motion.div>
   );
 }

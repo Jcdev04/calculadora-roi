@@ -45,6 +45,7 @@ html {
   padding: 20px;
   transition: var(--default-animation);
   position: fixed !important;
+  z-index: 200 !important;
 }
 .swiper-button-prev {
   left: 5% !important;
@@ -70,6 +71,34 @@ html {
 
 .swiper-wrapper {
   transition-duration: 300ms !important;
+}
+.arrow-down-container {
+  position: fixed;
+  bottom: 50px;
+  left: calc(50% - 40px);
+  z-index: 10;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  transition: var(--default-animation);
+  width: 80px;
+  height: 80px;
+  border: none;
+  animation: arrow-down 1s infinite;
+}
+.arrow-down {
+  font-size: 50px;
+  color: white;
+}
+@keyframes arrow-down {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .navigation-buttons {

@@ -1,0 +1,21 @@
+.ventanaExitoContainer {
+  z-index: 9999;
+}
+.exito-button {
+  font-size: 15px;
+  background-color: transparent;
+  border: 1px solid #14a44d;
+  color: #14a44d;
+  border-radius: 20px;
+  margin-top: 30px;
+  padding: 10px 20px;
+  transition: all 0.2s ease-in-out;
+}
+.exito-button:hover {
+  background-color: #14a44d;
+  color: #fff;
+}
+/* !BUTTON COMEBACK */
+.button-comeback:hover {
+  transform: scale(1.05);
+}

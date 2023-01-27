@@ -1,0 +1,54 @@
+.area-personalizada-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20px;
+}
+.area-personalizada {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.area-personalizada h3 {
+  text-align: center;
+  font-size: 35px;
+  color: #fc4d19;
+  font-weight: 100;
+  margin-bottom: 60px;
+}
+.area-personalizada span {
+  color: #4a4a4a;
+  font-weight: 600;
+}
+.proceso-name:focus {
+  outline: none;
+}
+.area-personalizada section {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.proceso-name {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #fc4d19;
+  font-size: 17px;
+}
+.proceso-enviar {
+  font-size: 18px;
+  background-color: #fc4d19;
+  color: white;
+  border: none;
+  padding: 5px 30px;
+  border-radius: 20px;
+  transition: var(--default-animation);
+}
+.proceso-enviar:hover {
+  transform: scale(1.05);
+}
+.proceso-enviar:active {
+  transform: scale(0.9);
+}

@@ -1,217 +1,224 @@
-.principal-container{
-    max-width: 700px;
-    width: 100%;
-    margin: auto;
+.principal-container {
+  max-width: 700px;
+  width: 100%;
+  margin: auto;
+  position: relative;
 }
 
-.proceso{
-    display: flex;   
-    justify-content: space-between;
-    margin: 15px 0px;
+.proceso {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0px;
 }
 
-.CRUD-container{
-    display: grid;
-    grid-template-columns: repeat(2 , 1fr);
-    grid-template-columns: repeat(2 , auto);
-    margin-right: 5px;
-    padding: 10px;
-    width: 100%;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
+.CRUD-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, auto);
+  margin-right: 5px;
+  padding: 10px;
+  width: 100%;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
 }
 
-.tabla{
-    grid-column-start: 1;
-    grid-column-end: -1;
+.tabla {
+  grid-column-start: 1;
+  grid-column-end: -1;
 }
 
 /* Nombre del proceso */
-.nombreProceso{
-    width: 100%;
-    font-size: 18px;
-    padding-left: 12px;
-    border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    color: rgb(77, 77, 77);
+.nombreProceso {
+  width: 100%;
+  font-size: 18px;
+  padding-left: 12px;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: rgb(77, 77, 77);
 }
 
 /* Botones */
 /* Otras propiedades colocadas en react */
 /* ELIMINAR */
-.btnEliminar{
-    background-color: #FF0015;
-    color: #48060C;
+.btnEliminar {
+  background-color: #ff0015;
+  color: #48060c;
 }
 
-.btnEliminar:hover{
-    background-color: #c80b0b;
-    color: #f7e3e3;
+.btnEliminar:hover {
+  background-color: #c80b0b;
+  color: #f7e3e3;
 }
 /* EDITAR */
-.btnEditar{
-    background-color:#ffd555;
-    color: #A67A00;
+.btnEditar {
+  background-color: #ffd555;
+  color: #a67a00;
 }
-.btnEditar:hover{
-    background-color:#e6ae07;
-    color: #fef0ca;
+.btnEditar:hover {
+  background-color: #e6ae07;
+  color: #fef0ca;
 }
-.botonIcono{
-  display:  none;
+.botonIcono {
+  display: none;
 }
-
 
 @media (max-width: 530px) {
-    .botonIcono{
-      display:  block;
-    }
-    .btnEditar, .btnEliminar{
-      display: none;
-    }
-    .nombreProceso{
-      width: 80%;
-    }
+  .botonIcono {
+    display: block;
+  }
+  .btnEditar,
+  .btnEliminar {
+    display: none;
+  }
+  .nombreProceso {
+    width: 80%;
+  }
 }
-
 
 /* Boton proceso común */
-.checkbox-wrapper-13{
-    display: flex;
-    align-items: center;
+.checkbox-wrapper-13 {
+  display: flex;
+  align-items: center;
 }
 
-  @supports (-webkit-appearance: none) or (-moz-appearance: none) {
-    .checkbox-wrapper-13 input[type=checkbox] {
-      --active: #66bb6a;
-      --active-inner: #fff;
-      --focus: 2px #258c2b;
-      --border: #b0b0b0;
-      --border-hover: #44d94c;
-      --background: #fff;
-      --disabled: #F6F8FF;
-      --disabled-inner: #E1E6F9;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      height: 15px;
-      outline: none;
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      margin: 0;
-      cursor: pointer;
-      border: 2px solid var(--bc, var(--border));
-      background: var(--b, var(--background));
-      transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:after {
-      content: "";
-      display: block;
-      left: 0;
-      top: 0;
-      position: absolute;
-      transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:checked {
-      --b: var(--active);
-      --bc: var(--active);
-      --d-o: .3s;
-      --d-t: .6s;
-      --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:disabled {
-      --b: var(--disabled);
-      cursor: not-allowed;
-      opacity: 0.9;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:disabled:checked {
-      --b: var(--disabled-inner);
-      --bc: var(--border);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:disabled + label {
-      cursor: not-allowed;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:hover:not(:checked):not(:disabled) {
-      --bc: var(--border-hover);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:focus {
-      box-shadow: 0 0 0 var(--focus);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch) {
-      width: 15px;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):after {
-      opacity: var(--o, 0);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):checked {
-      --o: 1;
-    }
-    .checkbox-wrapper-13 input[type=checkbox] + label {
-      display: inline-block;
-      vertical-align: middle;
-      cursor: pointer;
-      margin-left: 4px;
-    }
-
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch) {
-      border-radius: 7px;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):after {
-      width: 3px;
-      height: 5px;
-      border: 2px solid var(--active-inner);
-      border-top: 0;
-      border-left: 0;
-      left: 5px;
-      top: 3px;
-      transform: rotate(var(--r, 20deg));
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):checked {
-      --r: 43deg;
-    }
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  .checkbox-wrapper-13 input[type="checkbox"] {
+    --active: #66bb6a;
+    --active-inner: #fff;
+    --focus: 2px #258c2b;
+    --border: #b0b0b0;
+    --border-hover: #44d94c;
+    --background: #fff;
+    --disabled: #f6f8ff;
+    --disabled-inner: #e1e6f9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 15px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    border: 2px solid var(--bc, var(--border));
+    background: var(--b, var(--background));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:after {
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    position: absolute;
+    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+      opacity var(--d-o, 0.2s);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:checked {
+    --b: var(--active);
+    --bc: var(--active);
+    --d-o: 0.3s;
+    --d-t: 0.6s;
+    --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:disabled {
+    --b: var(--disabled);
+    cursor: not-allowed;
+    opacity: 0.9;
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:disabled:checked {
+    --b: var(--disabled-inner);
+    --bc: var(--border);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:disabled + label {
+    cursor: not-allowed;
+  }
+  .checkbox-wrapper-13
+    input[type="checkbox"]:hover:not(:checked):not(:disabled) {
+    --bc: var(--border-hover);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 var(--focus);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch) {
+    width: 15px;
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch):after {
+    opacity: var(--o, 0);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch):checked {
+    --o: 1;
+  }
+  .checkbox-wrapper-13 input[type="checkbox"] + label {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 4px;
   }
 
-  .checkbox-wrapper-13 * {
-    box-sizing: inherit;
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch) {
+    border-radius: 7px;
   }
-  .checkbox-wrapper-13 *:before,
-  .checkbox-wrapper-13 *:after {
-    box-sizing: inherit;
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch):after {
+    width: 3px;
+    height: 5px;
+    border: 2px solid var(--active-inner);
+    border-top: 0;
+    border-left: 0;
+    left: 5px;
+    top: 3px;
+    transform: rotate(var(--r, 20deg));
   }
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch):checked {
+    --r: 43deg;
+  }
+}
 
+.checkbox-wrapper-13 * {
+  box-sizing: inherit;
+}
+.checkbox-wrapper-13 *:before,
+.checkbox-wrapper-13 *:after {
+  box-sizing: inherit;
+}
 
 /* button agregar-proceso */
-.agregar-proceso{
-    width: 100%;
-    display: flex;
-    margin-top: 15px;
-    justify-content: center;  
+.agregar-proceso {
+  width: 100%;
+  display: flex;
+  margin-top: 15px;
+  justify-content: center;
 }
-.agregar-proceso button{
-    color: white;
-    background-color: #43CA40;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    transition:ease-in-out;
-    transition-duration: 200ms;
+.agregar-proceso button {
+  color: white;
+  background-color: #43ca40;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: ease-in-out;
+  transition-duration: 200ms;
 }
 
-.agregar-proceso button:hover{
-    background-color: #4ee34c;
+.agregar-proceso button:hover {
+  background-color: #4ee34c;
 }
 /* ENTER */
-.v_principal-enter,.v_exito-enter,.tabla-enter{
+.v_principal-enter,
+.v_exito-enter,
+.tabla-enter {
   opacity: 0;
 }
-.v_principal-enter-active,.v_exito-enter-active,.tabla-enter-active{
+.v_principal-enter-active,
+.v_exito-enter-active,
+.tabla-enter-active {
   opacity: 1;
   transition: opacity 500ms;
 }
-.v_principal-enter-done,.v_exito-enter-done,.tabla-enter-done{
+.v_principal-enter-done,
+.v_exito-enter-done,
+.tabla-enter-done {
   opacity: 1;
 }
 .fade-appear {
@@ -220,25 +227,31 @@
   overflow: hidden;
 }
 
-.fade-appear-active{
+.fade-appear-active {
   opacity: 1;
   height: 60px;
-  transition: opacity 175ms cubic-bezier(0.075, 0.82, 0.165, 1),height 175ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: opacity 175ms cubic-bezier(0.075, 0.82, 0.165, 1),
+    height 175ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.fade-appear-done{
+.fade-appear-done {
   opacity: 1;
   height: 60px;
 }
 /* EXIT */
-.v_principal-exit, .v_exito-exit, .tabla-exit{
+.v_principal-exit,
+.v_exito-exit,
+.tabla-exit {
   opacity: 1;
 }
-.v_principal-exit-active,.v_exito-exit-active,.tabla-exit-active{
+.v_principal-exit-active,
+.v_exito-exit-active,
+.tabla-exit-active {
   opacity: 0;
   transition: opacity 500ms;
 }
-.v_principal-exit-done,.v_exito-exit-done,.tabla-exit-done{
+.v_principal-exit-done,
+.v_exito-exit-done,
+.tabla-exit-done {
   opacity: 0;
 }
-

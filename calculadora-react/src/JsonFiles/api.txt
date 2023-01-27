@@ -1,0 +1,3 @@
+CLIENT ID:760068272484-0n6p67v1k5d9t1vi4tla6333f8c4o7h0.apps.googleusercontent.com
+SECRET CLIENT: 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
+API KEY: AIzaSyD1zb-kx1wHtg7nPRkwumv7CRnat80oTEA

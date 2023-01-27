@@ -103,101 +103,103 @@ function ShowMore(props) {
   };
 
   return (
-    <div className="principal-container">
-      {todosProcesos.map((data, i) => {
-        let numeroProceso = `Proceso ${String(i + 1).padStart(3, "0")}`;
-        objeto = { ...data };
-        return (
-          <motion.div
-            variants={dropIn}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="proceso"
-            style={{ padding: "0 10px" }}
-            key={objeto.id}
-          >
-            {/*NOMBRE DEL PROCESO*/}
-            <div className="CRUD-container">
-              {/* 1 */}
-              {/* NOMBRE */}
-              <input
-                className="nombreProceso"
-                placeholder={numeroProceso}
-                type="text"
-                value={objeto.nombreProceso}
-                onChange={(e) => props.modificarProceso1(e.target.value, i)}
-              />
-              {/* 2 */}
-              <div
-                className="botonesCRUD"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifySelf: "end",
-                }}
-              >
-                {/* EDITAR */}
-                <button
-                  onClick={editar(i)}
-                  className="botonIcono"
-                  style={{ ...CSS.iconos, backgroundColor: "#ffd555" }}
-                >
-                  <FontAwesomeIcon icon={faEdit} />
-                </button>
-                <button
-                  style={CSS.button}
-                  className="btnEditar"
-                  onClick={editar(i)}
-                >
-                  Editar
-                </button>
-                {/* ELIMINAR */}
-                <button
-                  onClick={eliminar(i)}
-                  className="botonIcono"
-                  style={{ ...CSS.iconos, backgroundColor: "#FF0015" }}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-                <button
-                  style={CSS.button}
-                  className="btnEliminar"
-                  onClick={eliminar(i)}
-                >
-                  Eliminar
-                </button>
-                {/* DESPLEGAR */}
-                <FontAwesomeIcon
-                  onClick={desplegar(i, objeto.rotation)}
-                  icon={faCaretDown}
-                  style={{
-                    color: "#FC4D19",
-                    fontSize: 35,
-                    cursor: "pointer",
-                    margin: "0px 10px",
-                    transform: objeto.rotation
-                      ? "rotate(180deg)"
-                      : "rotate(0deg)",
-                    transition: `all 200ms ease-in-out`,
-                  }}
+    <div className="principal-container" id="calculator">
+      <AnimatePresence>
+        {todosProcesos.map((data, i) => {
+          let numeroProceso = `Proceso ${String(i + 1).padStart(3, "0")}`;
+          objeto = { ...data };
+          return (
+            <motion.div
+              variants={dropIn}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, height: 0 }}
+              className="proceso"
+              style={{ padding: "0 10px" }}
+              key={objeto.id}
+            >
+              {/*NOMBRE DEL PROCESO*/}
+              <div className="CRUD-container">
+                {/* 1 */}
+                {/* NOMBRE */}
+                <input
+                  className="nombreProceso"
+                  placeholder={numeroProceso}
+                  type="text"
+                  value={objeto.nombreProceso}
+                  onChange={(e) => props.modificarProceso1(e.target.value, i)}
                 />
+                {/* 2 */}
+                <div
+                  className="botonesCRUD"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifySelf: "end",
+                  }}
+                >
+                  {/* EDITAR */}
+                  <button
+                    onClick={editar(i)}
+                    className="botonIcono"
+                    style={{ ...CSS.iconos, backgroundColor: "#ffd555" }}
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                  <button
+                    style={CSS.button}
+                    className="btnEditar"
+                    onClick={editar(i)}
+                  >
+                    Editar
+                  </button>
+                  {/* ELIMINAR */}
+                  <button
+                    onClick={eliminar(i)}
+                    className="botonIcono"
+                    style={{ ...CSS.iconos, backgroundColor: "#FF0015" }}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                  <button
+                    style={CSS.button}
+                    className="btnEliminar"
+                    onClick={eliminar(i)}
+                  >
+                    Eliminar
+                  </button>
+                  {/* DESPLEGAR */}
+                  <FontAwesomeIcon
+                    onClick={desplegar(i, objeto.rotation)}
+                    icon={faCaretDown}
+                    style={{
+                      color: "#FC4D19",
+                      fontSize: 35,
+                      cursor: "pointer",
+                      margin: "0px 10px",
+                      transform: objeto.rotation
+                        ? "rotate(180deg)"
+                        : "rotate(0deg)",
+                      transition: `all 200ms ease-in-out`,
+                    }}
+                  />
+                </div>
+                {/* 3 */}
               </div>
-              {/* 3 */}
-            </div>
-            {/* SELECCIONAR */}
-            <div className="checkbox-wrapper-13">
-              <input
-                className="c1-13"
-                type="checkbox"
-                checked={objeto.procesoComun}
-                onChange={() => props.modificarCheck(i)}
-              />
-              <label htmlFor="c1-13"></label>
-            </div>
-          </motion.div>
-        );
-      })}
+              {/* SELECCIONAR */}
+              <div className="checkbox-wrapper-13">
+                <input
+                  className="c1-13"
+                  type="checkbox"
+                  checked={objeto.procesoComun}
+                  onChange={() => props.modificarCheck(i)}
+                />
+                <label htmlFor="c1-13"></label>
+              </div>
+            </motion.div>
+          );
+        })}
+      </AnimatePresence>
       {/* TABLA */}
       {todosProcesos[parseInt(index)] !== null && (
         <AnimatePresence

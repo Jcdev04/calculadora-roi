@@ -1,6 +1,7 @@
 import React from "react";
 import ProcesosComun from "./calculadora/procesos-comun";
 import ShowMore from "./calculadora/show-more";
+import GoogleSlide from "./google-slide";
 import Portada from "./portada";
 
 function Step2() {
@@ -9,6 +10,7 @@ function Step2() {
       <Portada />
       <ShowMore />
       <ProcesosComun />
+      <GoogleSlide />
     </div>
   );
 }
