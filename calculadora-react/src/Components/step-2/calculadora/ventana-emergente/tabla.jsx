@@ -6,15 +6,20 @@ import {
   faCircleXmark,
   faCircleInfo,
   faEye,
+  faPersonDigging,
+  faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import VentanaFormula from "./ventana-formula";
 import VentanaDatosBrutos from "./ventana-datosBrutos";
+import html2canvas from "html2canvas";
+import { saveAs } from "file-saver";
 /* SLIDER */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import { motion, AnimatePresence } from "framer-motion/dist/framer-motion";
+import VentanaMostrarFTE from "./ventana-mostrarFTE";
 
 const CSS = {
   principalBox: {
@@ -96,9 +101,11 @@ const dropIn = {
 class Tabla extends Component {
   constructor(props) {
     super(props);
+    this.targetRef = React.createRef();
     this.state = {
       trigger: false,
       triggerDB: false,
+      triggerFTE: false,
       content: {
         costoAnual: {
           nombre: "Costo anual",
@@ -160,7 +167,8 @@ class Tabla extends Component {
   render() {
     const { setTrigger2, tabla, index } = this.props;
     /* Extraemos la tabla */
-    const { trigger, triggerDB, content, contentMostrarAux } = this.state;
+    const { trigger, triggerDB, triggerFTE, content, contentMostrarAux } =
+      this.state;
 
     let notANumber = true;
     /* CONTENIDO que irá dentro de la fórmula */
@@ -187,6 +195,11 @@ class Tabla extends Component {
         triggerDB: !state.triggerDB,
       }));
     };
+    const setTriggerFTE = () => () => {
+      this.setState((state) => ({
+        triggerFTE: !state.triggerFTE,
+      }));
+    };
 
     function escribir(valor) {
       return notANumber ? `$${valor.toFixed()}` : "-";
@@ -197,7 +210,16 @@ class Tabla extends Component {
     function escribirPorcentaje(valor) {
       return notANumber ? `${valor.toFixed()}%` : "-";
     }
-
+    const takeScreenshot = async () => {
+      try {
+        const canvas = await html2canvas(this.targetRef.current);
+        canvas.toBlob(function (blob) {
+          saveAs(blob, "tabla-resultados.png");
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
     return (
       <motion.div
         variants={dropIn}
@@ -207,12 +229,30 @@ class Tabla extends Component {
       >
         <div style={CSS.principalBox}>
           <div style={CSS.containerBotones}>
+            {/* TAKE A SCREENSHOT */}
+            <button onClick={takeScreenshot}>
+              <FontAwesomeIcon icon={faCamera} />
+              Toma un screenshot
+            </button>
+            {/* END TAKE A SCREENSHOT */}
+            {/* VENTANA MOSTRAR FTE */}
+            <button
+              style={{ ...CSS.verDatos, backgroundColor: "#0084F0" }}
+              onClick={setTriggerFTE()}
+            >
+              <FontAwesomeIcon
+                style={{ marginRight: 5 }}
+                icon={faPersonDigging}
+              />
+              Ver FTE
+            </button>
+            {/* FIN VENTANA MOSTRAR FTE */}
             {/* VENTANA DATOS BRUTOS */}
             <button style={CSS.verDatos} onClick={setTriggerDB()}>
               <FontAwesomeIcon style={{ marginRight: 5 }} icon={faEye} />
               Ver datos
             </button>
-            {/* VENTANA DATOS BRUTOS */}
+            {/* FIN VENTANA DATOS BRUTOS */}
             <button
               style={CSS.close}
               onClick={() => {
@@ -227,7 +267,11 @@ class Tabla extends Component {
               Cerrar
             </button>
           </div>
-          <div style={{ ...CSS.tabla, margin: 10 }} className="tabla">
+          <div
+            ref={this.targetRef}
+            style={{ ...CSS.tabla, margin: 10 }}
+            className="tabla"
+          >
             <div className="items">
               <div className="cabecera-box">
                 <h2 className="cabecera">Ítems</h2>
@@ -438,11 +482,7 @@ class Tabla extends Component {
               </SwiperSlide>
             </Swiper>
           </div>
-          <AnimatePresence
-            initial={false}
-            exitBeforeEnter={true}
-            onExitComplete={() => null}
-          >
+          <AnimatePresence>
             {trigger && (
               <VentanaFormula
                 contentMostrar={contentMostrarAux}
@@ -451,13 +491,14 @@ class Tabla extends Component {
             )}
           </AnimatePresence>
 
-          <AnimatePresence
-            initial={false}
-            exitBeforeEnter={true}
-            onExitComplete={() => null}
-          >
+          <AnimatePresence>
             {triggerDB && (
               <VentanaDatosBrutos index={index} setTrigger={setTriggerDB()} />
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {triggerFTE && (
+              <VentanaMostrarFTE index={index} setTrigger={setTriggerFTE()} />
             )}
           </AnimatePresence>
         </div>

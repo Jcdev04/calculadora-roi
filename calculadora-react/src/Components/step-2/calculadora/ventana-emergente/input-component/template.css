@@ -1,0 +1,88 @@
+.template-container {
+  width: 350px;
+  background-color: #ff8469;
+  box-shadow: 16px 16px 11px rgba(0, 0, 0, 0.25);
+  border-radius: 53px;
+  position: relative;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-cara {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.empresa-container {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  justify-content: center;
+  width: 280px;
+  background-color: white;
+  border-radius: 23px;
+  text-align: center;
+}
+.empleado-tiempo {
+  display: grid;
+  gap: 10px;
+  grid-template-areas:
+    "primero segundo"
+    "tercero tercero";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 120px 65px;
+}
+.empleado-tiempo > * {
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+}
+.empleado-tiempo > * h3 {
+  font-size: 23px;
+}
+.empleado-tiempo > * p {
+  font-size: 13px;
+  height: 45px;
+}
+
+.empleado-tiempo .primero {
+  grid-area: primero;
+}
+.empleado-tiempo .segundo {
+  grid-area: segundo;
+}
+.empleado-tiempo .tercero {
+  grid-area: tercero;
+}
+.icons-productivity {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 35px;
+  gap: 10px;
+  width: 100%;
+}
+.icons-productivity > * {
+  background-color: #43ca40;
+  width: 30%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  font-size: 40px;
+  color: white;
+}
+.icons-productivity > * p {
+  font-size: 19px;
+  margin-top: 10px;
+}

@@ -100,6 +100,7 @@ function ShowMore(props) {
   /* SUBMIT */
   const submit = (payload) => {
     props.modificarInputs(parseInt(index), payload);
+    setBotonConfirmar(true);
   };
 
   return (
@@ -245,10 +246,11 @@ function ShowMore(props) {
         </button>
       </div>
       {/* VENTANA exito */}
-      <VentanaExito
-        botonConfirmar={botonConfirmar}
-        setBotonConfirmar={setBotonConfirmar}
-      />
+      <AnimatePresence>
+        {botonConfirmar && (
+          <VentanaExito setBotonConfirmar={setBotonConfirmar} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
