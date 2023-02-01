@@ -1,0 +1,83 @@
+.manchas-contenedor {
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
+}
+.manchas-contenedor > * {
+  position: absolute;
+  animation: rotar infinite 40s;
+  animation-timing-function: cubic-bezier(1, 1, 0, 0);
+}
+.mancha1 {
+  left: 100px;
+  top: -550px;
+  width: 620px;
+  height: 720px;
+}
+
+.mancha2 {
+  animation-duration: 45s;
+  left: 1000px; /* right: -200px; */
+  top: 0px;
+  width: 380px;
+  height: 480px;
+}
+
+.mancha3 {
+  animation-duration: 35s;
+  left: 50px;
+  bottom: -420px;
+  width: 480px;
+  height: 580px;
+}
+
+.mancha4 {
+  animation-duration: 30s;
+  left: 1200px; /* right: -120px; */
+  bottom: -180px;
+  width: 180px;
+  height: 280px;
+}
+
+@keyframes rotar {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mancha1 {
+    left: -400px;
+    top: -100px;
+    width: 420px;
+    height: 520px;
+  }
+
+  .mancha2 {
+    animation-duration: 45s;
+    left: 320px; /* right: -120px; */
+    top: 200px;
+    width: 180px;
+    height: 280px;
+  }
+
+  .mancha3 {
+    animation-duration: 35s;
+    left: -150px;
+    bottom: -200px;
+    width: 280px;
+    height: 380px;
+  }
+
+  .mancha4 {
+    animation-duration: 30s;
+    left: 270px; /* right: -50px; */
+    bottom: 100px;
+    width: 80px;
+    height: 180px;
+  }
+}

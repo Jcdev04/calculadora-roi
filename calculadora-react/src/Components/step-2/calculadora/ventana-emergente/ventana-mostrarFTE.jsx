@@ -53,20 +53,29 @@ function VentanaMostrarFTE({ setTrigger }) {
 
   return (
     <motion.div style={CSS.principalBox} ref={targetRef}>
-      <div style={CSS.containerTabla}>
-        <button onClick={setTrigger} style={CSS.botonCerrar}>
-          Cerrar
-        </button>
+      <div
+        style={{
+          maxWidth: 890,
+          width: "100%",
+          display: "flex",
+          justifyContent: "end",
+        }}
+      >
         <button onClick={takeScreenshot}>
           <FontAwesomeIcon icon={faCamera} />
           Toma un screenshot
         </button>
+        <button onClick={setTrigger} style={CSS.botonCerrar}>
+          Cerrar
+        </button>
+      </div>
+      <div style={CSS.containerTabla}>
+        <h2>EN EL ACTUAL PROCESO</h2>
         <div style={{ display: "flex", gap: "15px", justifyContent: "center" }}>
           <Template />
           <Template />
         </div>
       </div>
-      <div></div>
     </motion.div>
   );
 }

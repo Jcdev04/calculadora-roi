@@ -24,8 +24,8 @@ function Template() {
             <p>Tiempo Total de Contrato</p>
           </section>
           <section className="segundo">
-            <h3>192 horas</h3>
-            <p>Tiempo mensual invertido en este proceso</p>
+            <h3>192 hrs</h3>
+            <p>Tiempo mensual en este proceso</p>
           </section>
           <section className="tercero">
             <h3>30 hrs.</h3>

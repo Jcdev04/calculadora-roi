@@ -33,18 +33,6 @@ function Dudas() {
             </section>
           </div>
         </div>
-        <div className="circulo circulo1">
-          <div className="minicirculo minicirculo1"></div>
-        </div>
-        <div className="circulo circulo2">
-          <div className="minicirculo minicirculo2"></div>
-        </div>
-        <div className="circulo circulo3">
-          <div className="minicirculo minicirculo3"></div>
-        </div>
-        <div className="circulo circulo4">
-          <div className="minicirculo minicirculo4"></div>
-        </div>
       </section>
     </div>
   );

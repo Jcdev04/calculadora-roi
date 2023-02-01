@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./section-1.css";
-import imagenPortada from "../../img/imagen-portada.png";
+import imagenPortada2 from "../../img/imagen-portada.png";
+import imagenPortada1 from "../../img/imagen-portada-1.png";
 import {
   motion,
   useAnimation,
@@ -24,12 +25,13 @@ function Section1() {
             </a>
 
             <a href="#">
-              <button>Conócenos</button>
+              <button className="conocenos">Conócenos</button>
             </a>
           </div>
         </div>
         <div className="columna2">
-          <img src={imagenPortada} alt="slides-dignita" />
+          <img className="imagen-1" src={imagenPortada1} alt="slides-dignita" />
+          <img className="imagen-2" src={imagenPortada2} alt="slides-dignita" />
         </div>
       </section>
     </div>

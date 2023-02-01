@@ -1,5 +1,5 @@
 .somos-container {
-  background: var(--anaranjadoDegradado);
+  background: linear-gradient(180deg, #ffbb92 0%, #de6262 100%);
   height: 200vh;
   display: flex;
   justify-content: center;

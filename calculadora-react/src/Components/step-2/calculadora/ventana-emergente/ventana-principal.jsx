@@ -58,7 +58,7 @@ const CSS = {
     backgroundColor: "rgba(0,0,0,0.2)",
     width: "100%",
     height: "100%",
-
+    zIndex: 200,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -471,8 +471,9 @@ class VentanaPrincipal extends Component {
         initial="hidden"
         animate="visible"
         exit="exit"
+        style={CSS.principalBox}
       >
-        <form style={CSS.principalBox} onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           {popUp && ventanaFTE()}
           {popUp2 && ventanaCostosExtras()}
           {!popUp && !popUp2 && ventanaPrincipal()}

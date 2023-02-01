@@ -27,6 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 /* *Primera columna */
 .portada h1 {
@@ -34,7 +35,7 @@
   font-weight: bolder;
   margin-bottom: 20px;
   margin-top: 0;
-  line-height: 0.9;
+  line-height: 0.95;
 }
 .portada p {
   line-height: 1.5;
@@ -65,12 +66,57 @@
 .portada button:hover {
   transform: scale(1.05);
 }
+.portada .conocenos:hover {
+  background-color: rgb(56, 56, 56);
+  color: white;
+}
 /* *Segunda Columna */
 .portada img {
   object-fit: cover;
   width: 100%;
-  position: relative;
   z-index: 600;
+}
+.imagen-1 {
+  position: relative;
+  animation: desvanecer2 10s infinite;
+}
+.imagen-2 {
+  position: absolute;
+  animation: desvanecer 10s infinite;
+}
+@keyframes desvanecer {
+  0% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes desvanecer2 {
+  0% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 /* *Manchas */
 .portada .mancha1,
