@@ -1,0 +1,158 @@
+/* El header lo eliminas porque tu ya tienes el menu ya listo*/
+
+.contacto {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  max-width: 1500px;
+  margin: auto;
+}
+
+/* Columna 1 */
+.contacto .columna1 {
+  width: 25%;
+  padding: clamp(2em, 4vw, 5em);
+}
+.contacto h3 {
+  font-size: clamp(2.5rem, 7vw, 80px);
+  color: var(--anaranjado);
+  font-weight: 1000;
+  text-shadow: 3px 4px 7px #a8a8a8;
+  margin-bottom: 30px;
+}
+.contacto p {
+  font-size: clamp(18px, 1.2vw, 30px);
+}
+
+/* Columna 2 */
+.contacto .columna2 {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(50px, 5vw, 100px);
+}
+
+/* menu */
+.contacto .menu {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+.contacto .menu li {
+  font-weight: 600;
+  font-size: clamp(20px, 1.6vw, 30px);
+}
+.contacto a {
+  text-decoration: none;
+  color: #5c5c5c;
+}
+
+/* equipo */
+.contacto .equipo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
+.contacto img {
+  height: 240px;
+}
+.contacto .active {
+  height: 360px;
+}
+.contacto span {
+  font-size: clamp(18px, 3vw, 30px);
+  font-weight: 500;
+}
+.contacto .nombre-contacto {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+.contacto i {
+  font-size: clamp(18px, 3vw, 30px);
+}
+.contacto .redes-sociales {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(12px, 2vw, 25px);
+  gap: 30px;
+}
+
+/* boton */
+.contacto .boton-contacto {
+  display: flex;
+  justify-content: center;
+}
+.contacto .boton {
+  border-radius: 90px;
+  font-size: clamp(20px, 1.5vw, 30px);
+  padding: clamp(12px, 2vw, 32px) clamp(30px, 2vw, 50px);
+  background-color: var(--anaranjado);
+  border: none;
+  color: var(--blanco);
+  cursor: pointer;
+}
+
+/* TABLET VERSION */
+@media screen and (min-width: 767px) and (max-width: 1200px) {
+  .contacto {
+    flex-direction: column;
+    align-items: center;
+  }
+  .contacto .columna1 {
+    width: 50%;
+  }
+  .contacto .columna2 {
+    width: auto;
+  }
+  .contacto img {
+    height: 150px;
+  }
+  .contacto .active {
+    height: 300px;
+  }
+}
+
+/* MOBILE VERSION */
+@media screen and (max-width: 767px) {
+  .contacto {
+    flex-direction: column;
+    align-items: center;
+  }
+  .contacto .columna1,
+  .contacto .columna2 {
+    width: auto;
+  }
+
+  /* menu */
+  .contacto .menu {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  /* equipo */
+  .contacto .equipo {
+    flex-direction: column;
+  }
+  .equipo > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contacto img {
+    height: 150px;
+    object-fit: contain;
+  }
+  .contacto .active {
+    height: 300px;
+    object-fit: contain;
+  }
+  .contacto .boton-contacto a,
+  .contacto .boton-contacto,
+  .boton {
+    width: 100%;
+  }
+}

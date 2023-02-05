@@ -6,6 +6,7 @@ import videoFull from "../../img/video-full.svg";
 function Step3() {
   return (
     <div className="construccion-proyecto-container">
+      {/*  */}
       <div className="construccion-proyecto">
         <div className="first-section">
           <h3>#3 Construcción del proyecto</h3>

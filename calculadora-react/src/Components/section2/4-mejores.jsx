@@ -1,12 +1,19 @@
 import React from "react";
 import "./4-mejores.css";
+import imagen5 from "../../img/erp/imagen1.png";
+import imagen2 from "../../img/erp/imagen2.png";
+import imagen3 from "../../img/erp/imagen3.png";
+import imagen4 from "../../img/erp/imagen4.png";
+import imagen1 from "../../img/erp/imagen5.png";
+import cloudshore from "../../img/partners/cloudshore.png";
+import pixRobotics from "../../img/partners/pix-robotics.png";
+import rocketBot from "../../img/partners/rocketbot.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartSimple,
   faCheck,
   faGlobe,
   faLock,
-  faMoneyBill,
   faPhone,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +24,6 @@ function Mejores() {
         <h2>Somos el mejor para generar proyectos RPA</h2>
         <div className="contenedor-cards">
           <div className="linea"></div>
-
           <div className="card">
             <div className="nada derecha">
               <FontAwesomeIcon className="icons" icon={faPhone} />
@@ -38,28 +44,8 @@ function Mejores() {
               </p>
             </div>
           </div>
-
           <div className="card izquierda">
             <div className="nada">
-              <FontAwesomeIcon className="icons" icon={faMoneyBill} />
-            </div>
-
-            <div className="circulo">
-              <FontAwesomeIcon className="icons pc" icon={faCheck} />
-              <FontAwesomeIcon className="icons mobile" icon={faMoneyBill} />
-            </div>
-
-            <div className="contenido">
-              <h3>% Comisión</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                aliquet turpis a purus blandit hendrerit. Nulla malesuada
-              </p>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="nada derecha">
               <FontAwesomeIcon className="icons" icon={faUserGroup} />
             </div>
 
@@ -79,11 +65,27 @@ function Mejores() {
                 comerciales, lo que facilita que su equipo acceda y comparta
                 información importante
               </p>
+              <section className="carrousel-erp-container">
+                <li className="carrousel-erp-element">
+                  <img src={imagen1} alt="imagen 1" />
+                </li>
+                <li className="carrousel-erp-element">
+                  <img src={imagen2} alt="imagen 2" />
+                </li>
+                <li className="carrousel-erp-element">
+                  <img src={imagen3} alt="imagen 3" />
+                </li>
+                <li className="carrousel-erp-element">
+                  <img src={imagen4} alt="imagen 4" />
+                </li>
+                <li className="carrousel-erp-element">
+                  <img src={imagen5} alt="imagen 5" />
+                </li>
+              </section>
             </div>
           </div>
-
-          <div className="card izquierda">
-            <div className="nada">
+          <div className="card">
+            <div className="nada derecha">
               <FontAwesomeIcon className="icons" icon={faLock} />
             </div>
             <div className="circulo">
@@ -101,9 +103,8 @@ function Mejores() {
               </p>
             </div>
           </div>
-
-          <div className="card">
-            <div className="nada derecha">
+          <div className="card izquierda">
+            <div className="nada">
               <FontAwesomeIcon className="icons" icon={faChartSimple} />
             </div>
 
@@ -120,9 +121,8 @@ function Mejores() {
               </p>
             </div>
           </div>
-
-          <div className="card izquierda ultimo">
-            <div className="nada">
+          <div className="card ultimo">
+            <div className="nada derecha">
               <FontAwesomeIcon className="icons" icon={faGlobe} />
             </div>
 
@@ -141,6 +141,17 @@ function Mejores() {
                 servicios de RPA de alta calidad e impulsar el éxito comercial
                 de nuestros clientes.
               </p>
+              <section className="partners">
+                <li className="partners-uno">
+                  <img src={rocketBot} alt="rocket-bot" />
+                </li>
+                <li className="partners-dos">
+                  <img src={cloudshore} alt="cloud-shore" />
+                </li>
+                <li className="partners-tres">
+                  <img src={pixRobotics} alt="pix-robotics" />
+                </li>
+              </section>
             </div>
           </div>
         </div>

@@ -31,15 +31,16 @@
 }
 /* *Primera columna */
 .portada h1 {
-  font-size: clamp(40px, 5vw, 75px);
+  font-size: clamp(40px, 5vw, 70px);
   font-weight: bolder;
   margin-bottom: 20px;
   margin-top: 0;
-  line-height: 0.95;
+  line-height: 1.05;
+  color: var(--negro);
 }
-.portada p {
+.portada .columna1 p {
   line-height: 1.5;
-  font-size: clamp(14px, 1.7vw, 18px);
+  font-size: clamp(14px, 1.5vw, 17px);
 }
 
 .portada .botones {
@@ -50,7 +51,7 @@
 .portada button {
   width: 185px;
   height: clamp(45px, 5.5vw, 65px);
-  font-size: clamp(15px, 3vw, 21px);
+  font-size: clamp(15px, 3vw, 18px);
   font-weight: 500;
   border-radius: 30px;
   border: 2px solid var(--negro);

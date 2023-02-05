@@ -12,23 +12,33 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  color: var(--negro);
 }
 .asesoramiento-personalizado .first-section {
   align-self: start;
   width: 100%;
 }
 .asesoramiento-personalizado .first-section h3 {
-  font-size: 3rem;
-  margin-bottom: 0px;
-  margin-bottom: 30px;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: bold;
+  line-height: 1.1;
+  color: var(--negro);
+  margin-bottom: clamp(10px, 2vw, 30px);
 }
 .asesoramiento-personalizado .first-section p {
-  font-size: 20px;
-  margin-bottom: 0px;
+  font-size: clamp(13px, 2vw, 18px);
+  text-align: justify;
+  line-height: 1.3;
+  color: var(--negro);
 }
 .asesoramiento-personalizado .second-section {
-  width: 35%;
+  width: clamp(250px, 40vw, 500px);
 }
 .asesoramiento-personalizado img {
   width: 100%;
+}
+@media (max-width: 1000px) {
+  .asesoramiento-personalizado .first-section {
+    text-align: center;
+  }
 }

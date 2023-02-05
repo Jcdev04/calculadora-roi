@@ -10,7 +10,7 @@ import {
 import "./3-generar.css";
 function Generar() {
   return (
-    <div className="necesitas-container">
+    <div className="necesitas-container" id="generar">
       <section className="necesitas">
         <h2>¿Tu empresa necesita generar un proyecto RPA?</h2>
         <div className="cards">
@@ -40,7 +40,7 @@ function Generar() {
             <FontAwesomeIcon className="icons" icon={faCalendar} />
             <h3>Dificultades para alinear</h3>
             <p>
-              los recursos humanos a demandas variables y de agilidad ante
+              Los recursos humanos a demandas variables y de agilidad ante
               necesidades imprevistas por la lentitud en el tiempo de respuesta.
             </p>
           </div>
@@ -49,7 +49,7 @@ function Generar() {
             <FontAwesomeIcon className="icons" icon={faCodeBranch} />
             <h3>Poca capacidad de mejora</h3>
             <p>
-              con el sistema productivo actual sin invertir mucho en la
+              Con el sistema productivo actual sin invertir mucho en la
               modificación de los sistemas actuales.
             </p>
           </div>

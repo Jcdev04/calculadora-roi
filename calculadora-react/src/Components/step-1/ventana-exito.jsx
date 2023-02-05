@@ -50,10 +50,10 @@ function ventanaExito({ setActivateSuccess, handleTranslate }) {
           icon={faCheckCircle}
           className="iconoExito"
         />
-        <h1 style={{ fontSize: 25, fontWeight: "200" }}>¡Proceso agregado!</h1>
+        <h1 style={{ fontSize: 25, fontWeight: "400" }}>¡Proceso agregado!</h1>
       </section>
       <section style={CSS.description}>
-        <p style={{ alignSelf: "flex-start", fontWeight: "100" }}>
+        <p style={{ alignSelf: "flex-start", fontWeight: "300" }}>
           Ahora puedes comenzar a editar la información de tu proceso en la
           calculadora.
         </p>

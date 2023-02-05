@@ -1,0 +1,53 @@
+.ventana-error {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 300;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 20px;
+}
+.ventana-error__container {
+  max-width: min(350px, 100%);
+  background-color: #fff;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.ventana-error__message {
+  background-color: #b00020;
+  width: 100%;
+  padding: 10px 0px;
+  text-align: center;
+  top: 0;
+}
+.ventana-error__title,
+.icon-error {
+  font-size: 2.5rem;
+  color: white;
+}
+.ventana-error__text {
+  margin: 20px;
+}
+.ventana-error button {
+  background-color: #fff;
+  border: 1px solid #b00020;
+  border-radius: 30px;
+  padding: 7px 30px;
+  color: #b00020;
+  font-size: 1.2rem;
+  transition: var(--default-animation);
+  margin-bottom: 20px;
+}
+.ventana-error button:hover {
+  background-color: #b00020;
+  color: #fff;
+}

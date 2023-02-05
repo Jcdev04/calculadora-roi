@@ -6,27 +6,29 @@ import { Navigation } from "swiper";
 /* SECCIONES */
 import Section1 from "./section1/section-1";
 import Section2 from "./section2/section-2";
+import Step1 from "./step-1/step-1";
+import Step2 from "./step-2/step-2";
 import Step3 from "./step-3/step-3";
 import Step4 from "./step-4/step-4";
 import Step5 from "./step-5/step-5";
-import Step2 from "./step-2/step-2";
-import Step1 from "./step-1/step-1";
+import Contact from "./try-contact/contact";
 /* Font awesome */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
+import { faAnglesDown, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./main-page.css";
 // Import Swiper styles
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 /* Ventanas emergentes */
-import NavButtons from "./nav-buttons";
+import Burbujas from "./burbujas";
 import VentanaInicio from "./ventana-inicio";
+import NavButtons from "./nav-buttons";
 import Tabla from "./step-2/calculadora/ventana-emergente/tabla";
 import VentanaExito from "./step-2/calculadora/ventana-emergente/ventana-exito";
+import VentanaError from "./step-2/calculadora/ventana-emergente/ventana-error";
 import VentanaPrincipal from "./step-2/calculadora/ventana-emergente/ventana-principal";
-import Burbujas from "./burbujas";
 /* REDUX */
-import { modificarInputs } from "../Reducers/inputs";
+import { modificarInputs, rotation } from "../Reducers/inputs";
 import { connect } from "react-redux";
 
 function MainPage(props) {
@@ -41,6 +43,7 @@ function MainPage(props) {
   const todosProcesos = props.procesos.user.procesos;
   const [botonEditar, setBotonEditar] = useState(false);
   const [botonConfirmar, setBotonConfirmar] = useState(false);
+  const [botonError, setBotonError] = useState(false);
   const [botonEditar2, setBotonEditar2] = useState(false);
   const [index, setIndex] = useState(0);
   /* Nombre empresa y persona */
@@ -56,7 +59,7 @@ function MainPage(props) {
       if (window.innerWidth < 1169) {
         setResponsive(true);
         if (activeIndex === 1) {
-          setHeight("600vh");
+          setHeight("770vh");
         } else {
           setResponsive(false);
         }
@@ -89,7 +92,7 @@ function MainPage(props) {
 
     if (!responsive) {
       if (activeIndex === 1) {
-        setHeight("500vh");
+        setHeight("640vh");
         setArrowDown(true);
       } else if (activeIndex === 3) {
         setHeight("200vh");
@@ -116,8 +119,8 @@ function MainPage(props) {
   /*  */
   return (
     <div>
-      {/* <Burbujas />
-      <AnimatePresence>
+      <Burbujas />
+      {/* <AnimatePresence>
         {ventanaInicio && (
           <VentanaInicio
             setVentanaInicio={setVentanaInicio}
@@ -137,6 +140,7 @@ function MainPage(props) {
               index={index}
               trigger2={botonEditar2}
               setTrigger2={setBotonEditar2}
+              setBotonError={setBotonError}
             />
           )}
         </AnimatePresence>
@@ -161,6 +165,17 @@ function MainPage(props) {
           <VentanaExito setBotonConfirmar={setBotonConfirmar} />
         )}
       </AnimatePresence>
+      {/* Ventana Error */}
+      {/* <AnimatePresence>
+        {botonError && (
+          <VentanaError
+            setTrigger2={setBotonEditar2}
+            setBotonError={setBotonError}
+            index={index}
+            rotation={props.rotation}
+          />
+        )}
+      </AnimatePresence> */}
       {/* SLIDER */}
       <Swiper
         style={{
@@ -176,11 +191,11 @@ function MainPage(props) {
       >
         {/* SECTION1 */}
         <SwiperSlide>
-          <Section1 />
+          <Section1 handleTranslate={handleTranslate} />
         </SwiperSlide>
         {/* SECTION2 */}
         <SwiperSlide className="swiper-slide">
-          <Section2 />
+          <Section2 handleTranslate={handleTranslate} />
         </SwiperSlide>
         {/* Step1 */}
         <SwiperSlide>
@@ -211,16 +226,22 @@ function MainPage(props) {
           <Step5 />
         </SwiperSlide>
         {/* CONTACT */}
-        <SwiperSlide>Slide 8</SwiperSlide>
+        <SwiperSlide>
+          <Contact handleTranslate={handleTranslate} />
+        </SwiperSlide>
       </Swiper>
       {/* BOTONES DE NAVEGACIÓN */}
       <NavButtons activeIndex={activeIndex} handleTranslate={handleTranslate} />
-
       <button
         style={{ display: arrowDown ? "block" : "none" }}
         className="arrow-down-container"
       >
         <FontAwesomeIcon className="arrow-down" icon={faAnglesDown} />
+      </button>
+      {/* Botón contacto */}
+      <button className="contact-button" onClick={() => handleTranslate(7)}>
+        <FontAwesomeIcon className="contact-icon" icon={faUser} />
+        <h4>Contáctanos</h4>
       </button>
     </div>
   );
@@ -234,6 +255,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   modificarInputs: (index, valores) =>
     dispatch(modificarInputs(index, valores)),
+  rotation: (index) => dispatch(rotation(index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

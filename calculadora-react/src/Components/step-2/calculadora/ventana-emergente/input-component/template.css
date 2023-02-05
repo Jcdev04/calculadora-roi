@@ -1,21 +1,55 @@
+.title-mostrarFTE {
+  position: relative;
+  z-index: 7;
+  display: flex;
+  top: -4%;
+  justify-content: center;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+@media screen and (max-width: 773px) {
+  .title-mostrarFTE {
+    top: -1%;
+  }
+  .title-mostrarFTE::before {
+    display: none;
+  }
+}
+
+.title-mostrarFTE::before {
+  content: "";
+  width: 120%;
+  height: 2px;
+  background-color: #3e3d3d;
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  z-index: -1;
+}
+.heading-template {
+  text-align: center;
+  color: white;
+  font-weight: 500;
+  margin-bottom: 45px;
+}
 .template-container {
-  width: 350px;
+  max-width: clamp(250px, 51vw, 300px);
   background-color: #ff8469;
-  box-shadow: 16px 16px 11px rgba(0, 0, 0, 0.25);
+  color: var(--negro);
   border-radius: 53px;
   position: relative;
-  padding: 40px 20px;
+  padding: clamp(10px, 4vw, 20px) clamp(20px, 4vw, 30px);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border: solid 3px white;
 }
 
 .image-cara {
-  position: absolute;
-  top: -50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  z-index: 2;
+  margin-top: -50px;
+  margin-bottom: 5px;
+  width: clamp(80px, 26vw, 110px);
 }
 
 .empresa-container {
@@ -23,10 +57,15 @@
   flex-direction: column;
   padding: 15px;
   justify-content: center;
-  width: 280px;
+  width: clamp(220px, 35vw, 280px);
   background-color: white;
   border-radius: 23px;
   text-align: center;
+}
+.empresa-container img {
+  height: clamp(50px, 15vw, 90px);
+  width: auto;
+  margin: 0 auto;
 }
 .empleado-tiempo {
   display: grid;
@@ -35,7 +74,7 @@
     "primero segundo"
     "tercero tercero";
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 120px 65px;
+  grid-template-rows: 80px 65px;
 }
 .empleado-tiempo > * {
   background-color: #d9d9d9;
@@ -45,13 +84,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: end;
+  line-height: 1.1;
 }
 .empleado-tiempo > * h3 {
-  font-size: 23px;
+  font-size: clamp(15px, 2vw, 19px);
+  color: var(--negro);
 }
 .empleado-tiempo > * p {
-  font-size: 13px;
-  height: 45px;
+  font-size: clamp(11px, 2vw, 12px);
+  margin-top: 3px;
+  color: var(--negro);
 }
 
 .empleado-tiempo .primero {
@@ -66,23 +108,24 @@
 .icons-productivity {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 35px;
+  margin-top: clamp(20px, 1vw, 25px);
   gap: 10px;
   width: 100%;
 }
 .icons-productivity > * {
   background-color: #43ca40;
-  width: 30%;
-  height: 100px;
+  width: 28%;
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-  font-size: 40px;
+  font-size: 30px;
   color: white;
 }
 .icons-productivity > * p {
-  font-size: 19px;
-  margin-top: 10px;
+  font-size: clamp(13px, 2vw, 16px);
+  margin-top: 3px;
+  font-weight: 500;
 }

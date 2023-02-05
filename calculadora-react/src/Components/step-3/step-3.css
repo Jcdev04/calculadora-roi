@@ -15,15 +15,17 @@
   width: 65%;
 }
 .construccion-proyecto .first-section h3 {
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 5vw, 3rem);
   font-weight: bold;
-  color: #000;
-  margin-bottom: 30px;
+  line-height: 1.1;
+  color: var(--negro);
+  margin-bottom: clamp(10px, 2vw, 30px);
 }
 .construccion-proyecto .first-section p {
-  font-size: 20px;
-  margin-bottom: 60px;
+  font-size: clamp(13px, 2vw, 18px);
   text-align: justify;
+  line-height: 1.3;
+  margin-bottom: clamp(20px, 3vw, 60px);
 }
 .button-group-3 {
   display: flex;
@@ -31,19 +33,19 @@
   align-items: center;
 }
 .button-group-3 h4 {
-  font-size: 30px;
+  font-size: clamp(25px, 3vw, 30px);
 }
 .button-group-3 button {
   display: flex;
   align-items: center;
   gap: 20px;
-  width: 300px;
-  height: 80px;
-  border: 1px solid black;
+  width: clamp(220px, 32vw, 300px);
+  height: clamp(50px, 6.5vw, 80px);
+  border: 1px solid var(--negro);
   border-radius: 5px;
-  font-size: 20px;
+  font-size: clamp(10px, 2vw, 20px);
   font-weight: bold;
-  color: black;
+  color: var(--negro);
   background-color: transparent;
   cursor: pointer;
   padding: 0 10px;
@@ -51,11 +53,11 @@
   transition: var(--default-animation);
 }
 .button-group-3 button:hover {
-  background-color: #000;
+  background-color: var(--negro);
   color: #fff;
 }
 .button-group-3 button .icons {
-  font-size: 40px;
+  font-size: clamp(25px, 3vw, 40px);
   animation: infinite 1s rigthLeft;
   transition: var(--default-animation);
 }
@@ -70,7 +72,6 @@
     opacity: 1;
   }
 }
-
 .construccion-proyecto .second-section {
   width: 35%;
   display: flex;
@@ -79,4 +80,34 @@
 }
 .construccion-proyecto .second-section img {
   width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .construccion-proyecto {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+  }
+  /* !CAMBIAR AQuí */
+  .construccion-proyecto .first-section {
+    width: 100%;
+  }
+  .construccion-proyecto .second-section {
+    width: 35%;
+  }
+}
+
+@media (max-width: 550px) {
+  .button-group-3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .button-group-3 button {
+    width: 100%;
+    justify-content: space-evenly;
+    font-size: clamp(12px, 2vw, 15px);
+  }
 }

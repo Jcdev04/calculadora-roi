@@ -2,13 +2,8 @@ import React, { useEffect } from "react";
 import "./section-1.css";
 import imagenPortada2 from "../../img/imagen-portada.png";
 import imagenPortada1 from "../../img/imagen-portada-1.png";
-import {
-  motion,
-  useAnimation,
-  useCycle,
-} from "framer-motion/dist/framer-motion";
 
-function Section1() {
+function Section1({ handleTranslate }) {
   return (
     <div className="portada-container">
       <section className="portada">
@@ -21,10 +16,10 @@ function Section1() {
           </p>
           <div className="botones">
             <a href="#" className="comencemos">
-              <button>Comencemos</button>
+              <button onClick={() => handleTranslate(1)}>Comencemos</button>
             </a>
 
-            <a href="#">
+            <a href="https://dignita.tech/nosotros/">
               <button className="conocenos">Conócenos</button>
             </a>
           </div>

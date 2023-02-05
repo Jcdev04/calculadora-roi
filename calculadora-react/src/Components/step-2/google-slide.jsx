@@ -10,7 +10,7 @@ const SCOPE = "https://www.googleapis.com/auth/drive.file";
 function GoogleSlide() {
   const [presentationCopyId, setPresentationCopyId] = useState("");
   /* IMPORTANT */
-  const templateID = "15l2dvU7LiVH5qhz_xzvL_raJpDDg9ROwP2xZDN9jZXY";
+  const templateID = "1jbHcgeD777FeugvckW6mDsmrD7wZ2LHEpnUdFROsKyA";
 
   useEffect(() => {
     gapi.load("client:auth2", () => {

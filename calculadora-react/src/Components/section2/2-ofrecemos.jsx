@@ -8,7 +8,7 @@ import {
   faRobot,
   faMoneyBillWheat,
 } from "@fortawesome/free-solid-svg-icons";
-function Ofrecemos() {
+function Ofrecemos({ handleTranslate }) {
   return (
     <div className="ofrecemos-container">
       <section className="ofrecemos">
@@ -72,10 +72,11 @@ function Ofrecemos() {
 
           <div className="botones">
             <a href="#">
-              <button className="empecemos">Empecemos</button>
+              <button onClick={() => handleTranslate(2)} className="empecemos">
+                Empecemos
+              </button>
             </a>
-
-            <a href="#">
+            <a href="#generar">
               <button>Leer más</button>
             </a>
           </div>

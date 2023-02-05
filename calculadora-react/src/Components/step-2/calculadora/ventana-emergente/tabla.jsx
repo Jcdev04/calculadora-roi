@@ -65,20 +65,25 @@ const CSS = {
     backgroundColor: "#EE911D",
     border: "none",
     cursor: "pointer",
-    marginRight: 10,
   },
   containerBotones: {
-    maxWidth: 750,
+    maxWidth: 850,
     zIndex: 2,
     width: "100%",
     display: "flex",
     justifyContent: "end",
+    gap: 10,
   },
   moreInfo: {
     color: "#c80b0b",
     fontSize: 12,
-    marginRight: 3,
     cursor: "pointer",
+    marginRight: 3,
+  },
+  info: {},
+  captura: {
+    cursor: "pointer",
+    backgroundColor: "#43CA40",
   },
 };
 const dropIn = {
@@ -166,7 +171,7 @@ class Tabla extends Component {
   }
 
   render() {
-    const { setTrigger2, tabla, index } = this.props;
+    const { setTrigger2, tabla, index, setBotonError } = this.props;
     /* Extraemos la tabla */
     const { trigger, triggerDB, triggerFTE, content, contentMostrarAux } =
       this.state;
@@ -175,14 +180,14 @@ class Tabla extends Component {
     /* CONTENIDO que irá dentro de la fórmula */
 
     /* VERIFICAR que al momento de procesor todo esté bien */
-    if (tabla != null) {
-      if (
-        isNaN(tabla.fila1_Y1Y5) ||
+    if (
+      tabla != null &&
+      (isNaN(tabla.fila1_Y1Y5) ||
         isNaN(tabla.fila2_Y1Y5) ||
-        isNaN(tabla.fila5_Y1)
-      ) {
-        notANumber = false;
-      }
+        isNaN(tabla.fila5_Y1))
+    ) {
+      notANumber = false;
+      setBotonError(true);
     }
     /* ABRIOCERRAR ventanas */
     const setTrigger = (content) => () => {
@@ -213,7 +218,10 @@ class Tabla extends Component {
     }
     const takeScreenshot = async () => {
       try {
-        const canvas = await html2canvas(this.targetRef.current);
+        const canvas = await html2canvas(this.targetRef.current, {
+          useCORS: true,
+          backgroundColor: null,
+        });
         canvas.toBlob(function (blob) {
           saveAs(blob, "tabla-resultados.png");
         });
@@ -221,7 +229,8 @@ class Tabla extends Component {
         console.error(error);
       }
     };
-    return (
+
+    return !triggerFTE ? (
       <motion.div
         variants={dropIn}
         initial="hidden"
@@ -231,8 +240,11 @@ class Tabla extends Component {
       >
         <div style={CSS.containerBotones}>
           {/* TAKE A SCREENSHOT */}
-          <button onClick={takeScreenshot}>
-            <FontAwesomeIcon icon={faCamera} />
+          <button
+            style={{ ...CSS.verDatos, ...CSS.captura }}
+            onClick={takeScreenshot}
+          >
+            <FontAwesomeIcon style={{ marginRight: 5 }} icon={faCamera} />
             Toma un screenshot
           </button>
           {/* END TAKE A SCREENSHOT */}
@@ -275,7 +287,7 @@ class Tabla extends Component {
               <h2 className="cabecera">Ítems</h2>
             </div>
             <div className="item1 ">
-              <p>
+              <p style={{ lineHeight: "1.1" }}>
                 <FontAwesomeIcon
                   onClick={setTrigger(content.costoAnual)}
                   style={CSS.moreInfo}
@@ -285,7 +297,7 @@ class Tabla extends Component {
               </p>
             </div>
             <div className="item2 ">
-              <p>
+              <p style={{ lineHeight: "1.1" }}>
                 <FontAwesomeIcon
                   onClick={setTrigger(content.horasAnuales)}
                   style={CSS.moreInfo}
@@ -296,7 +308,7 @@ class Tabla extends Component {
               </p>
             </div>
             <div className="item3 ">
-              <p>
+              <p style={{ lineHeight: "1.1" }}>
                 <FontAwesomeIcon
                   onClick={setTrigger(content.costoRobot)}
                   style={CSS.moreInfo}
@@ -307,7 +319,7 @@ class Tabla extends Component {
               </p>
             </div>
             <div className="item4 net-roi">
-              <p>
+              <p style={{ lineHeight: "1.1" }}>
                 <FontAwesomeIcon
                   onClick={setTrigger(content.netROI)}
                   style={CSS.moreInfo}
@@ -317,7 +329,7 @@ class Tabla extends Component {
               </p>
             </div>
             <div className="item5 roi-acumulado">
-              <p>
+              <p style={{ lineHeight: "1.1" }}>
                 <FontAwesomeIcon
                   onClick={setTrigger(content.ROIAcumulado1)}
                   style={{ ...CSS.moreInfo, color: "#FC4D19" }}
@@ -494,12 +506,17 @@ class Tabla extends Component {
             <VentanaDatosBrutos index={index} setTrigger={setTriggerDB()} />
           )}
         </AnimatePresence>
-        <AnimatePresence>
-          {triggerFTE && (
-            <VentanaMostrarFTE index={index} setTrigger={setTriggerFTE()} />
-          )}
-        </AnimatePresence>
       </motion.div>
+    ) : (
+      <AnimatePresence>
+        {triggerFTE && (
+          <VentanaMostrarFTE
+            dropIn={dropIn}
+            index={index}
+            setTrigger={setTriggerFTE()}
+          />
+        )}
+      </AnimatePresence>
     );
   }
 }

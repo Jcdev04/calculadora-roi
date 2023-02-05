@@ -14,9 +14,9 @@
 }
 .area-personalizada h3 {
   text-align: center;
-  font-size: 35px;
+  font-size: clamp(25px, 5vw, 35px);
   color: #fc4d19;
-  font-weight: 100;
+  font-weight: 400;
   margin-bottom: 60px;
 }
 .area-personalizada span {
@@ -31,6 +31,12 @@
   display: flex;
   gap: 20px;
 }
+@media screen and (max-width: 430px) {
+  .area-personalizada section {
+    flex-direction: column;
+  }
+}
+
 .proceso-name {
   width: 100%;
   border: none;

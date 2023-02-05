@@ -2,13 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 120vh;
   padding: 0px 20px;
   box-sizing: border-box;
 }
 .necesitas {
   max-width: 1200px;
   width: 100%;
+  color: var(--negro);
 }
 .necesitas h2 {
   font-size: 40px;
@@ -54,7 +55,7 @@
     margin-bottom: 40px;
   }
   .necesitas-container {
-    height: 200vh;
+    height: 250vh;
   }
   .necesitas .cards {
     gap: 10px;

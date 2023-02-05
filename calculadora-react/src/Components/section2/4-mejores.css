@@ -1,6 +1,6 @@
 .somos-container {
   background: linear-gradient(180deg, #ffbb92 0%, #de6262 100%);
-  height: 200vh;
+  height: 300vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,7 +116,88 @@
     font-size: 14px;
   }
 }
+.carrousel-erp-container {
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  overflow: hidden;
+  height: clamp(100px, 15vw, 200px);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 20px;
+}
+.carrousel-erp-element {
+  flex-basis: 20%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slide 40s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  20% {
+    transform: translateX(-100%);
+  }
+  25% {
+    transform: translateX(-100%);
+  }
+  45% {
+    transform: translateX(-200%);
+  }
+  50% {
+    transform: translateX(-200%);
+  }
+  70% {
+    transform: translateX(-300%);
+  }
+  75% {
+    transform: translateX(-300%);
+  }
+  95% {
+    transform: translateX(-400%);
+  }
+  100% {
+    transform: translateX(-400%);
+  }
+}
 
+.partners {
+  display: grid;
+  grid-template-areas:
+    "uno dos"
+    "tres tres";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100px 50px;
+  gap: 20px;
+  margin-top: 20px;
+  align-items: center;
+  justify-items: center;
+}
+.partners li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.partners img {
+  width: 100%;
+}
+.partners-uno {
+  grid-area: uno;
+}
+.partners-dos {
+  grid-area: dos;
+}
+.partners-dos img {
+  width: auto;
+  height: clamp(30%, 10vw, 80%);
+}
+.partners-tres {
+  grid-area: tres;
+}
 @media screen and (max-width: 767px) {
   .somos h2 {
     font-size: 23px;
@@ -159,8 +240,8 @@
     text-align: start;
   }
   .somos .contenido {
-    width: auto;
     margin-left: 30px;
+    width: 60%;
   }
   .somos .circulo {
     margin: 0 20px;
@@ -175,13 +256,13 @@
 @media (max-width: 380px) {
   .somos .contenido {
     margin-left: 5px;
+    width: 70%;
   }
   .somos .linea {
     align-self: flex-start;
     left: 40px;
     height: 80%;
     margin: 0 -5px;
-    left: 40px;
   }
 
   .somos .circulo {

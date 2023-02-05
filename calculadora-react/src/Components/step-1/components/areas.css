@@ -15,14 +15,16 @@
 }
 .apoyo .heading {
   text-align: center;
-  font-size: 35px;
+  font-size: clamp(23px, 3vw, 35px);
+  font-weight: 600;
+  line-height: 1.2;
   color: #fc4d19;
 }
 .apoyo .description {
-  font-size: 25px;
+  font-size: clamp(18px, 2vw, 25px);
   text-align: center;
   color: #606060;
-  margin-bottom: 40px;
+  margin-bottom: clamp(10px, 2vw, 40px);
 }
 
 .areas-container {
@@ -48,8 +50,8 @@
   color: white;
 }
 .areas h4 {
-  font-weight: 100;
-  font-size: 20px;
+  font-weight: 400;
+  font-size: clamp(17px, 3vw, 20px);
 }
 .areas .icon {
   font-size: 25px;
@@ -80,11 +82,12 @@
   border: 1px solid #e42118;
   border-radius: 20px;
   color: #e42118;
-  font-size: 15px;
+  font-size: clamp(12px, 2vw, 15px);
+  line-height: 1.2;
   transition: all ease-in-out 50ms;
 }
 .sub-area__item__title h3 {
-  font-weight: 100;
+  font-weight: 400;
   text-align: left;
 }
 .sub-area__item__title:hover {
@@ -97,7 +100,7 @@
 }
 /* *PROCESOS */
 .proceso-container {
-  max-height: 300px;
+  max-height: clamp(250px, 2vw, 300px);
   overflow: auto;
 }
 .proceso-container__item {
@@ -114,6 +117,7 @@
 }
 .proceso-container__item h3 {
   text-align: start;
-  font-weight: 100;
-  font-size: 17px;
+  font-weight: 300;
+  font-size: clamp(14px, 2vw, 16px);
+  line-height: 1.2;
 }
