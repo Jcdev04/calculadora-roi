@@ -15,7 +15,6 @@ import Contact from "./try-contact/contact";
 /* Font awesome */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesDown, faUser } from "@fortawesome/free-solid-svg-icons";
-/* import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons"; */
 import "./main-page.css";
 // Import Swiper styles
 import "swiper/swiper-bundle.min.css";
@@ -122,7 +121,7 @@ function MainPage(props) {
   return (
     <div>
       <Burbujas />
-      {/* <AnimatePresence>
+      <AnimatePresence>
         {ventanaInicio && (
           <VentanaInicio
             setVentanaInicio={setVentanaInicio}
@@ -132,7 +131,7 @@ function MainPage(props) {
             setNombrePersona={setNombrePersona}
           />
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
       {/* COLOCAR LUEGO DENTRO DE UN COMPONENTE */}
       {/* TABLA */}
       <AnimatePresence>
@@ -177,7 +176,7 @@ function MainPage(props) {
         )}
       </AnimatePresence>
       {/* Ventana Error */}
-      {/* <AnimatePresence>
+      <AnimatePresence>
         {botonError && (
           <VentanaError
             setTrigger2={setBotonEdit}
@@ -186,7 +185,7 @@ function MainPage(props) {
             rotation={props.rotation}
           />
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
       {/* SLIDER */}
       <Swiper
         style={{

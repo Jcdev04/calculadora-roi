@@ -116,7 +116,6 @@ function Tabla({
   const [trigger, setTrigger] = useState(false);
   const [triggerDB, setTriggerDB] = useState(false);
   const [triggerFTE, setTriggerFTE] = useState(false);
-  const [triggerPorcentaje, setTriggerPorcentaje] = useState(true);
   const targetRef = useRef(null);
   const [content, setContent] = useState({
     costoAnual: {
@@ -175,10 +174,10 @@ function Tabla({
 
   /* VERIFICAR que al momento de procesor todo esté bien */
   if (
-    tabla != null &&
-    (isNaN(tabla.fila1_Y1Y5) ||
-      isNaN(tabla.fila2_Y1Y5) ||
-      isNaN(tabla.fila5_Y1))
+    tabla === null ||
+    isNaN(tabla.fila1_Y1Y5) ||
+    isNaN(tabla.fila2_Y1Y5) ||
+    isNaN(tabla.fila5_Y1)
   ) {
     notANumber = false;
     setBotonError(true);
@@ -239,14 +238,13 @@ function Tabla({
         </button>
         {/* END TAKE A SCREENSHOT */}
         {/* Porcentaje editable */}
-        <button
+        {/* <button
           className="botones-tabla"
           style={{ ...CSS.verDatos, backgroundColor: "#FC9873" }}
-          /* onClick={} */
         >
           <FontAwesomeIcon className="icono" icon={faPercentage} />
           <p className="description-icon">Editar porcentaje</p>
-        </button>
+        </button> */}
         {/* END porcentaje editable */}
         {/* VENTANA MOSTRAR FTE */}
         <button
@@ -508,9 +506,6 @@ function Tabla({
         {triggerDB && (
           <VentanaDatosBrutos index={index} setTrigger={setTrigger2()} />
         )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {triggerPorcentaje && <VentanaPorcentaje index={index} />}
       </AnimatePresence>
     </motion.div>
   ) : (

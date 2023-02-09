@@ -1,0 +1,15 @@
+.indicador-slider1,
+.indicador-slider2 {
+  font-size: 14px;
+  top: 50px;
+  position: absolute;
+}
+
+.indicador-slider1 {
+  left: 20px;
+  top: 70px;
+}
+.indicador-slider2 {
+  right: 5px;
+  top: 70px;
+}

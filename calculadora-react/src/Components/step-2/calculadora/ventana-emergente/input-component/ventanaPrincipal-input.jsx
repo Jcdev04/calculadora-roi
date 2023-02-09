@@ -34,7 +34,7 @@ export default class ventanaPrincipalComponent extends Component {
       <div>
         {meta.touched && meta.error && changeBorder()}
         {title && (
-          <p style={CSS.title}>
+          <p style={CSS.title} className="title-inputs">
             <FontAwesomeIcon style={iconoEstilo} icon={icono} />
             {title}
           </p>
