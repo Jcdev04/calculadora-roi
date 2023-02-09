@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./section-1.css";
 import imagenPortada2 from "../../img/imagen-portada.png";
 import imagenPortada1 from "../../img/imagen-portada-1.png";
@@ -8,17 +8,25 @@ function Section1({ handleTranslate }) {
     <div className="portada-container">
       <section className="portada">
         <div className="columna1">
-          <h1>Genera tu proyecto RPA en 5 minutos</h1>
+          <h1>
+            Genera tu proyecto RPA:{" "}
+            <span className="container-title">
+              <span className="title-blink-1">
+                <h3 className="first-title">
+                  Maximiza el rendimiento de todo tu equipo
+                </h3>
+              </span>
+            </span>
+          </h1>
           <p>
-            Te ofrecemos la mejor propuesta de proyecto RPA para tu empresa y
-            asciende de cargo con Dignita. Nosotros nos encargaremos de que
-            ganes. Empieza ahora mismo y no pierdas esta oportunidad.
+            Te ofrecemos la mejor propuesta de RPA para tu empresa y asciende de
+            cargo con Dignita. Nosotros te guiaremos en cada paso hacia el
+            éxito. <strong>¡Comencemos juntos esta aventura!.</strong>
           </p>
           <div className="botones">
-            <a href="#" className="comencemos">
+            <a className="comencemos">
               <button onClick={() => handleTranslate(1)}>Comencemos</button>
             </a>
-
             <a href="https://dignita.tech/nosotros/">
               <button className="conocenos">Conócenos</button>
             </a>

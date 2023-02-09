@@ -1,23 +1,48 @@
 import React from "react";
 import "./step-2.css";
 import videoFull from "../../img/video-full.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 function Portada() {
+  function handleClick() {
+    const element = document.getElementById("calculator");
+    const offsetTop = 100;
+    window.scrollTo({
+      top: element.offsetTop + -offsetTop,
+      left: element.offsetLeft,
+      behavior: "smooth",
+    });
+  }
   return (
-    <div className="detalles-procesos-container">
+    <div
+      className="detalles-procesos-container"
+      id="detalles-procesos-container"
+    >
       <div className="detalles-procesos">
         <div className="first-section">
-          <h3>#2 Conoce los detalles del proceso</h3>
+          <h3>#2 Conoce cada detalle del proceso</h3>
+          <div className="comunicar-asesor">
+            <a>
+              <FontAwesomeIcon
+                style={{ marginRight: 10 }}
+                icon={faTriangleExclamation}
+              />
+              Para este paso es necesario de que usted se comunique con un
+              asesor.
+            </a>
+          </div>
           <p>
             Calcula las inversiones para saber si la implementación del robot se
-            justifica con los números. No queremos que pierdas, queremos que
-            empresa sea más productiva. Por eso, estima el resultado del ROI en
-            nuestra calculadora que diseñamos exactamente para eso y coloca
-            todos los datos importantes.
+            justifica con tu presupuesto. Dignita no quiere que pierdas,
+            queremos que <strong> tu empresa sea más productiva.</strong> Por
+            eso, <strong>estima el resultado del ROI</strong> utilizando la
+            <strong>calculadora</strong> que nosotros ponemos a tu total
+            disposición de manera <strong>gratuita</strong>.
           </p>
           <div className="button-group-2">
-            <a href="">
-              <button className="first">Probar calculadora</button>
-            </a>
+            <button className="first" onClick={() => handleClick()}>
+              Probar calculadora
+            </button>
             <a href="">
               <button className="second">Contactar con un asesor</button>
             </a>

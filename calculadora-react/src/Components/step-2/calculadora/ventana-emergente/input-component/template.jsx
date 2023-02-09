@@ -7,7 +7,7 @@ import {
   faBriefcase,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-function Template({ proceso }) {
+function Template({ proceso, nombreEmpresa, fte }) {
   return (
     <div className="template-high-container">
       <h2 className="heading-template">{proceso.heading}</h2>
@@ -15,7 +15,7 @@ function Template({ proceso }) {
         <img className="image-cara" src={proceso.battery} alt="batería" />
         <div className="empresa-container">
           <h3>
-            Empresa: <span>XXXX</span>
+            Empresa: <span>{nombreEmpresa}</span>
           </h3>
           <img src={proceso.img} alt="" />
           <p>Responsables del proceso</p>
@@ -28,7 +28,7 @@ function Template({ proceso }) {
                   icon={faCheck}
                 />
               ) : (
-                <h3>2 Años</h3>
+                <h3>{fte.totalOperaciones}</h3>
               )}
               <p>{proceso.copies.n1}</p>
             </section>
@@ -40,7 +40,7 @@ function Template({ proceso }) {
                   icon={faBriefcase}
                 />
               ) : (
-                <h3>192 hrs</h3>
+                <h3>{fte.tiempoMensual} hrs</h3>
               )}
               <p>{proceso.copies.n2}</p>
             </section>
@@ -52,7 +52,7 @@ function Template({ proceso }) {
                   icon={faClock}
                 />
               ) : (
-                <h3>30 hrs.</h3>
+                <h3>{fte.tiempoLibre} hrs</h3>
               )}
               <p>{proceso.copies.n3}</p>
             </section>
@@ -63,19 +63,19 @@ function Template({ proceso }) {
             style={{ backgroundColor: !proceso.automatizado && "#FF5B5B" }}
           >
             <FontAwesomeIcon icon={faCalendar} />
-            <p>4 meses</p>
+            <p>{fte.tMesOp} meses</p>
           </section>
           <section
             style={{ backgroundColor: !proceso.automatizado && "#FF5B5B" }}
           >
             <FontAwesomeIcon icon={faCalendarDays} />
-            <p>120 dias</p>
+            <p>{fte.tDiasOp} dias</p>
           </section>
           <section
             style={{ backgroundColor: !proceso.automatizado && "#FF5B5B" }}
           >
             <FontAwesomeIcon icon={faClock} />
-            <p>2000 hrs</p>
+            <p>{fte.tHorasOp} hrs</p>
           </section>
         </div>
       </div>

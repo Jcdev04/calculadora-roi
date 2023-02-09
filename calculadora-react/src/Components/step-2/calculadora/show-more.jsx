@@ -15,7 +15,8 @@ import {
   faTrash,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
-import VentanaExito from "./ventana-emergente/ventana-exito";
+import ProcesosComun from "./procesos-comun";
+
 import { motion, AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const CSS = {
@@ -209,6 +210,7 @@ function ShowMore({
           Agregar Proceso
         </button>
       </div>
+      <ProcesosComun />
     </div>
   );
 }

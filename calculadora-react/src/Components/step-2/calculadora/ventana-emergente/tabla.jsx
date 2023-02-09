@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useRef } from "react";
 import "../Styles/tabla.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { rotation } from "../../../../Reducers/inputs";
@@ -8,6 +8,7 @@ import {
   faEye,
   faPersonDigging,
   faCamera,
+  faPercentage,
 } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import VentanaFormula from "./ventana-formula";
@@ -48,7 +49,6 @@ const CSS = {
   },
   close: {
     padding: "5px 15px",
-    fontSize: 17,
     zIndex: 2,
     borderRadius: 20,
     color: "white",
@@ -58,13 +58,15 @@ const CSS = {
   },
   verDatos: {
     padding: "5px 15px",
-    fontSize: 17,
     zIndex: 2,
     borderRadius: 20,
     color: "white",
     backgroundColor: "#EE911D",
     border: "none",
     cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    gap: 5,
   },
   containerBotones: {
     maxWidth: 850,
@@ -76,11 +78,10 @@ const CSS = {
   },
   moreInfo: {
     color: "#c80b0b",
-    fontSize: 12,
     cursor: "pointer",
-    marginRight: 3,
+    fontSize: 13,
+    marginRight: 5,
   },
-  info: {},
   captura: {
     cursor: "pointer",
     backgroundColor: "#43CA40",
@@ -104,421 +105,427 @@ const dropIn = {
   },
 };
 
-class Tabla extends Component {
-  constructor(props) {
-    super(props);
-    this.targetRef = React.createRef();
-    this.state = {
-      trigger: false,
-      triggerDB: false,
-      triggerFTE: false,
-      content: {
-        costoAnual: {
-          nombre: "Costo anual",
-          formula: "P x F x SA",
-          leyenda: [
-            "P = número de personas",
-            "F = FTE",
-            "SA= salario promedio anual",
-          ],
-        },
-        horasAnuales: {
-          nombre: "Horas anuales invertidas",
-          formula: "P x H x D x 52",
-          leyenda: [
-            "H = Horas por día",
-            "D = Días laborables por semana",
-            "P = Número de personas",
-            "52 = Semanas en el año",
-          ],
-        },
-        costoRobot: {
-          nombre: "Costo total por el robot",
-          formula: "I + CE",
-          leyenda: [
-            "I = Costo por implementación (solo el primer año)",
-            "CE = Suma de todos los costos extras",
-          ],
-        },
-        netROI: {
-          nombre: "Net ROI",
-          formula: "CA - CR",
-          leyenda: [
-            "CA = Costo anual actualmente",
-            "CR = Costo anual con el robo",
-          ],
-        },
-        /* ROI ACUMULADO */
-        ROIAcumulado1: {
-          nombre: "ROI anual acumulado 1",
-          formula: "(NR x 100) / CT",
-          leyenda: ["NR = Net ROI", "CR = Costo anual con el robot"],
-        },
-        ROIAcumulado2_5: {
-          nombre: "ROI anual acumulado (2-5)",
-          formula: "((CA - M) x A + NR) / ((C + (M x A)) x 100)",
-          leyenda: [
-            "CA = Costo anual actualmente",
-            "C = Costo de implementación",
-            "M = Mantenimiento",
-            "NR = Net ROI",
-            "A = año - 1",
-          ],
-        },
-      },
-      contentMostrarAux: {},
-    };
+function Tabla({
+  tabla,
+  setTriggerClose,
+  setBotonError,
+  index,
+  nombreEmpresa,
+  rotation,
+}) {
+  const [trigger, setTrigger] = useState(false);
+  const [triggerDB, setTriggerDB] = useState(false);
+  const [triggerFTE, setTriggerFTE] = useState(false);
+  const [triggerPorcentaje, setTriggerPorcentaje] = useState(true);
+  const targetRef = useRef(null);
+  const [content, setContent] = useState({
+    costoAnual: {
+      nombre: "Costo anual",
+      formula: "P x F x SA",
+      leyenda: [
+        "P = número de personas",
+        "F = FTE",
+        "SA= salario promedio anual",
+      ],
+    },
+    horasAnuales: {
+      nombre: "Horas anuales invertidas",
+      formula: "P x H x D x 52",
+      leyenda: [
+        "H = Horas por día",
+        "D = Días laborables por semana",
+        "P = Número de personas",
+        "52 = Semanas en el año",
+      ],
+    },
+    costoRobot: {
+      nombre: "Costo total por el robot",
+      formula: "I + CE",
+      leyenda: [
+        "I = Costo por implementación (solo el primer año)",
+        "CE = Suma de todos los costos extras",
+      ],
+    },
+    netROI: {
+      nombre: "Net ROI",
+      formula: "CA - CR",
+      leyenda: ["CA = Costo anual actualmente", "CR = Costo anual con el robo"],
+    },
+    /* ROI ACUMULADO */
+    ROIAcumulado1: {
+      nombre: "ROI anual acumulado 1",
+      formula: "(NR x 100) / CT",
+      leyenda: ["NR = Net ROI", "CR = Costo anual con el robot"],
+    },
+    ROIAcumulado2_5: {
+      nombre: "ROI anual acumulado (2-5)",
+      formula: "((CA - M) x A + NR) / ((C + (M x A)) x 100)",
+      leyenda: [
+        "CA = Costo anual actualmente",
+        "C = Costo de implementación",
+        "M = Mantenimiento",
+        "NR = Net ROI",
+        "A = año - 1",
+      ],
+    },
+  });
+  const [contentMostrarAux, setContentMostrarAux] = useState({});
+  let notANumber = true;
+  /* CONTENIDO que irá dentro de la fórmula */
+
+  /* VERIFICAR que al momento de procesor todo esté bien */
+  if (
+    tabla != null &&
+    (isNaN(tabla.fila1_Y1Y5) ||
+      isNaN(tabla.fila2_Y1Y5) ||
+      isNaN(tabla.fila5_Y1))
+  ) {
+    notANumber = false;
+    setBotonError(true);
   }
+  /* ABRIOCERRAR ventanas */
+  /* SetTrigger */
+  const setTrigger1 = (content) => () => {
+    setTrigger(!trigger);
+    setContentMostrarAux({ ...content });
+  };
+  /* setTriggerDB */
+  const setTrigger2 = () => () => {
+    setTriggerDB(!triggerDB);
+  };
+  /*  setTriggerFTE*/
+  const setTrigger3 = () => () => {
+    setTriggerFTE(!triggerFTE);
+  };
 
-  render() {
-    const { setTrigger2, tabla, index, setBotonError } = this.props;
-    /* Extraemos la tabla */
-    const { trigger, triggerDB, triggerFTE, content, contentMostrarAux } =
-      this.state;
+  function escribir(valor) {
+    return notANumber ? `$${valor.toFixed()}` : "-";
+  }
+  function escribirHoras(valor) {
+    return notANumber ? `${valor.toFixed()}` : "-";
+  }
+  function escribirPorcentaje(valor) {
+    return notANumber ? `${valor.toFixed()}%` : "-";
+  }
+  const takeScreenshot = async () => {
+    try {
+      const canvas = await html2canvas(targetRef.current, {
+        useCORS: true,
+        backgroundColor: null,
+      });
+      canvas.toBlob(function (blob) {
+        saveAs(blob, "tabla-resultados.png");
+      });
+    } catch (error) {}
+  };
 
-    let notANumber = true;
-    /* CONTENIDO que irá dentro de la fórmula */
-
-    /* VERIFICAR que al momento de procesor todo esté bien */
-    if (
-      tabla != null &&
-      (isNaN(tabla.fila1_Y1Y5) ||
-        isNaN(tabla.fila2_Y1Y5) ||
-        isNaN(tabla.fila5_Y1))
-    ) {
-      notANumber = false;
-      setBotonError(true);
-    }
-    /* ABRIOCERRAR ventanas */
-    const setTrigger = (content) => () => {
-      this.setState((state) => ({
-        trigger: !state.trigger,
-        contentMostrarAux: { ...content },
-      }));
-    };
-    const setTriggerDB = () => () => {
-      this.setState((state) => ({
-        triggerDB: !state.triggerDB,
-      }));
-    };
-    const setTriggerFTE = () => () => {
-      this.setState((state) => ({
-        triggerFTE: !state.triggerFTE,
-      }));
-    };
-
-    function escribir(valor) {
-      return notANumber ? `$${valor.toFixed()}` : "-";
-    }
-    function escribirHoras(valor) {
-      return notANumber ? `${valor.toFixed()}` : "-";
-    }
-    function escribirPorcentaje(valor) {
-      return notANumber ? `${valor.toFixed()}%` : "-";
-    }
-    const takeScreenshot = async () => {
-      try {
-        const canvas = await html2canvas(this.targetRef.current, {
-          useCORS: true,
-          backgroundColor: null,
-        });
-        canvas.toBlob(function (blob) {
-          saveAs(blob, "tabla-resultados.png");
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    return !triggerFTE ? (
-      <motion.div
-        variants={dropIn}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        style={CSS.principalBox}
-      >
-        <div style={CSS.containerBotones}>
-          {/* TAKE A SCREENSHOT */}
-          <button
-            style={{ ...CSS.verDatos, ...CSS.captura }}
-            onClick={takeScreenshot}
-          >
-            <FontAwesomeIcon style={{ marginRight: 5 }} icon={faCamera} />
-            Toma un screenshot
-          </button>
-          {/* END TAKE A SCREENSHOT */}
-          {/* VENTANA MOSTRAR FTE */}
-          <button
-            style={{ ...CSS.verDatos, backgroundColor: "#0084F0" }}
-            onClick={setTriggerFTE()}
-          >
-            <FontAwesomeIcon
-              style={{ marginRight: 5 }}
-              icon={faPersonDigging}
-            />
-            Ver FTE
-          </button>
-          {/* FIN VENTANA MOSTRAR FTE */}
-          {/* VENTANA DATOS BRUTOS */}
-          <button style={CSS.verDatos} onClick={setTriggerDB()}>
-            <FontAwesomeIcon style={{ marginRight: 5 }} icon={faEye} />
-            Ver datos
-          </button>
-          {/* FIN VENTANA DATOS BRUTOS */}
-          <button
-            style={CSS.close}
-            onClick={() => {
-              setTrigger2(false);
-              this.props.rotation(index);
-            }}
-          >
-            <FontAwesomeIcon style={{ marginRight: 5 }} icon={faCircleXmark} />
-            Cerrar
-          </button>
-        </div>
-        <div
-          ref={this.targetRef}
-          style={{ ...CSS.tabla, margin: 10 }}
-          className="tabla"
+  return !triggerFTE ? (
+    <motion.div
+      variants={dropIn}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      style={CSS.principalBox}
+    >
+      <div style={CSS.containerBotones}>
+        {/* TAKE A SCREENSHOT */}
+        <button
+          className="botones-tabla"
+          style={{ ...CSS.verDatos, ...CSS.captura }}
+          onClick={takeScreenshot}
         >
-          <div className="items">
-            <div className="cabecera-box">
-              <h2 className="cabecera">Ítems</h2>
-            </div>
-            <div className="item1 ">
-              <p style={{ lineHeight: "1.1" }}>
-                <FontAwesomeIcon
-                  onClick={setTrigger(content.costoAnual)}
-                  style={CSS.moreInfo}
-                  icon={faCircleInfo}
-                />
-                Costos anuales por las horas dedicadas a realizar este trabajo
-              </p>
-            </div>
-            <div className="item2 ">
-              <p style={{ lineHeight: "1.1" }}>
-                <FontAwesomeIcon
-                  onClick={setTrigger(content.horasAnuales)}
-                  style={CSS.moreInfo}
-                  icon={faCircleInfo}
-                />
-                Horas dedicadas a esta actividad en cada año por todos los
-                trabajadores
-              </p>
-            </div>
-            <div className="item3 ">
-              <p style={{ lineHeight: "1.1" }}>
-                <FontAwesomeIcon
-                  onClick={setTrigger(content.costoRobot)}
-                  style={CSS.moreInfo}
-                  icon={faCircleInfo}
-                />
-                Costo total anual por implementación del bot (1 año)
-                mantenimiento (+5 años)
-              </p>
-            </div>
-            <div className="item4 net-roi">
-              <p style={{ lineHeight: "1.1" }}>
-                <FontAwesomeIcon
-                  onClick={setTrigger(content.netROI)}
-                  style={CSS.moreInfo}
-                  icon={faCircleInfo}
-                />
-                Net ROI
-              </p>
-            </div>
-            <div className="item5 roi-acumulado">
-              <p style={{ lineHeight: "1.1" }}>
-                <FontAwesomeIcon
-                  onClick={setTrigger(content.ROIAcumulado1)}
-                  style={{ ...CSS.moreInfo, color: "#FC4D19" }}
-                  icon={faCircleInfo}
-                />{" "}
-                <FontAwesomeIcon
-                  onClick={setTrigger(content.ROIAcumulado2_5)}
-                  style={{ ...CSS.moreInfo, color: "FFD848" }}
-                  icon={faCircleInfo}
-                />
-                ROI acumulado anual
-              </p>
-            </div>
+          <FontAwesomeIcon className="icono" icon={faCamera} />
+          <p className="description-icon">Toma un screenshot</p>
+        </button>
+        {/* END TAKE A SCREENSHOT */}
+        {/* Porcentaje editable */}
+        <button
+          className="botones-tabla"
+          style={{ ...CSS.verDatos, backgroundColor: "#FC9873" }}
+          /* onClick={} */
+        >
+          <FontAwesomeIcon className="icono" icon={faPercentage} />
+          <p className="description-icon">Editar porcentaje</p>
+        </button>
+        {/* END porcentaje editable */}
+        {/* VENTANA MOSTRAR FTE */}
+        <button
+          className="botones-tabla"
+          style={{ ...CSS.verDatos, backgroundColor: "#0084F0" }}
+          onClick={setTrigger3()}
+        >
+          <FontAwesomeIcon className="icono" icon={faPersonDigging} />
+          <p className="description-icon">Ver FTE</p>
+        </button>
+        {/* FIN VENTANA MOSTRAR FTE */}
+        {/* VENTANA DATOS BRUTOS */}
+        <button
+          className="botones-tabla"
+          style={CSS.verDatos}
+          onClick={setTrigger2()}
+        >
+          <FontAwesomeIcon className="icono" icon={faEye} />
+          <p className="description-icon">Ver datos</p>
+        </button>
+        {/* FIN VENTANA DATOS BRUTOS */}
+        <button
+          className="botones-tabla"
+          style={{ ...CSS.verDatos, ...CSS.close }}
+          onClick={() => {
+            setTriggerClose();
+            rotation(index);
+          }}
+        >
+          <FontAwesomeIcon className="icono" icon={faCircleXmark} />
+          <p className="description-icon">Cerrar</p>
+        </button>
+      </div>
+      <div
+        ref={targetRef}
+        style={{ ...CSS.tabla, margin: 10 }}
+        className="tabla"
+      >
+        <div className="items">
+          <div className="cabecera-box">
+            <h2 className="cabecera">Ítems</h2>
           </div>
-          <Swiper
-            slidesPerView={6}
-            spaceBetween={0}
-            pagination={{
-              clickable: true,
-            }}
-            breakpoints={{
-              240: {
-                slidesPerView: 1,
-              },
-              400: {
-                slidesPerView: 2,
-              },
-              500: {
-                slidesPerView: 3,
-              },
-              678: {
-                slidesPerView: 4,
-              },
-              850: {
-                slidesPerView: 6,
-              },
-            }}
-            modules={[Pagination]}
-            className="mySwiper"
-          >
-            <SwiperSlide>
-              <div className="cabecera-box">
-                <h2 className="cabecera">1 AÑO</h2>
-              </div>
-              <div className="item1">
-                <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
-              </div>
-              <div className="item2">
-                <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
-              </div>
-              <div className="item3">
-                <h3>{escribir(tabla.fila3_Y1)}</h3>
-              </div>
-              <div className="item4">
-                <h3>{escribir(tabla.fila4_Y1)}</h3>
-              </div>
-              <div className="item5">
-                <h3>{escribirPorcentaje(tabla.fila5_Y1)}</h3>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="cabecera-box">
-                <h2 className="cabecera">2 AÑOS</h2>
-              </div>
-              <div className="item1">
-                <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
-              </div>
-              <div className="item2">
-                <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
-              </div>
-              <div className="item3">
-                <h3>{escribir(tabla.fila3_Y2Y5)}</h3>
-              </div>
-              <div className="item4">
-                <h3>{escribir(tabla.fila4_Y2Y5)}</h3>
-              </div>
-              <div className="item5">
-                <h3>{escribirPorcentaje(tabla.fila5_Y2)}</h3>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="cabecera-box">
-                <h2 className="cabecera">3 AÑOS</h2>
-              </div>
-              <div className="item1">
-                <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
-              </div>
-              <div className="item2">
-                <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
-              </div>
-              <div className="item3">
-                <h3>{escribir(tabla.fila3_Y2Y5)}</h3>
-              </div>
-              <div className="item4">
-                <h3>{escribir(tabla.fila4_Y2Y5)}</h3>
-              </div>
-              <div className="item5">
-                <h3>{escribirPorcentaje(tabla.fila5_Y3)}</h3>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="cabecera-box">
-                <h2 className="cabecera">4 AÑOS</h2>
-              </div>
-              <div className="item1">
-                <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
-              </div>
-              <div className="item2">
-                <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
-              </div>
-              <div className="item3">
-                <h3>{escribir(tabla.fila3_Y2Y5)}</h3>
-              </div>
-              <div className="item4">
-                <h3>{escribir(tabla.fila4_Y2Y5)}</h3>
-              </div>
-              <div className="item5">
-                <h3>{escribirPorcentaje(tabla.fila5_Y4)}</h3>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="cabecera-box">
-                <h2 className="cabecera">5 AÑOS</h2>
-              </div>
-              <div className="item1">
-                <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
-              </div>
-              <div className="item2">
-                <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
-              </div>
-              <div className="item3">
-                <h3>{escribir(tabla.fila3_Y2Y5)}</h3>
-              </div>
-              <div className="item4">
-                <h3>{escribir(tabla.fila4_Y2Y5)}</h3>
-              </div>
-              <div className="item5">
-                <h3>{escribirPorcentaje(tabla.fila5_Y5)}</h3>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="cabecera-box">
-                <h2 className="cabecera">5 AÑOS EN TOTAL</h2>
-              </div>
-              <div className="item1">
-                <h3>{escribir(tabla.fila1_Suma)}</h3>
-              </div>
-              <div className="item2">
-                <h3>{escribirHoras(tabla.fila2_Suma)}</h3>
-              </div>
-              <div className="item3">
-                <h3>{escribir(tabla.fila3_Suma)}</h3>
-              </div>
-              <div className="item4">
-                <h3>{escribir(tabla.fila4_Suma)}</h3>
-              </div>
-              <div className="item5">
-                <h3>-</h3>
-              </div>
-            </SwiperSlide>
-          </Swiper>
+          <div className="item1 ">
+            <p style={{ lineHeight: "1.1" }}>
+              <FontAwesomeIcon
+                onClick={setTrigger1(content.costoAnual)}
+                style={CSS.moreInfo}
+                icon={faCircleInfo}
+              />
+              Costos anuales por las horas dedicadas a realizar este trabajo
+            </p>
+          </div>
+          <div className="item2 ">
+            <p style={{ lineHeight: "1.1" }}>
+              <FontAwesomeIcon
+                onClick={setTrigger1(content.horasAnuales)}
+                style={CSS.moreInfo}
+                icon={faCircleInfo}
+              />
+              Horas dedicadas a esta actividad en cada año por todos los
+              trabajadores
+            </p>
+          </div>
+          <div className="item3 ">
+            <p style={{ lineHeight: "1.1" }}>
+              <FontAwesomeIcon
+                onClick={setTrigger1(content.costoRobot)}
+                style={CSS.moreInfo}
+                icon={faCircleInfo}
+              />
+              Costo total anual por implementación del bot (1 año) mantenimiento
+              (+5 años)
+            </p>
+          </div>
+          <div className="item4 net-roi">
+            <p style={{ lineHeight: "1.1" }}>
+              <FontAwesomeIcon
+                onClick={setTrigger1(content.netROI)}
+                style={CSS.moreInfo}
+                icon={faCircleInfo}
+              />
+              Net ROI
+            </p>
+          </div>
+          <div className="item5 roi-acumulado">
+            <p style={{ lineHeight: "1.1" }}>
+              <FontAwesomeIcon
+                onClick={setTrigger1(content.ROIAcumulado1)}
+                style={{ ...CSS.moreInfo, color: "#FC4D19" }}
+                icon={faCircleInfo}
+              />{" "}
+              <FontAwesomeIcon
+                onClick={setTrigger1(content.ROIAcumulado2_5)}
+                style={{ ...CSS.moreInfo, color: "FFD848" }}
+                icon={faCircleInfo}
+              />
+              ROI acumulado anual
+            </p>
+          </div>
         </div>
-        <AnimatePresence>
-          {trigger && (
-            <VentanaFormula
-              contentMostrar={contentMostrarAux}
-              setTrigger={setTrigger()}
-            />
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {triggerDB && (
-            <VentanaDatosBrutos index={index} setTrigger={setTriggerDB()} />
-          )}
-        </AnimatePresence>
-      </motion.div>
-    ) : (
+        <Swiper
+          slidesPerView={6}
+          spaceBetween={0}
+          pagination={{
+            clickable: true,
+          }}
+          breakpoints={{
+            240: {
+              slidesPerView: 1,
+            },
+            400: {
+              slidesPerView: 2,
+            },
+            500: {
+              slidesPerView: 3,
+            },
+            678: {
+              slidesPerView: 4,
+            },
+            850: {
+              slidesPerView: 6,
+            },
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <div className="cabecera-box">
+              <h2 className="cabecera">1 AÑO</h2>
+            </div>
+            <div className="item1">
+              <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
+            </div>
+            <div className="item2">
+              <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
+            </div>
+            <div className="item3">
+              <h3>{escribir(tabla.fila3_Y1)}</h3>
+            </div>
+            <div className="item4">
+              <h3>{escribir(tabla.fila4_Y1)}</h3>
+            </div>
+            <div className="item5">
+              <h3>{escribirPorcentaje(tabla.fila5_Y1)}</h3>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="cabecera-box">
+              <h2 className="cabecera">2 AÑOS</h2>
+            </div>
+            <div className="item1">
+              <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
+            </div>
+            <div className="item2">
+              <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
+            </div>
+            <div className="item3">
+              <h3>{escribir(tabla.fila3_Y2Y5)}</h3>
+            </div>
+            <div className="item4">
+              <h3>{escribir(tabla.fila4_Y2Y5)}</h3>
+            </div>
+            <div className="item5">
+              <h3>{escribirPorcentaje(tabla.fila5_Y2)}</h3>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="cabecera-box">
+              <h2 className="cabecera">3 AÑOS</h2>
+            </div>
+            <div className="item1">
+              <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
+            </div>
+            <div className="item2">
+              <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
+            </div>
+            <div className="item3">
+              <h3>{escribir(tabla.fila3_Y2Y5)}</h3>
+            </div>
+            <div className="item4">
+              <h3>{escribir(tabla.fila4_Y2Y5)}</h3>
+            </div>
+            <div className="item5">
+              <h3>{escribirPorcentaje(tabla.fila5_Y3)}</h3>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="cabecera-box">
+              <h2 className="cabecera">4 AÑOS</h2>
+            </div>
+            <div className="item1">
+              <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
+            </div>
+            <div className="item2">
+              <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
+            </div>
+            <div className="item3">
+              <h3>{escribir(tabla.fila3_Y2Y5)}</h3>
+            </div>
+            <div className="item4">
+              <h3>{escribir(tabla.fila4_Y2Y5)}</h3>
+            </div>
+            <div className="item5">
+              <h3>{escribirPorcentaje(tabla.fila5_Y4)}</h3>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="cabecera-box">
+              <h2 className="cabecera">5 AÑOS</h2>
+            </div>
+            <div className="item1">
+              <h3>{escribir(tabla.fila1_Y1Y5)}</h3>
+            </div>
+            <div className="item2">
+              <h3>{escribirHoras(tabla.fila2_Y1Y5)}</h3>
+            </div>
+            <div className="item3">
+              <h3>{escribir(tabla.fila3_Y2Y5)}</h3>
+            </div>
+            <div className="item4">
+              <h3>{escribir(tabla.fila4_Y2Y5)}</h3>
+            </div>
+            <div className="item5">
+              <h3>{escribirPorcentaje(tabla.fila5_Y5)}</h3>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="cabecera-box">
+              <h2 className="cabecera">5 AÑOS EN TOTAL</h2>
+            </div>
+            <div className="item1">
+              <h3>{escribir(tabla.fila1_Suma)}</h3>
+            </div>
+            <div className="item2">
+              <h3>{escribirHoras(tabla.fila2_Suma)}</h3>
+            </div>
+            <div className="item3">
+              <h3>{escribir(tabla.fila3_Suma)}</h3>
+            </div>
+            <div className="item4">
+              <h3>{escribir(tabla.fila4_Suma)}</h3>
+            </div>
+            <div className="item5">
+              <h3>-</h3>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
       <AnimatePresence>
-        {triggerFTE && (
-          <VentanaMostrarFTE
-            dropIn={dropIn}
-            index={index}
-            setTrigger={setTriggerFTE()}
+        {trigger && (
+          <VentanaFormula
+            contentMostrar={contentMostrarAux}
+            setTrigger={setTrigger1()}
           />
         )}
       </AnimatePresence>
-    );
-  }
+
+      <AnimatePresence>
+        {triggerDB && (
+          <VentanaDatosBrutos index={index} setTrigger={setTrigger2()} />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {triggerPorcentaje && <VentanaPorcentaje index={index} />}
+      </AnimatePresence>
+    </motion.div>
+  ) : (
+    <AnimatePresence>
+      {triggerFTE && (
+        <VentanaMostrarFTE
+          dropIn={dropIn}
+          index={index}
+          setTrigger={setTrigger3()}
+          nombreEmpresa={nombreEmpresa}
+          tabla={tabla}
+        />
+      )}
+    </AnimatePresence>
+  );
 }
 
 const mapStateToProps = (state, ownProps) => {

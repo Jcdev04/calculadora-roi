@@ -1,5 +1,6 @@
 .ventanaExitoContainer {
-  z-index: 9999;
+  z-index: 300;
+  right: clamp(5px, 4vw, 30px);
 }
 .exito-button {
   font-size: 15px;

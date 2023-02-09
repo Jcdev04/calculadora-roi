@@ -15,6 +15,7 @@ import Contact from "./try-contact/contact";
 /* Font awesome */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesDown, faUser } from "@fortawesome/free-solid-svg-icons";
+/* import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons"; */
 import "./main-page.css";
 // Import Swiper styles
 import "swiper/swiper-bundle.min.css";
@@ -22,6 +23,7 @@ import "swiper/swiper.min.css";
 /* Ventanas emergentes */
 import Burbujas from "./burbujas";
 import VentanaInicio from "./ventana-inicio";
+import VentanaReady from "./step-1/ventana-exito";
 import NavButtons from "./nav-buttons";
 import Tabla from "./step-2/calculadora/ventana-emergente/tabla";
 import VentanaExito from "./step-2/calculadora/ventana-emergente/ventana-exito";
@@ -53,7 +55,9 @@ function MainPage(props) {
   function handleTranslate(index) {
     swiper.slideTo(index);
   }
-
+  function setBotonEdit() {
+    setBotonEditar2(!botonEditar2);
+  }
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 1169) {
@@ -102,9 +106,7 @@ function MainPage(props) {
         setArrowDown(false);
       }
     }
-
     handleResize();
-    console.log(todosProcesos);
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
@@ -133,14 +135,23 @@ function MainPage(props) {
       </AnimatePresence> */}
       {/* COLOCAR LUEGO DENTRO DE UN COMPONENTE */}
       {/* TABLA */}
+      <AnimatePresence>
+        {activateSuccess && (
+          <VentanaReady
+            setActivateSuccess={setActivateSuccess}
+            handleTranslate={handleTranslate}
+          />
+        )}
+      </AnimatePresence>
       {todosProcesos[parseInt(index)] !== null && (
         <AnimatePresence>
           {botonEditar2 && (
             <Tabla
               index={index}
               trigger2={botonEditar2}
-              setTrigger2={setBotonEditar2}
+              setTriggerClose={setBotonEdit}
               setBotonError={setBotonError}
+              nombreEmpresa={nombreEmpresa}
             />
           )}
         </AnimatePresence>
@@ -169,7 +180,7 @@ function MainPage(props) {
       {/* <AnimatePresence>
         {botonError && (
           <VentanaError
-            setTrigger2={setBotonEditar2}
+            setTrigger2={setBotonEdit}
             setBotonError={setBotonError}
             index={index}
             rotation={props.rotation}
@@ -203,6 +214,8 @@ function MainPage(props) {
             setActivateSuccess={setActivateSuccess}
             activateSuccess={activateSuccess}
             handleTranslate={handleTranslate}
+            nombreEmpresa={nombreEmpresa}
+            nombrePersona={nombrePersona}
           />
         </SwiperSlide>
         {/* Step2 */}
@@ -215,7 +228,7 @@ function MainPage(props) {
         </SwiperSlide>
         {/* Step3 */}
         <SwiperSlide>
-          <Step3 />
+          <Step3 nombreEmpresa={nombreEmpresa} />
         </SwiperSlide>
         {/* Step4 */}
         <SwiperSlide>
@@ -223,7 +236,7 @@ function MainPage(props) {
         </SwiperSlide>
         {/* Step5 */}
         <SwiperSlide>
-          <Step5 />
+          <Step5 nombreEmpresa={nombreEmpresa} nombrePersona={nombrePersona} />
         </SwiperSlide>
         {/* CONTACT */}
         <SwiperSlide>

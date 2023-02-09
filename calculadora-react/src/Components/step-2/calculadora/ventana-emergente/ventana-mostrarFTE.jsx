@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion/dist/framer-motion";
 import Template from "./input-component/template";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,7 +37,6 @@ const CSS = {
     borderRadius: 15,
     display: "flex",
     justifyContent: "center",
-    marginTop: 20,
     alignItems: "center",
     boxSizing: "border-box",
     flexDirection: "column",
@@ -53,21 +52,19 @@ const CSS = {
     cursor: "pointer",
     backgroundColor: "#43CA40",
     padding: "5px 15px",
-    fontSize: 17,
     zIndex: 2,
     borderRadius: 20,
     color: "white",
     border: "none",
     display: "flex",
-    gap: 3,
+    gap: 5,
     alignItems: "center",
   },
   botonClose: {
     display: "flex",
-    gap: 3,
+    gap: 5,
     alignItems: "center",
     padding: "5px 15px",
-    fontSize: 17,
     zIndex: 2,
     borderRadius: 20,
     color: "white",
@@ -82,7 +79,7 @@ const procesoNormal = {
   img: imgBefore,
   automatizado: false,
   copies: {
-    n1: "Tiempo total de contrato",
+    n1: "Número total operaciones",
     n2: "Tiempo mensual en este proceso",
     n3: "Tiempo libre para otras operaciones",
   },
@@ -99,9 +96,14 @@ const procesoAutomatizado = {
   },
 };
 
-function VentanaMostrarFTE({ setTrigger, dropIn, index, proceso }) {
+function VentanaMostrarFTE({
+  setTrigger,
+  dropIn,
+  proceso,
+  tabla,
+  nombreEmpresa,
+}) {
   const targetRef = useRef(null);
-  console.log(proceso);
   const takeScreenshot = async () => {
     try {
       const canvas = await html2canvas(targetRef.current, {
@@ -111,11 +113,35 @@ function VentanaMostrarFTE({ setTrigger, dropIn, index, proceso }) {
       canvas.toBlob(function (blob) {
         saveAs(blob, "mejoras-automatización.png");
       });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
-
+  console.log(proceso);
+  let horasXdia = proceso.FTE.hTrabajadasXDia;
+  let diasLaborables = proceso.FTE.dLaborablesXSemana;
+  let tiempoHoras = horasXdia * diasLaborables * 52;
+  const fteNormal = {
+    totalOperaciones: proceso.FTE.nOpDiarias * 30,
+    tiempoMensual: (
+      horasXdia *
+      diasLaborables *
+      4 *
+      tabla.FTEresultado
+    ).toFixed(1),
+    tiempoLibre: (
+      horasXdia *
+      diasLaborables *
+      4 *
+      (1 - tabla.FTEresultado)
+    ).toFixed(1),
+    tHorasOp: tiempoHoras,
+    tDiasOp: (tiempoHoras / 24).toFixed(1),
+    tMesOp: (tiempoHoras / 730).toFixed(1),
+  };
+  const fteAutomatizado = {
+    tHorasOp: tiempoHoras,
+    tDiasOp: (tiempoHoras / 24).toFixed(1),
+    tMesOp: (tiempoHoras / 730).toFixed(1),
+  };
   return (
     <motion.div
       variants={dropIn}
@@ -133,13 +159,21 @@ function VentanaMostrarFTE({ setTrigger, dropIn, index, proceso }) {
           gap: 10,
         }}
       >
-        <button onClick={takeScreenshot} style={CSS.botonCaptura}>
-          <FontAwesomeIcon icon={faCamera} />
-          Toma un screenshot
+        <button
+          className="botones-tabla"
+          onClick={takeScreenshot}
+          style={CSS.botonCaptura}
+        >
+          <FontAwesomeIcon className="icono" icon={faCamera} />
+          <p className="description-icon">Toma un screenshot</p>
         </button>
-        <button onClick={setTrigger} style={CSS.botonClose}>
-          <FontAwesomeIcon icon={faCircleXmark} />
-          Cerrar
+        <button
+          className="botones-tabla"
+          onClick={setTrigger}
+          style={CSS.botonClose}
+        >
+          <FontAwesomeIcon className="icono" icon={faCircleXmark} />
+          <p className="description-icon">Cerrar</p>
         </button>
       </div>
       <div style={{ maxWidth: 890, width: "100%" }} ref={targetRef}>
@@ -176,7 +210,11 @@ function VentanaMostrarFTE({ setTrigger, dropIn, index, proceso }) {
                 alignItems: "center",
               }}
             >
-              <Template proceso={procesoNormal} />
+              <Template
+                fte={fteNormal}
+                proceso={procesoNormal}
+                nombreEmpresa={nombreEmpresa}
+              />
             </SwiperSlide>
             <SwiperSlide
               style={{
@@ -187,7 +225,11 @@ function VentanaMostrarFTE({ setTrigger, dropIn, index, proceso }) {
                 alignItems: "center",
               }}
             >
-              <Template proceso={procesoAutomatizado} />
+              <Template
+                fte={fteAutomatizado}
+                proceso={procesoAutomatizado}
+                nombreEmpresa={nombreEmpresa}
+              />
             </SwiperSlide>
           </Swiper>
         </div>

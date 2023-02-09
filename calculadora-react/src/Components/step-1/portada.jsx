@@ -4,7 +4,7 @@ import { faHandPointer } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion/dist/framer-motion";
 import primeraSeccion from "../../img/primera-seccion.svg";
 import "./portada.css";
-function Portada({ setOption }) {
+function Portada({ setOption, nombreEmpresa, nombrePersona }) {
   function handleOption(option) {
     setOption(option);
   }
@@ -18,21 +18,22 @@ function Portada({ setOption }) {
     >
       <div className="area-automatizar">
         <div className="area-automatizar-header">
-          <h2>
-            Hola <strong>Gsus</strong>
+          <h2 className="nombre-persona">
+            Hola <strong>{nombrePersona}</strong>
           </h2>
-          <h2>
-            De <strong>Coca Cola</strong>
+          <h2 className="nombre-empresa">
+            De <strong>{nombreEmpresa}</strong>
           </h2>
         </div>
         <div className="area-automatizar-portada">
-          <h2>#1 Escoge tu área a automatizar</h2>
+          <h2>#1 Escoge el área que deseas automatizar</h2>
           <p>
-            Te ayudaremos en el sector donde necesites más apoyo para generar tu
-            proyecto RPA para que te salga rentable, aumente la productividad y
-            sea un proceso más seguro, asimismo, justificando el retorno sobre
-            la inversión (ROI) y sobre todo, mejorando el proceso de{" "}
-            <strong>empresa</strong>.
+            Nosotros te asesoraremos en el sector donde requieras apoyo para
+            generar{" "}
+            <strong>tu proyecto RPA más rentable, productivo y seguro.</strong>{" "}
+            Asimismo, justificando el{" "}
+            <strong> retorno sobre la inversión (ROI)</strong> y mejorando el
+            proceso de <strong>{nombreEmpresa}</strong>.
           </p>
         </div>
         <div className="area-automatizar-opciones">
@@ -52,15 +53,15 @@ function Portada({ setOption }) {
                 onClick={() => handleOption("personalizada")}
                 className="button-1"
               >
-                <span>A.</span> Que nos compartas el proceso candidato a
-                automatizar
+                <span>A.</span> Decides compartir con nosotros el proceso
+                candidato a la automatización.
               </button>
               <button
                 onClick={() => handleOption("areas")}
                 className="button-2"
               >
-                <span>B.</span> Que Dignita te recomiende el proceso candidato a
-                automatizar
+                <span>B.</span> Decides que Dignita elige el proceso candidato a
+                la automatización.
               </button>
             </div>
           </section>

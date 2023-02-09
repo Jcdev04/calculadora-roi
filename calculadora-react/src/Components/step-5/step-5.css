@@ -26,6 +26,7 @@
   text-align: justify;
   line-height: 1.3;
   margin-bottom: 40px;
+  color: var(--negro);
 }
 .button-group-4 {
   display: flex;
@@ -35,13 +36,13 @@
   font-size: clamp(10px, 5vw, 20px);
   padding: clamp(5px, 4vw, 30px);
   border-radius: 20px;
-  border: 1px solid #000;
+  border: 1px solid var(--negro);
   background-color: white;
   font-weight: bold;
   transition: var(--default-animation);
 }
 .button-group-4 button:hover {
-  background-color: black;
+  background-color: var(--negro);
   color: white;
 }
 .implementar .second-section {

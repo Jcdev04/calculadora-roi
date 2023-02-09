@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Portada from "./portada";
 import Areas from "./components/areas";
 import AreaPersonalizada from "./components/area-personalizada";
-import VentanaExito from "./ventana-exito";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 import "./step-1.css";
 
@@ -22,12 +21,23 @@ const CSS = {
   },
 };
 
-function Step1({ setActivateSuccess, activateSuccess, handleTranslate }) {
+function Step1({
+  setActivateSuccess,
+  handleTranslate,
+  nombreEmpresa,
+  nombrePersona,
+}) {
   const [option, setOption] = useState("");
   return (
     <div>
       <AnimatePresence>
-        {option === "" && <Portada setOption={setOption} />}
+        {option === "" && (
+          <Portada
+            nombreEmpresa={nombreEmpresa}
+            nombrePersona={nombrePersona}
+            setOption={setOption}
+          />
+        )}
       </AnimatePresence>
       <AnimatePresence>
         {option === "areas" && (
@@ -44,14 +54,6 @@ function Step1({ setActivateSuccess, activateSuccess, handleTranslate }) {
             setOption={setOption}
             setActivateSuccess={setActivateSuccess}
             style={CSS}
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {activateSuccess && (
-          <VentanaExito
-            setActivateSuccess={setActivateSuccess}
-            handleTranslate={handleTranslate}
           />
         )}
       </AnimatePresence>

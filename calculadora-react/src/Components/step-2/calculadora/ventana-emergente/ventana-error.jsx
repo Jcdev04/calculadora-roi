@@ -5,7 +5,7 @@ import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 const VentanaError = ({ setBotonError, setTrigger2, rotation, index }) => {
   const handleClick = () => {
     setBotonError(false);
-    setTrigger2(false);
+    setTrigger2();
     rotation(index);
   };
   return (

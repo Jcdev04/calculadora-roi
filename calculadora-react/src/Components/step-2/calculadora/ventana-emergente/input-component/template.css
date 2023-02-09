@@ -6,9 +6,15 @@
   justify-content: center;
   font-size: clamp(1.5rem, 4vw, 2rem);
 }
+.container-mostrarFTE {
+  margin-top: 20px;
+}
 @media screen and (max-width: 773px) {
+  .container-mostrarFTE {
+    margin-top: 10px;
+  }
   .title-mostrarFTE {
-    top: -1%;
+    top: -0.5%;
   }
   .title-mostrarFTE::before {
     display: none;
@@ -120,6 +126,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
+  line-height: 0.9;
+  gap: 5px;
   border-radius: 10px;
   font-size: 30px;
   color: white;

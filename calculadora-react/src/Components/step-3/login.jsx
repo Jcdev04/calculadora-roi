@@ -2,24 +2,25 @@ import React from "react";
 import { GoogleLogin } from "react-google-login";
 const CLIENT_ID =
   "760068272484-0n6p67v1k5d9t1vi4tla6333f8c4o7h0.apps.googleusercontent.com";
-function Login() {
+function Login({ setIsSignedIn }) {
   const onSuccess = (res) => {
-    console.log("Login Successful", res.profileObj);
+    setIsSignedIn(true);
   };
   const onFailure = (res) => {
-    console.log("Login Failed", res.profileObj);
+    setIsSignedIn(false);
   };
   return (
-    <div>
+    <>
       <GoogleLogin
         clientId={CLIENT_ID}
-        buttonText="Login"
+        buttonText="Continúa con Google"
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
+        className="login-button"
       />
-    </div>
+    </>
   );
 }
 

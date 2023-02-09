@@ -151,3 +151,10 @@
   width: 30%;
 }
  */
+
+@media (max-width: 359px) {
+  .nombre-persona,
+  .nombre-empresa {
+    display: none;
+  }
+}

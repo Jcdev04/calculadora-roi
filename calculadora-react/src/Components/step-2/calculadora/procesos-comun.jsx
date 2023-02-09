@@ -14,6 +14,7 @@ const CSS = {
     boxShadow: "0px 5px 16px rgba(0, 0, 0, 0.27)",
     borderRadius: "20px",
     boxSizing: "border-box",
+    backgroundColor: "#fff",
   },
   titulo: {
     fontSize: 30,

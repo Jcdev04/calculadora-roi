@@ -6,11 +6,12 @@ function Step4() {
     <div className="asesoramiento-personalizado-container">
       <div className="asesoramiento-personalizado">
         <div className="first-section">
-          <h3>#4 Asesoramiento personalizado</h3>
+          <h3>#4 Asesoramiento pesonalizado</h3>
           <p>
-            Te vamos a preparar personalmente para la presentación de tu
-            proyecto para que ganes la licitación y ascender en tu{" "}
-            <strong>empresa</strong>.
+            Dignita te garantiza la{" "}
+            <strong>asesoría y preparación para la presentación</strong> de tu
+            proyecto y así lograr que consigas la licitación y puedas{" "}
+            <strong> ascender en tu empresa.</strong>
           </p>
         </div>
         <div className="second-section">

@@ -30,21 +30,32 @@
   position: relative;
 }
 /* *Primera columna */
+.container-title {
+  position: relative;
+}
 .portada h1 {
-  font-size: clamp(40px, 5vw, 70px);
+  font-size: clamp(40px, 4vw, 60px);
   font-weight: bolder;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 1.3vw, 20px);
   margin-top: 0;
-  line-height: 1.05;
+  line-height: 1.1;
   color: var(--negro);
 }
+
+.first-title {
+  font-size: clamp(20px, 2.5vw, 40px);
+  line-height: 1.1;
+  opacity: 1;
+  position: relative;
+}
+
 .portada .columna1 p {
   line-height: 1.5;
   font-size: clamp(14px, 1.5vw, 17px);
 }
 
 .portada .botones {
-  margin-top: 30px;
+  margin-top: clamp(20px, 2vw, 30px);
   display: flex;
   gap: 20px;
 }
@@ -149,6 +160,7 @@
   .portada {
     flex-direction: column;
     max-width: 500px;
+    gap: 15px;
   }
   .portada .botones {
     flex-direction: column;
@@ -156,9 +168,6 @@
   }
   .botones button {
     width: 100%;
-  }
-  .portada {
-    gap: 15px;
   }
   .portada .columna1,
   .portada .columna2 {

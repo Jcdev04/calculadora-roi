@@ -10,10 +10,10 @@ function Dudas() {
         <div className="contenedor">
           <div className="preguntas">
             <section>
-              <p>No se justifican bien el proyecto a implementar</p>
+              <p>¿No sabes como justificar el proyecto a implementar?</p>
             </section>
             <section>
-              <p>¿Se demoran en generar un proyecto de RPA?</p>
+              <p> ¿Te toma mucho tiempo generar un proyecto de RPA?</p>
             </section>
           </div>
           <div className="imagen">
@@ -22,13 +22,14 @@ function Dudas() {
           <div className="preguntas">
             <section>
               <p>
-                Quieres trabajar con robots pero no sabes cómo justificar su
-                implementación
+                ¿Quieres implementar robots dentro de tu área de trabajo pero no
+                sabes como justificarlo?
               </p>
             </section>
             <section>
               <p>
-                No tienes experiencia en la tecnología pero te gustaría probarlo
+                ¿Te interesa trabajar con la tecnología pero no tienes
+                experiencia?
               </p>
             </section>
           </div>

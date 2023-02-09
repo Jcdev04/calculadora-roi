@@ -21,7 +21,7 @@ function Mejores() {
   return (
     <div className="somos-container">
       <section className="somos">
-        <h2>Somos el mejor para generar proyectos RPA</h2>
+        <h2>Somos la mejor opción para generar proyectos RPA</h2>
         <div className="contenedor-cards">
           <div className="linea"></div>
           <div className="card">

@@ -64,10 +64,10 @@ const CSS = {
     alignItems: "center",
   },
   formCostosROI: {
-    maxWidth: 350,
-    margin: "0 10px",
+    maxWidth: 400,
     width: "100%",
     position: "relative",
+    boxSizing: "border-box",
     padding: "20px 30px",
     backgroundColor: "white",
     borderRadius: 15,
@@ -100,7 +100,7 @@ const CSS = {
     color: "#D60718",
   },
   btnRegistrar: {
-    height: 27,
+    height: "100%",
     backgroundColor: "#00C922",
     color: "white",
   },
@@ -294,124 +294,120 @@ class VentanaPrincipal extends Component {
           initial="hidden"
           animate="visible"
           exit="exit"
+          style={CSS.formCostosROI}
         >
-          <div style={CSS.formCostosROI}>
-            {/* BOTONCERRAR */}
-            <div style={{ marginBottom: 10 }}>
+          {/* BOTONCERRAR */}
+          <div style={{ marginBottom: 10 }}>
+            <FontAwesomeIcon
+              style={CSS.btnCerrar}
+              onClick={cerrar()}
+              icon={faCircleXmark}
+            />
+          </div>
+          {/* NPERSONAS */}
+          <div style={CSS.inputBoxes}>
+            <Field
+              style={{ ...CSS.inputs, ...CSS.inputStyle }}
+              icono={faUsers}
+              iconoEstilo={{ ...CSS.iconStyle, color: "#FC4D19" }}
+              name="nPersonas"
+              type="number"
+              component={ventanaPrincipalComponent}
+              placeholder="0"
+              title="¿Cuántas personas están actualmente trabajando en esta actividad?"
+            />
+          </div>
+          {/* FTE */}
+          <div
+            style={{
+              ...CSS.inputBoxes,
+              backgroundColor: "#5F0DFC",
+              borderRadius: 15,
+              padding: "10px 15px 15px 15px",
+            }}
+          >
+            <p style={{ marginBottom: 8, marginTop: 0, color: "white" }}>
               <FontAwesomeIcon
-                style={CSS.btnCerrar}
-                onClick={cerrar()}
-                icon={faCircleXmark}
+                style={{ ...CSS.iconStyle, color: "#FCCA3E" }}
+                icon={faStopwatch}
               />
-            </div>
-            {/* NPERSONAS */}
-            <div style={CSS.inputBoxes}>
-              <Field
-                style={{ ...CSS.inputs, ...CSS.inputStyle }}
-                icono={faUsers}
-                iconoEstilo={{ ...CSS.iconStyle, color: "#FC4D19" }}
-                name="nPersonas"
-                type="number"
-                component={ventanaPrincipalComponent}
-                placeholder="0"
-                title="¿Cuántas personas están actualmente trabajando en esta actividad?"
-              />
-            </div>
-            {/* FTE */}
-            <div
-              style={{
-                ...CSS.inputBoxes,
-                backgroundColor: "#5F0DFC",
-                borderRadius: 15,
-                padding: "10px 15px 15px 15px",
-              }}
-            >
-              <p
-                style={{ marginBottom: 8, marginTop: 0, color: "white" }}
-                htmlFor=""
-              >
-                <FontAwesomeIcon
-                  style={{ ...CSS.iconStyle, color: "#FCCA3E" }}
-                  icon={faStopwatch}
-                />
-                Porcentaje de tiempo invertido diariamente por las personas
-              </p>
-              <div style={CSS.porcentajeBox}>
-                <button
-                  onClick={abrirFTE()}
-                  style={{ ...CSS.btnRegistrar, ...CSS.btnGeneral }}
-                  type="button"
-                >
-                  Registrar
-                </button>
-                {/* Este input se cambia automáticamente */}
-                <div style={CSS.porcentajeFTE} name="FTE" type="number">
-                  {/* MOSTRANDO el resultado de calcular el FTE */}
-                  <h1 style={{ fontSize: 22, margin: 0 }}>{FTEresultado}%</h1>
-                </div>
-              </div>
-            </div>
-            {/* SALARIOPROMEDIO */}
-            <div style={CSS.inputBoxes}>
-              <Field
-                style={{ ...CSS.inputs, ...CSS.inputStyle }}
-                icono={faMoneyBillWave}
-                iconoEstilo={{ ...CSS.iconStyle, color: "#05BE50" }}
-                name="salarioPromedio"
-                type="number"
-                component={ventanaPrincipalComponent}
-                placeholder="0"
-                title="Salario promedio mensual de las personas que realizan esta operación"
-              />
-              <div></div>
-            </div>
-            {/* COSTOIMPLEMENTACION */}
-            <div style={CSS.inputBoxes}>
-              <Field
-                style={{ ...CSS.inputs, ...CSS.inputStyle }}
-                icono={faRobot}
-                iconoEstilo={{ ...CSS.iconStyle, color: "#4427F8" }}
-                name="costoImplementacion"
-                type="number"
-                component={ventanaPrincipalComponent}
-                placeholder="0"
-                title="Estimación del costo por la implementación del robot"
-              />
-            </div>
-            {/* AGREGARCOSTOS */}
-            <div
-              style={{
-                ...CSS.inputBoxes,
-                marginTop: 35,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
+              Porcentaje de tiempo invertido diariamente por las personas
+            </p>
+            <div style={CSS.porcentajeBox}>
               <button
-                onClick={abrirCostosExtras()}
-                style={{ ...CSS.btnAgregarCostos, ...CSS.btnGeneral }}
+                onClick={abrirFTE()}
+                style={{ ...CSS.btnRegistrar, ...CSS.btnGeneral }}
                 type="button"
               >
-                <FontAwesomeIcon
-                  icon={faPlusCircle}
-                  style={{ color: "#4427F8", marginRight: 5, fontSize: 17 }}
-                />
-                Agregar costos extras
+                Registrar
               </button>
+              {/* Este input se cambia automáticamente */}
+              <div style={CSS.porcentajeFTE} name="FTE" type="number">
+                {/* MOSTRANDO el resultado de calcular el FTE */}
+                <h1 style={{ fontSize: 22, margin: 0 }}>{FTEresultado}%</h1>
+              </div>
             </div>
-            {/* BOTONCALCULAR */}
-            <div
-              style={{
-                marginTop: 30,
-                marginBottom: 3,
-                display: "flex",
-                justifyContent: "center",
-              }}
+          </div>
+          {/* SALARIOPROMEDIO */}
+          <div style={CSS.inputBoxes}>
+            <Field
+              style={{ ...CSS.inputs, ...CSS.inputStyle }}
+              icono={faMoneyBillWave}
+              iconoEstilo={{ ...CSS.iconStyle, color: "#05BE50" }}
+              name="salarioPromedio"
+              type="number"
+              component={ventanaPrincipalComponent}
+              placeholder="0"
+              title="Salario promedio mensual de las personas que realizan esta operación"
+            />
+            <div></div>
+          </div>
+          {/* COSTOIMPLEMENTACION */}
+          <div style={CSS.inputBoxes}>
+            <Field
+              style={{ ...CSS.inputs, ...CSS.inputStyle }}
+              icono={faRobot}
+              iconoEstilo={{ ...CSS.iconStyle, color: "#4427F8" }}
+              name="costoImplementacion"
+              type="number"
+              component={ventanaPrincipalComponent}
+              placeholder="0"
+              title="Estimación del costo por la implementación del robot"
+            />
+          </div>
+          {/* AGREGARCOSTOS */}
+          <div
+            style={{
+              ...CSS.inputBoxes,
+              marginTop: 35,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <button
+              onClick={abrirCostosExtras()}
+              style={{ ...CSS.btnAgregarCostos, ...CSS.btnGeneral }}
+              type="button"
             >
-              <button className="btnCalcular" disabled={pristine || submitting}>
-                Calcular
-              </button>
-            </div>
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                style={{ color: "#4427F8", marginRight: 5, fontSize: 17 }}
+              />
+              Agregar costos extras
+            </button>
+          </div>
+          {/* BOTONCALCULAR */}
+          <div
+            style={{
+              marginTop: 30,
+              marginBottom: 3,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <button className="btnCalcular" disabled={pristine || submitting}>
+              Calcular
+            </button>
           </div>
         </motion.div>
       );
@@ -425,7 +421,12 @@ class VentanaPrincipal extends Component {
           exit="exit"
         >
           <div
-            style={{ ...CSS.formCostosROI, width: 280, padding: "20px 40px" }}
+            style={{
+              ...CSS.formCostosROI,
+              width: "100%",
+              maxWidth: "380px",
+              padding: "20px 40px",
+            }}
           >
             <VentanaFTE
               Pristine={pristine}
@@ -473,7 +474,10 @@ class VentanaPrincipal extends Component {
         exit="exit"
         style={CSS.principalBox}
       >
-        <form onSubmit={handleSubmit}>
+        <form
+          style={{ padding: "0px 10px", boxSizing: "border-box" }}
+          onSubmit={handleSubmit}
+        >
           {popUp && ventanaFTE()}
           {popUp2 && ventanaCostosExtras()}
           {!popUp && !popUp2 && ventanaPrincipal()}

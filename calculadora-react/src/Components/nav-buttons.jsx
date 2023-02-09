@@ -10,11 +10,12 @@ function NavButtons({ activeIndex, handleTranslate }) {
     color: "#1c1b1e",
   });
   useEffect(() => {
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [activeIndex, handleTranslate]);
+  }, []);
 
   const handleResize = () => {
     if (window.innerWidth < 750) {
