@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Field } from "redux-form";
 import ventanaPrincipalComponent from "./input-component/ventanaPrincipal-input";
+import { modificarRateEmpleado } from "../../../../Reducers/inputs.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronCircleLeft,
@@ -10,6 +11,7 @@ import {
   faClock,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
 const CSS = {
   indicadoresSlider: {
     marginTop: -45,
@@ -41,28 +43,19 @@ const CSS = {
   },
 };
 
-export default class VentanaFTE extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sliderValue: 5.5,
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      sliderValue: ((this.props.rendimiento - 0.68) / 0.022).toFixed(1),
-    });
-  }
-
+class VentanaFTE extends Component {
   render() {
-    const { openVentanaFTE, estilos } = this.props;
-    const { sliderValue } = this.state;
-
-    const changeValue = (newValue) => {
-      this.setState({
-        sliderValue: newValue,
-      });
+    const {
+      openVentanaFTE,
+      estilos,
+      changeValue,
+      setChangeValue,
+      modificarRateEmpleado,
+      index,
+    } = this.props;
+    const regresar = () => {
+      openVentanaFTE();
+      modificarRateEmpleado(index, changeValue);
     };
     return (
       <>
@@ -76,7 +69,7 @@ export default class VentanaFTE extends Component {
             top: 10,
             left: 10,
           }}
-          onClick={openVentanaFTE}
+          onClick={() => regresar()}
           icon={faChevronCircleLeft}
         />
         {/* NUMERODEOPERACIONESDIARIAS */}
@@ -133,34 +126,53 @@ export default class VentanaFTE extends Component {
         </div>
         {/* RATEEMPLEADO */}
         <div style={{ ...estilos.inputBoxes, position: "relative" }}>
-          <Field
-            icono={faStar}
-            value={sliderValue}
-            iconoEstilo={{ ...estilos.iconStyle, color: "#FCCA3E" }}
-            onChange={(e) => changeValue(e.target.value)}
-            step="0.5"
-            min="1"
-            max="10"
-            style={{ width: "100%", zIndex: 2 }}
-            name="rendimiento"
-            type="range"
-            component={ventanaPrincipalComponent}
-            title="¿Cómo evalúas el desempeño del encargado en ese proceso?"
-          />
+          <div style={{ width: "100%", zIndex: 2 }}>
+            <p
+              style={{ marginBottom: 8, lineHeight: 1.2 }}
+              className="title-inputs"
+            >
+              <FontAwesomeIcon icon={faStar} style={{ color: "#FCCA3E" }} />{" "}
+              ¿Cómo evalúas el desempeño del encargado en ese proceso?
+            </p>
+            <input
+              type="range"
+              step="0.5"
+              min="1"
+              max="10"
+              name="automatizable"
+              value={changeValue}
+              onChange={(e) => setChangeValue(e.target.value)}
+            />
+          </div>
           <div style={CSS.indicadoresSlider}>
             <p style={{ position: "absolute", bottom: "45%" }}>1</p>
             <p style={{ position: "absolute", right: 0, bottom: "45%" }}>10</p>
           </div>
           <div style={CSS.valorSlider}>
-            <p style={{ margin: 0 }}>{sliderValue}</p>
+            <p style={{ margin: 0 }}>{changeValue}</p>
           </div>
         </div>
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
-          <button style={CSS.btnListo}>Listo!</button>
+          <button style={CSS.btnListo}>¡Listo!</button>
         </div>
       </>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    procesos: state.user.procesos,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    modificarRateEmpleado: (index, value) => {
+      dispatch(modificarRateEmpleado(index, value));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(VentanaFTE);

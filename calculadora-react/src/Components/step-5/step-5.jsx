@@ -1,7 +1,7 @@
 import React from "react";
 import quintaSeccion from "../../img/quinta-seccion.svg";
 import "./step-5.css";
-function Step5({ nombreEmpresa, nombrePersona }) {
+function Step5({ nombreEmpresa, nombrePersona, setAsesores }) {
   return (
     <div className="implementar-container">
       <div className="implementar">
@@ -18,7 +18,9 @@ function Step5({ nombreEmpresa, nombrePersona }) {
           <div className="button-group-4">
             <button>
               <div className="circle"></div>
-              <span>Implementémoslo ahora</span>
+              <span onClick={() => setAsesores(true)}>
+                Implementémoslo ahora
+              </span>
             </button>
           </div>
         </div>

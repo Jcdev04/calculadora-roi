@@ -8,12 +8,12 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 const CLIENT_ID =
   "760068272484-0n6p67v1k5d9t1vi4tla6333f8c4o7h0.apps.googleusercontent.com";
 const API_KEY = "AIzaSyD1zb-kx1wHtg7nPRkwumv7CRnat80oTEA";
-const SCOPE = "https://www.googleapis.com/auth/drive.file";
+const SCOPE = "https://www.googleapis.com/auth/drive";
 
-function GoogleSlide({ setShow, id }) {
+function GoogleSlide({ setShow, id, nameSlide }) {
   const [isSignedIn, setIsSignedIn] = useState(false);
   /* IMPORTANT */
-  const templateID = "1jbHcgeD777FeugvckW6mDsmrD7wZ2LHEpnUdFROsKyA";
+  const templateID = id;
 
   useEffect(() => {
     gapi.load("client:auth2", () => {
@@ -34,7 +34,7 @@ function GoogleSlide({ setShow, id }) {
       gapi.client.drive.files
         .copy({
           fileId: templateID,
-          resource: { name: "SLIDE" },
+          resource: { name: nameSlide },
         })
         .then((response) => {
           const presentationCopyId = response.result.id;
@@ -90,7 +90,7 @@ function GoogleSlide({ setShow, id }) {
       className="inicio-sesión-container"
     >
       <section className="inicio-sesión">
-        <section className="blobs-container">
+        <section className="container-blobs">
           <span className="blob-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"

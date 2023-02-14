@@ -116,8 +116,33 @@ function Mejores() {
             <div className="contenido">
               <h3>Marcas</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                aliquet turpis a purus blandit hendrerit. Nulla malesuada
+                Dignita cuenta con marcas de calidad y confianza que respaldan
+                el trabajo que venimos realizando como empresa de tecnología
+                digital. Entre ellas tenemos a:{" "}
+                <a
+                  style={{ color: "white", textDecoration: "underline" }}
+                  href="https://www.verisure.pe/lp/m/alarma-oferta.php?gclsrc=ds&gclsrc=ds"
+                  target="_blank"
+                >
+                  Verisure
+                </a>
+                ,{" "}
+                <a
+                  style={{ color: "white", textDecoration: "underline" }}
+                  href="https://www.fitesa.com/es/"
+                  target="_blank"
+                >
+                  Fitesa
+                </a>
+                ,{" "}
+                <a
+                  style={{ color: "white", textDecoration: "underline" }}
+                  href="https://www.idegostd.com/"
+                  target="_blank"
+                >
+                  Idego
+                </a>
+                , etc.
               </p>
             </div>
           </div>

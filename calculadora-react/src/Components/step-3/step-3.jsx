@@ -9,12 +9,14 @@ import GoogleSlideIcon from "../../img/google-slides-icon.svg";
 import videoFull from "../../img/video-full.svg";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 import GoogleSlide from "./google-slide";
-function Step3({ nombreEmpresa }) {
+function Step3({ nombreEmpresa, setAsesores }) {
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
-  const popUp = (idSlide) => {
-    setShow(true);
+  const [nameSlide, setNameSlide] = useState("");
+  const popUp = (idSlide, name) => {
     setId(idSlide);
+    setNameSlide(name);
+    setShow(true);
   };
   return (
     <div className="construccion-proyecto-container">
@@ -22,7 +24,7 @@ function Step3({ nombreEmpresa }) {
         <div className="first-section">
           <h3>#3 Construcción del proyecto</h3>
           <div className="comunicar-asesor">
-            <a>
+            <a onClick={() => setAsesores(true)}>
               <FontAwesomeIcon
                 style={{ marginRight: 10 }}
                 icon={faTriangleExclamation}
@@ -32,14 +34,23 @@ function Step3({ nombreEmpresa }) {
             </a>
           </div>
           <p>
-            Calcula las inversiones para saber si la implementación del robot se
-            justifica con los números. No queremos que pierdas, queremos que tu{" "}
-            <strong>{nombreEmpresa}</strong> sea más productiva. Por eso, estima
-            el resultado del ROI en nuestra calculadora que diseñamos
-            exactamente para eso y coloca todos los datos importantes.
+            Implementa RPA y automatiza tareas repetitivas en
+            <strong> {nombreEmpresa}</strong> para mejorar la precisión de
+            datos, lo que reduce errores y aumenta el rendimiento y las
+            ganancias. Ofrecemos dos opciones de plantillas, A para usuarios
+            experimentados en RPA y B para usuarios nuevos. Nuestro objetivo es
+            asegurar el éxito del proyecto y brindar una experiencia de usuario
+            eficiente.
           </p>
           <div className="button-group-3">
-            <button onClick={() => popUp("1233232")}>
+            <button
+              onClick={() =>
+                popUp(
+                  "1eEFo3R1w7OPO2EzOAuGSP74iUE4rXIUkmgjT7lZrhww",
+                  "Mi primer proyecto RPA"
+                )
+              }
+            >
               <img
                 style={{ width: 28 }}
                 src={GoogleSlideIcon}
@@ -51,7 +62,14 @@ function Step3({ nombreEmpresa }) {
               </ul>
             </button>
             <h4>O</h4>
-            <button onClick={() => popUp("123456789")}>
+            <button
+              onClick={() =>
+                popUp(
+                  "1m-yr6Ho7lJ90lJfQVd40izoX5x3XfZiDZzy-YuVb-TU",
+                  "Mi proyecto RPA"
+                )
+              }
+            >
               <img
                 style={{ width: 28 }}
                 src={GoogleSlideIcon}
@@ -69,7 +87,9 @@ function Step3({ nombreEmpresa }) {
         </div>
       </div>
       <AnimatePresence>
-        {show && <GoogleSlide setShow={setShow} id={id} />}
+        {show && (
+          <GoogleSlide nameSlide={nameSlide} setShow={setShow} id={id} />
+        )}
       </AnimatePresence>
     </div>
   );

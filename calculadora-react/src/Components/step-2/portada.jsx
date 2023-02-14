@@ -3,7 +3,7 @@ import "./step-2.css";
 import videoFull from "../../img/video-full.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
-function Portada() {
+function Portada({ setAsesores }) {
   function handleClick() {
     const element = document.getElementById("calculator");
     const offsetTop = 100;
@@ -22,7 +22,7 @@ function Portada() {
         <div className="first-section">
           <h3>#2 Conoce cada detalle del proceso</h3>
           <div className="comunicar-asesor">
-            <a>
+            <a onClick={() => setAsesores(true)}>
               <FontAwesomeIcon
                 style={{ marginRight: 10 }}
                 icon={faTriangleExclamation}

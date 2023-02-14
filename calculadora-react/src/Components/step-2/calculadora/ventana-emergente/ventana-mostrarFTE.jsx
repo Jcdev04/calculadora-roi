@@ -79,9 +79,9 @@ const procesoNormal = {
   img: imgBefore,
   automatizado: false,
   copies: {
-    n1: "Número total operaciones",
+    n1: "Operaciones mensuales en este proceso",
     n2: "Tiempo mensual en este proceso",
-    n3: "Tiempo libre para otras operaciones",
+    n3: "Tiempo libre mensual para otros procesos",
   },
 };
 const procesoAutomatizado = {
@@ -92,7 +92,7 @@ const procesoAutomatizado = {
   copies: {
     n1: "Disminuye la carga laboral",
     n2: "Rentabiliza tu proceso",
-    n3: "Optimiza tu tiempo libre para otras operaciones",
+    n3: "Ahorradas, ahora podrán invertir tiempo en otras operaciones",
   },
 };
 
@@ -115,32 +115,35 @@ function VentanaMostrarFTE({
       });
     } catch (error) {}
   };
-  console.log(proceso);
-  let horasXdia = proceso.FTE.hTrabajadasXDia;
-  let diasLaborables = proceso.FTE.dLaborablesXSemana;
-  let tiempoHoras = horasXdia * diasLaborables * 52;
+  let tiempoHorasSemanales =
+    proceso.FTE.hTrabajadasXDia *
+    proceso.FTE.dLaborablesXSemana *
+    proceso.nPersonas *
+    proceso.tabla.FTEresultado;
+  let tiempoHorasMensuales = tiempoHorasSemanales * 4;
+  let tiempoHorasAnuales = tiempoHorasSemanales * 52;
+
+  let porcentajeAutomatizar = 1 - proceso.automatizable / 100;
   const fteNormal = {
-    totalOperaciones: proceso.FTE.nOpDiarias * 30,
-    tiempoMensual: (
-      horasXdia *
-      diasLaborables *
+    nPersonas: proceso.nPersonas,
+    totalOperaciones:
+      proceso.FTE.nOpDiarias *
+      proceso.FTE.dLaborablesXSemana *
       4 *
-      tabla.FTEresultado
-    ).toFixed(1),
-    tiempoLibre: (
-      horasXdia *
-      diasLaborables *
-      4 *
-      (1 - tabla.FTEresultado)
-    ).toFixed(1),
-    tHorasOp: tiempoHoras,
-    tDiasOp: (tiempoHoras / 24).toFixed(1),
-    tMesOp: (tiempoHoras / 730).toFixed(1),
+      proceso.nPersonas,
+    tiempoMensual: tiempoHorasMensuales,
+    tiempoLibre:
+      proceso.FTE.hTrabajadasXDia * proceso.FTE.dLaborablesXSemana * 4 -
+      tiempoHorasMensuales,
+    tSemanaOp: tiempoHorasSemanales,
+    tMesOp: tiempoHorasMensuales,
+    tYearOp: tiempoHorasAnuales,
   };
   const fteAutomatizado = {
-    tHorasOp: tiempoHoras,
-    tDiasOp: (tiempoHoras / 24).toFixed(1),
-    tMesOp: (tiempoHoras / 730).toFixed(1),
+    tAhorrado: tiempoHorasAnuales - tiempoHorasAnuales * porcentajeAutomatizar,
+    tSemanaOp: tiempoHorasSemanales * porcentajeAutomatizar,
+    tMesOp: tiempoHorasMensuales * porcentajeAutomatizar,
+    tYearOp: tiempoHorasAnuales * porcentajeAutomatizar,
   };
   return (
     <motion.div

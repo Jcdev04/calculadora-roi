@@ -28,6 +28,7 @@ import Tabla from "./step-2/calculadora/ventana-emergente/tabla";
 import VentanaExito from "./step-2/calculadora/ventana-emergente/ventana-exito";
 import VentanaError from "./step-2/calculadora/ventana-emergente/ventana-error";
 import VentanaPrincipal from "./step-2/calculadora/ventana-emergente/ventana-principal";
+import Asesores from "./try-contact/asesores";
 /* REDUX */
 import { modificarInputs, rotation } from "../Reducers/inputs";
 import { connect } from "react-redux";
@@ -47,6 +48,7 @@ function MainPage(props) {
   const [botonError, setBotonError] = useState(false);
   const [botonEditar2, setBotonEditar2] = useState(false);
   const [index, setIndex] = useState(0);
+  const [asesores, setAsesores] = useState(false);
   /* Nombre empresa y persona */
   const [nombreEmpresa, setNombreEmpresa] = useState("");
   const [nombrePersona, setNombrePersona] = useState("");
@@ -61,8 +63,11 @@ function MainPage(props) {
     const handleResize = () => {
       if (window.innerWidth < 1169) {
         setResponsive(true);
+
         if (activeIndex === 1) {
           setHeight("770vh");
+        } else if (activeIndex === 7) {
+          setHeight("150vh");
         } else {
           setResponsive(false);
         }
@@ -129,6 +134,7 @@ function MainPage(props) {
             setNombreEmpresa={setNombreEmpresa}
             nombrePersona={nombrePersona}
             setNombrePersona={setNombrePersona}
+            setAsesores={setAsesores}
           />
         )}
       </AnimatePresence>
@@ -186,6 +192,10 @@ function MainPage(props) {
           />
         )}
       </AnimatePresence>
+      {/* Ventana ASesores */}
+      <AnimatePresence>
+        {asesores && <Asesores setAsesores={setAsesores} />}
+      </AnimatePresence>
       {/* SLIDER */}
       <Swiper
         style={{
@@ -223,11 +233,12 @@ function MainPage(props) {
             setBotonEditar={setBotonEditar}
             setBotonEditar2={setBotonEditar2}
             setIndex={setIndex}
+            setAsesores={setAsesores}
           />
         </SwiperSlide>
         {/* Step3 */}
         <SwiperSlide>
-          <Step3 nombreEmpresa={nombreEmpresa} />
+          <Step3 nombreEmpresa={nombreEmpresa} setAsesores={setAsesores} />
         </SwiperSlide>
         {/* Step4 */}
         <SwiperSlide>
@@ -235,11 +246,18 @@ function MainPage(props) {
         </SwiperSlide>
         {/* Step5 */}
         <SwiperSlide>
-          <Step5 nombreEmpresa={nombreEmpresa} nombrePersona={nombrePersona} />
+          <Step5
+            setAsesores={setAsesores}
+            nombreEmpresa={nombreEmpresa}
+            nombrePersona={nombrePersona}
+          />
         </SwiperSlide>
         {/* CONTACT */}
         <SwiperSlide>
-          <Contact handleTranslate={handleTranslate} />
+          <Contact
+            setAsesores={setAsesores}
+            handleTranslate={handleTranslate}
+          />
         </SwiperSlide>
       </Swiper>
       {/* BOTONES DE NAVEGACIÓN */}

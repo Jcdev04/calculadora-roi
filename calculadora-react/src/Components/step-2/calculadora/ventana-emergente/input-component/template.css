@@ -134,7 +134,7 @@
   color: white;
 }
 .icons-productivity > * p {
-  font-size: clamp(13px, 2vw, 16px);
+  font-size: clamp(12px, 2vw, 14px);
   margin-top: 3px;
   font-weight: 500;
 }

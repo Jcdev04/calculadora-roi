@@ -7,7 +7,7 @@ import ventanaPrincipalComponent from "./input-component/ventanaPrincipal-input"
 import VentanaPorcentaje from "./ventana-porcentajeAutomatizar";
 import { reset } from "redux-form";
 import VentanaFTE from "./ventana-fte";
-import { modificarTabla } from "../../../../Reducers/inputs";
+import { modificarTabla } from "../../../../Reducers/inputs.js";
 import VentanaCostosExtras from "./ventana-costosExtras";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -253,7 +253,10 @@ function VentanaPrincipal({
   const [popUp, setPopUp] = useState(false);
   const [triggerPorcentaje, setTriggerPorcentaje] = useState(false);
   const [popUp2, setPopUp2] = useState(false);
-
+  const [sliderValue, setSliderValue] = useState(FTEvalue.automatizable);
+  const [changeValue, setChangeValue] = useState(
+    ((FTEvalue.FTE.rateEmpleado - 0.68) / 0.022).toFixed(1)
+  );
   const botonCerrar = () => {
     setTrigger(false);
     dispatch(reset("v_principal"));
@@ -397,7 +400,9 @@ function VentanaPrincipal({
             </button>
             <div style={{ ...CSS.porcentajeFTE, backgroundColor: "#71b4eb" }}>
               {/* Se muestra el porcentaje automatizable */}
-              <h1 style={{ fontSize: 15, margin: 0 }}>{}% Automatizable</h1>
+              <h1 style={{ fontSize: 15, margin: 0 }}>
+                {sliderValue}% Automatizable
+              </h1>
             </div>
           </div>
         </div>
@@ -464,6 +469,9 @@ function VentanaPrincipal({
             Submitting={submitting}
             estilos={CSS}
             openVentanaFTE={abrirFTE()}
+            changeValue={changeValue}
+            setChangeValue={setChangeValue}
+            index={index}
           />
         </div>
       </motion.div>
@@ -529,7 +537,9 @@ function VentanaPrincipal({
             <VentanaPorcentaje
               dropIn={dropInWindows}
               setTriggerPorcentaje={setTriggerPorcentaje}
-              porcentaje={FTEvalue.automatizable}
+              index={index}
+              sliderValue={sliderValue}
+              setSliderValue={setSliderValue}
             />
           </motion.div>
         )}

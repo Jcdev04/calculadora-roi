@@ -37,6 +37,8 @@ const MODIFICARINPUTS = "PROCESO/MODIFICARINPUTS";
 const MODIFICARCOSTOSEXTRAS = "PROCESO/MODIFICARCOSTOSEXTRAS";
 const MODIFICARTABLA = "PROCESO/MODIFICARTABLA";
 const ROTATION = "PROCESO/ROTATION";
+const MODIFICARRATEEMPLEADO = "PROCESO/MODIFICARRATEEMPLEADO";
+const MODIFICARAUTOMATIZABLE = "PROCESO/MODIFICARAUTOMATIZABLE";
 
 export const agregarProceso = () => ({
   type: AGREGARPROCESO,
@@ -72,6 +74,16 @@ export const modificarTabla = (index, tabla) => ({
 export const rotation = (index) => ({
   type: ROTATION,
   payload: { index },
+});
+
+export const modificarRateEmpleado = (index, rateEmpleado) => ({
+  type: MODIFICARRATEEMPLEADO,
+  payload: { index, rateEmpleado },
+});
+
+export const modificarAutomatizable = (index, automatizable) => ({
+  type: MODIFICARAUTOMATIZABLE,
+  payload: { index, automatizable },
 });
 
 export default function inputs(state = { ...initialState }, action) {
@@ -163,9 +175,6 @@ export default function inputs(state = { ...initialState }, action) {
                 parseFloat(action.payload.valores.rendimiento) * 0.022 + 0.68,
             };
             objectToReturn.FTE = { ...aux };
-            objectToReturn.automatizable = parseInt(
-              action.payload.valores.automatizable || "0"
-            );
             objectToReturn.salarioPromedio = parseInt(
               action.payload.valores.salarioPromedio
             );
@@ -177,6 +186,7 @@ export default function inputs(state = { ...initialState }, action) {
           return value;
         }),
       };
+
     case MODIFICARCOSTOSEXTRAS:
       return {
         ...state,
@@ -196,6 +206,40 @@ export default function inputs(state = { ...initialState }, action) {
           if (action.payload.index === i) {
             const objectToReturn = value;
             objectToReturn.tabla = action.payload.tabla;
+            return objectToReturn;
+          }
+          return value;
+        }),
+      };
+    case MODIFICARRATEEMPLEADO:
+      return {
+        ...state,
+        procesos: state.procesos.map(({ ...value }, i) => {
+          if (action.payload.index === i) {
+            const objectToReturn = value;
+            const aux = {
+              nOpDiarias: value.FTE.nOpDiarias,
+              hTrabajadasXDia: value.FTE.hTrabajadasXDia,
+              dLaborablesXSemana: value.FTE.dLaborablesXSemana,
+              tXOperacionMinutos: value.FTE.tXOperacionMinutos,
+              rateEmpleado:
+                parseFloat(action.payload.rateEmpleado) * 0.022 + 0.68,
+            };
+            objectToReturn.FTE = { ...aux };
+
+            return objectToReturn;
+          }
+          return value;
+        }),
+      };
+    case MODIFICARAUTOMATIZABLE:
+      return {
+        ...state,
+        procesos: state.procesos.map(({ ...value }, i) => {
+          if (action.payload.index === i) {
+            console.log(action.payload.automatizable);
+            const objectToReturn = value;
+            objectToReturn.automatizable = action.payload.automatizable;
             return objectToReturn;
           }
           return value;

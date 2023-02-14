@@ -13,6 +13,7 @@ function VentanaInicio({
   setNombrePersona,
   nombreEmpresa,
   nombrePersona,
+  setAsesores,
 }) {
   const [bienvenida, setBienvenida] = useState(false);
   const cancelar = () => {
@@ -87,8 +88,9 @@ function VentanaInicio({
                 onChange={(e) => setNombreEmpresa(e.target.value)}
               />
               <div className="texto">
-                <a href="https://dignita.tech/contacto/">
-                  ¿Necesitas ayuda? <span>Contáctanos</span>
+                <a style={{ cursor: "pointer" }}>
+                  ¿Necesitas ayuda?{" "}
+                  <span onClick={() => setAsesores(true)}>Contáctanos</span>
                 </a>
               </div>
               <div className="botones">

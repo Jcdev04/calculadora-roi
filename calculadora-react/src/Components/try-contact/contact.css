@@ -1,37 +1,62 @@
 .contacto-container {
   background-color: white;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .contacto {
-  height: 100vh;
   display: flex;
   flex-direction: row;
   position: relative;
   z-index: 200;
+  height: auto;
 }
 /* Columna 1 */
 .contacto .columna1 {
   width: 25%;
+  padding: 0px 35px 55px 35px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 .contacto .encabezado h3 {
   font-size: clamp(2.5rem, 5vw, 7.5rem);
   color: var(--anaranjado);
   font-weight: 1000;
-  text-shadow: 3px 2px 7px var(--negro);
+  text-shadow: 3px 4px 7px #a8a8a8;
+  line-height: 1;
+  margin-bottom: 20px;
 }
 .contacto .encabezado {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: clamp(2em, 4vw, 5em);
   position: relative;
   z-index: 200;
 }
 .contacto p {
   font-size: clamp(18px, 1.2vw, 30px);
-  padding: clamp(2em, 4vw, 5em);
   padding-top: 0;
 }
-
+.iconos-social-media-dignita {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  gap: 20px;
+}
+.iconos-social-media-dignita .iconos {
+  font-size: 25px;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+.iconos-social-media-dignita .iconos:hover {
+  transform: scale(1.2);
+}
 /* menu */
 .contacto .hamburguesa {
   display: none;
@@ -63,8 +88,12 @@
 }
 
 /* suscribete */
+
 .contacto .suscribete {
-  padding: clamp(2em, 4vw, 5em);
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-self: baseline;
 }
 
 .contacto .suscribete h3 {
@@ -75,11 +104,11 @@
 .contacto .input-contacto {
   display: flex;
   align-items: center;
-  height: 50px;
   margin-top: 20px;
 }
 .contacto input {
   width: 75%;
+  box-sizing: border-box;
   padding: 15px 15px;
   box-shadow: 0px 0px 2px var(--negro);
   border: none;
@@ -92,23 +121,22 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 58px;
   width: 60px;
   background-color: var(--anaranjado);
-  color: var(--blanco);
+  color: white;
+  position: absolute;
   border: none;
   border-radius: 0 150px 150px 90px;
   position: relative;
-  margin-left: -20px;
 }
 
 /* Columna 2 */
-.contacto > .columna2 {
+.contacto .columna2 {
   width: 75%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(50px, 5vw, 100px);
 }
 
 /* menu */
@@ -129,29 +157,47 @@
 /* equipo */
 .contacto .equipo {
   display: flex;
-  flex-direction: row;
   justify-content: center;
+  align-items: center;
+  flex-direction: row;
   gap: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
-.contacto img {
-  height: 240px;
-  border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    rgba(149, 149, 149, 1) 0%,
-    rgba(65, 65, 65, 1) 100%
-  );
-  border: none;
-  object-fit: contain;
+
+.asesor-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 230px;
+}
+
+.asesor-container .columna2 {
+  background-color: rgb(59, 59, 59);
+  width: 100%;
+  color: white;
+}
+
+.asesor-container img {
+  height: 250px;
+  background: transparent;
+  border-bottom: 2px solid rgb(56, 56, 56);
 }
 .contacto span {
-  font-size: clamp(18px, 2.5vw, 30px);
+  font-size: clamp(14px, 1.5vw, 25px);
   font-weight: 500;
+  color: white;
 }
 .contacto .nombre-contacto {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
 }
 .contacto i {
   font-size: clamp(18px, 2.5vw, 30px);
@@ -159,8 +205,9 @@
 .contacto .redes-sociales {
   display: flex;
   justify-content: center;
-  margin-top: clamp(12px, 2vw, 25px);
-  gap: 30px;
+  margin: 10px 0px;
+  font-size: 20px;
+  gap: 10px;
 }
 
 /* boton */
@@ -174,49 +221,57 @@
   padding: clamp(12px, 2vw, 32px) clamp(30px, 2vw, 50px);
   background-color: var(--anaranjado);
   border: none;
-  color: var(--blanco);
+  color: white;
   cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0px 4px 5px #fc4d19;
+  transition: var(--default-animation);
 }
-
-.manchas-contacto {
-  height: 100vh;
+.contacto .boton:hover {
+  box-shadow: 0px 2px 2px #fc4d19;
+}
+.contacto .boton:active {
+  transform: translateY(5px) scale(0.95);
+}
+.blobs-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   position: fixed;
   z-index: 100;
 }
-.manchas-contacto > * {
+.blobs-container > * {
   position: absolute;
   animation: rotar infinite 40s;
   animation-timing-function: cubic-bezier(1, 1, 0, 0);
 }
-.mancha1 {
-  left: -100px;
-  top: -450px;
+.first-blob {
+  left: -300px;
+  top: -300px;
   width: 700px;
   height: 600px;
+  opacity: 0.5;
 }
 
-.mancha2 {
+.second-blob {
   animation-duration: 45s;
-  left: 1200px; /* right: -200px; */
-  top: -400px;
-  width: 500px;
-  height: 600px;
+  right: -200px;
+  top: -300px;
+  opacity: 0.3;
 }
 
-.mancha3 {
+.third-blob {
   animation-duration: 35s;
-  left: -100px;
-  bottom: -150px;
-  width: 600px;
-  height: 400px;
+  left: -200px;
+  bottom: -300px;
+  opacity: 0.35;
 }
 
-.mancha4 {
+.fourth-blob {
   animation-duration: 30s;
   left: 1150px; /* right: -120px; */
-  bottom: -100px;
-  width: 500px;
-  height: 700px;
+  bottom: -200px;
+  opacity: 0.4;
 }
 
 @keyframes rotar {
@@ -231,10 +286,6 @@
 
 /* ANIMACIONES DE LOS MIEMBROS */
 
-.contacto .equipo {
-  height: 400px;
-}
-
 .contacto .equipo > * {
   position: relative;
   z-index: 100;
@@ -242,74 +293,81 @@
 }
 
 .contacto .equipo > *:nth-child(1) {
-  animation: mover1 infinite 10s;
+  animation: mover1 infinite 20s;
 }
 
 .contacto .equipo > *:nth-child(2) {
-  animation: mover2 infinite 10s;
-  align-self: self-end;
+  animation: mover2 infinite 20s;
 }
 
 .contacto .equipo > *:nth-child(3) {
-  animation: mover3 infinite 10s;
+  animation: mover3 infinite 20s;
 }
 
 @keyframes mover1 {
   0% {
-    transform: translate(0px, 0px);
+    transform: translate(0px, 0px) scale(0.8);
   }
 
   25% {
-    transform: scale(1.2) translate(210px, 60px);
+    transform: scale(1) translateX(260px);
     z-index: 200;
     filter: contrast(110%);
   }
 
   33% {
-    transform: scale(1.2) translate(210px, 60px);
+    transform: scale(1) translateX(260px);
     z-index: 200;
     filter: contrast(110%);
   }
 
   58% {
-    transform: translate(520px, 0px);
+    transform: translate(520px, 0px) scale(0.8);
+    filter: contrast(40%);
   }
 
   66% {
-    transform: translate(520px, 0px);
+    transform: translate(520px, 0px) scale(0.8);
+    filter: contrast(40%);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(0.8);
   }
 }
 
 @keyframes mover2 {
   0% {
-    transform: scale(1.2) translate(0px, 0px);
+    transform: scale(1) translate(0px, 0px);
     z-index: 200;
     filter: contrast(110%);
   }
 
   25% {
-    transform: translate(260px, -70px);
+    transform: translate(260px, 0px) scale(0.8);
+    filter: contrast(40%);
     z-index: 100;
   }
 
   33% {
-    transform: translate(260px, -70px);
+    transform: translate(260px, 0px) scale(0.8);
     z-index: 100;
+    filter: contrast(40%);
   }
 
   58% {
-    transform: translate(-260px, -70px);
+    transform: translate(-260px, 0px) scale(0.8);
     z-index: 100;
+    filter: contrast(40%);
   }
 
   66% {
-    transform: translate(-260px, -70px);
+    transform: translate(-260px, 0px) scale(0.8);
     z-index: 100;
     filter: contrast(40%);
   }
 
   100% {
-    transform: scale(1.2) translate(0px, 0px);
+    transform: scale(1) translate(0px, 0px);
     z-index: 200;
     filter: contrast(110%);
   }
@@ -317,96 +375,32 @@
 
 @keyframes mover3 {
   0% {
-    transform: translate(0px, 0px);
+    transform: translate(0px, 0px) scale(0.8);
   }
 
   25% {
-    transform: translate(-520px, 0px);
+    transform: translate(-520px, 0px) scale(0.8);
+    filter: contrast(40%);
   }
 
   33% {
-    transform: translate(-520px, 0px);
-    filter: contrast(30%);
+    transform: translate(-520px, 0px) scale(0.8);
+    filter: contrast(40%);
   }
 
   58% {
-    transform: scale(1.2) translate(-210px, 60px);
+    transform: scale(1) translate(-260px, 0px) scale(1);
     z-index: 200;
     filter: contrast(110%);
   }
 
   66% {
-    transform: scale(1.2) translate(-210px, 60px);
+    transform: scale(1) translate(-260px, 0px) scale(1);
     z-index: 200;
     filter: contrast(110%);
   }
-}
-
-@keyframes resaltar1 {
-  0% {
-    filter: contrast(110%);
-  }
-
-  25% {
-    filter: contrast(40%);
-  }
-
-  33% {
-  }
-
-  58% {
-  }
-
-  66% {
-    filter: contrast(40%);
-  }
-
   100% {
-    filter: contrast(110%);
-  }
-}
-
-@keyframes resaltar2 {
-  0% {
-    filter: contrast(40%);
-  }
-
-  25% {
-    filter: contrast(110%);
-  }
-
-  33% {
-    filter: contrast(110%);
-  }
-
-  58% {
-  }
-
-  66% {
-  }
-}
-
-@keyframes resaltar3 {
-  0% {
-    filter: contrast(40%);
-  }
-
-  25% {
-  }
-
-  33% {
-  }
-
-  58% {
-    filter: contrast(110%);
-  }
-
-  66% {
-    filter: contrast(110%);
-  }
-
-  100% {
-    filter: contrast(40%);
+    transform: translate(0px, 0px) scale(0.8);
   }
 }
 
@@ -444,117 +438,81 @@
 }
 
 /* TABLET VERSION */
-@media screen and (min-width: 767px) and (max-width: 1200px) {
+@media (max-width: 1169px) {
+  .contacto .encabezado h3 {
+    width: 100%;
+    text-align: center;
+  }
   .contacto {
     flex-direction: column;
     align-items: center;
   }
+  .contacto .equipo {
+    gap: 20px;
+  }
   .contacto .columna1 {
-    width: 50%;
+    max-width: 500px;
+    width: 100%;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    text-align: center;
   }
   .contacto .columna2 {
-    width: auto;
+    max-width: 500px;
+    width: 100%;
+    padding: 0px 10px;
   }
   .contacto img {
     height: 150px;
   }
-
-  .contacto .equipo {
-    height: auto;
+  .iconos-social-media-dignita {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .input-contacto {
+    justify-content: center;
+    align-self: center;
+  }
+  .contacto-container {
+    background-color: white;
+    overflow: hidden;
+    height: 150vh;
+  }
+  .contacto .equipo > * {
+    z-index: 100;
+    filter: contrast(100%);
   }
   .contacto .equipo > *:nth-child(1) {
-    animation: resaltar1 infinite 9s;
+    animation: none;
   }
-
   .contacto .equipo > *:nth-child(2) {
-    animation: resaltar1 infinite 9s;
+    animation: none;
   }
-
   .contacto .equipo > *:nth-child(3) {
-    animation: resaltar1 infinite 9s;
+    animation: none;
+  }
+  .asesor-container {
+    width: 250px;
   }
 }
 
 /* MOBILE VERSION */
-@media screen and (max-width: 767px) {
-  .contacto {
-    flex-direction: column;
-    align-items: center;
-  }
-  .contacto .columna1,
-  .contacto > .columna2 {
-    width: auto;
-  }
-  .contacto .hamburguesa {
-    display: block;
-  }
-  .contacto .encabezado {
-    background: linear-gradient(
-      180deg,
-      rgba(253, 152, 105, 1) 0%,
-      rgba(254, 201, 201, 1) 100%
-    );
-    padding: clamp(1em, 4vw, 4em) clamp(2em, 4vw, 5em);
-  }
-  .contacto p {
-    padding: clamp(2em, 4vw, 5em);
-  }
-  .contacto .menu-2 {
-    display: flex;
-  }
-
-  /* menu */
-  .contacto .menu {
-    display: none;
-  }
-
-  /* equipo */
+@media screen and (max-width: 550px) {
   .contacto .equipo {
     flex-direction: column;
-    gap: 70px;
   }
-  .equipo > div {
-    display: flex;
-    justify-content: center;
-  }
-  .contacto img {
-    height: 150px;
-    object-fit: contain;
-  }
-  .contacto .boton-contacto a,
-  .contacto .boton-contacto,
-  .boton {
-    width: 100%;
-  }
-  .contacto .equipo > div {
-    display: flex;
-  }
-  .contacto .nombre-contacto {
-    gap: 5px;
-  }
-  .contacto .nombre-contacto span {
-    gap: 5px;
-  }
-  .contacto .redes-sociales {
-    gap: 10px;
-  }
-  .contacto .equipo > *:nth-child(even) {
+  .asesor-container {
     flex-direction: row-reverse;
   }
-
-  /* Animacionesa */
-  .contacto .equipo {
-    height: auto;
+  .asesor-container .columna2 {
+    height: 100px;
   }
-  .contacto .equipo > *:nth-child(1) {
-    animation: resaltar1 infinite 9s;
+  .asesor-container img {
+    height: 100px;
   }
-
-  .contacto .equipo > *:nth-child(2) {
-    animation: resaltar2 infinite 9s;
-  }
-
-  .contacto .equipo > *:nth-child(3) {
-    animation: resaltar3 infinite 9s;
+  .contacto .menu {
+    display: none;
   }
 }

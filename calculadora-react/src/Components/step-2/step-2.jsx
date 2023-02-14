@@ -7,10 +7,10 @@ import {
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 
-function Step2({ setBotonEditar, setBotonEditar2, setIndex }) {
+function Step2({ setBotonEditar, setBotonEditar2, setIndex, setAsesores }) {
   return (
     <div>
-      <Portada />
+      <Portada setAsesores />
       <div className="titulo-show-more">
         <section>
           <FontAwesomeIcon icon={faCalculator} />

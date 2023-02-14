@@ -237,15 +237,7 @@ function Tabla({
           <p className="description-icon">Toma un screenshot</p>
         </button>
         {/* END TAKE A SCREENSHOT */}
-        {/* Porcentaje editable */}
-        {/* <button
-          className="botones-tabla"
-          style={{ ...CSS.verDatos, backgroundColor: "#FC9873" }}
-        >
-          <FontAwesomeIcon className="icono" icon={faPercentage} />
-          <p className="description-icon">Editar porcentaje</p>
-        </button> */}
-        {/* END porcentaje editable */}
+
         {/* VENTANA MOSTRAR FTE */}
         <button
           className="botones-tabla"
