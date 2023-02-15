@@ -5,9 +5,9 @@ import imagen2 from "../../img/erp/imagen2.png";
 import imagen3 from "../../img/erp/imagen3.png";
 import imagen4 from "../../img/erp/imagen4.png";
 import imagen1 from "../../img/erp/imagen5.png";
-import cloudshore from "../../img/partners/cloudshore.png";
-import pixRobotics from "../../img/partners/pix-robotics.png";
-import rocketBot from "../../img/partners/rocketbot.png";
+import cloudshore from "../../img/partners/CloudShore.png";
+import pixRobotics from "../../img/partners/PIXRobotics.png";
+import rocketBot from "../../img/partners/Rocketbot.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartSimple,

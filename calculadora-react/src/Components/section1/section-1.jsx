@@ -27,7 +27,7 @@ function Section1({ handleTranslate }) {
             <a className="comencemos">
               <button onClick={() => handleTranslate(1)}>Comencemos</button>
             </a>
-            <a href="https://dignita.tech/nosotros/">
+            <a target="_blank" href="https://dignita.tech/nosotros/">
               <button className="conocenos">Conócenos</button>
             </a>
           </div>

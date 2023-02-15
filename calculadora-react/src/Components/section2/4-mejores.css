@@ -169,7 +169,7 @@
     "uno dos"
     "tres tres";
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 100px 50px;
+  grid-template-rows: 100px 100px;
   gap: 20px;
   margin-top: 20px;
   align-items: center;
@@ -197,6 +197,10 @@
 }
 .partners-tres {
   grid-area: tres;
+}
+.partners-tres img {
+  height: 100%;
+  width: auto;
 }
 @media screen and (max-width: 767px) {
   .somos h2 {
@@ -253,6 +257,13 @@
     margin: 0 20px;
   }
 }
+
+@media (max-width: 600px) {
+  .partners {
+    grid-template-rows: 80px 50px;
+  }
+}
+
 @media (max-width: 380px) {
   .somos .contenido {
     margin-left: 5px;

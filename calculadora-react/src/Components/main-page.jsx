@@ -29,6 +29,7 @@ import VentanaExito from "./step-2/calculadora/ventana-emergente/ventana-exito";
 import VentanaError from "./step-2/calculadora/ventana-emergente/ventana-error";
 import VentanaPrincipal from "./step-2/calculadora/ventana-emergente/ventana-principal";
 import Asesores from "./try-contact/asesores";
+import VentanaFelicitaciones from "./step-5/ventana-felicitaciones";
 /* REDUX */
 import { modificarInputs, rotation } from "../Reducers/inputs";
 import { connect } from "react-redux";
@@ -49,10 +50,18 @@ function MainPage(props) {
   const [botonEditar2, setBotonEditar2] = useState(false);
   const [index, setIndex] = useState(0);
   const [asesores, setAsesores] = useState(false);
+  /* Pasos */
+  const [pasos, setPasos] = useState({
+    paso2: false,
+    paso3: false,
+    paso4: false,
+    paso5: false,
+  });
   /* Nombre empresa y persona */
   const [nombreEmpresa, setNombreEmpresa] = useState("");
   const [nombrePersona, setNombrePersona] = useState("");
   const [ventanaInicio, setVentanaInicio] = useState(true);
+  const [ventanaFelicidades, setVentanaFelicidades] = useState(true);
   function handleTranslate(index) {
     swiper.slideTo(index);
   }
@@ -126,6 +135,16 @@ function MainPage(props) {
   return (
     <div>
       <Burbujas />
+      {/* VENTANA FELICITACIONES */}
+      <AnimatePresence>
+        {ventanaFelicidades && activeIndex === 6 && (
+          <VentanaFelicitaciones
+            setVentanaFelicidades={setVentanaFelicidades}
+            ventanaFelicidades={ventanaFelicidades}
+          />
+        )}
+      </AnimatePresence>
+      {/* VENTANA INICIO */}
       <AnimatePresence>
         {ventanaInicio && (
           <VentanaInicio
@@ -178,7 +197,13 @@ function MainPage(props) {
       {/* VENTANA exito */}
       <AnimatePresence>
         {botonConfirmar && (
-          <VentanaExito setBotonConfirmar={setBotonConfirmar} />
+          <VentanaExito
+            rotation={props.rotation}
+            index={index}
+            setBotonEditar2={setBotonEditar2}
+            setBotonEditar={setBotonEditar}
+            setBotonConfirmar={setBotonConfirmar}
+          />
         )}
       </AnimatePresence>
       {/* Ventana Error */}
@@ -261,7 +286,12 @@ function MainPage(props) {
         </SwiperSlide>
       </Swiper>
       {/* BOTONES DE NAVEGACIÓN */}
-      <NavButtons activeIndex={activeIndex} handleTranslate={handleTranslate} />
+      <NavButtons
+        setPasos={setPasos}
+        pasos={pasos}
+        activeIndex={activeIndex}
+        handleTranslate={handleTranslate}
+      />
       <button
         style={{ display: arrowDown ? "block" : "none" }}
         className="arrow-down-container"

@@ -43,9 +43,9 @@ function Portada({ setAsesores }) {
             <button className="first" onClick={() => handleClick()}>
               Probar calculadora
             </button>
-            <a href="">
-              <button className="second">Contactar con un asesor</button>
-            </a>
+            <button onClick={() => setAsesores(true)} className="second">
+              Contactar con un asesor
+            </button>
           </div>
         </div>
         <div className="second-section">

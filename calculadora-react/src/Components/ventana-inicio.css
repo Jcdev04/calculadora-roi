@@ -59,9 +59,11 @@ html {
 
 .bienvenida {
   position: absolute;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .bienvenida h1 {
-  font-size: 50px;
+  font-size: clamp(50px, 5vw, 100px);
   font-weight: 800;
   color: #ffffff;
   animation: bienvenida forwards 3.5s;

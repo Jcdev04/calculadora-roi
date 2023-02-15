@@ -176,7 +176,7 @@ function Contact({ setAsesores }) {
             <h3>Suscríbete</h3>
             <div className="input-contacto">
               <input type="email" placeholder="Tu e-mail" />
-              <button htmlType="submit">
+              <button htmltype="submit">
                 <FontAwesomeIcon
                   className="fa-solid fa-chevron-right"
                   icon={faChevronRight}

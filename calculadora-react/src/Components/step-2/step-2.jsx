@@ -10,7 +10,7 @@ import {
 function Step2({ setBotonEditar, setBotonEditar2, setIndex, setAsesores }) {
   return (
     <div>
-      <Portada setAsesores />
+      <Portada setAsesores={setAsesores} />
       <div className="titulo-show-more">
         <section>
           <FontAwesomeIcon icon={faCalculator} />

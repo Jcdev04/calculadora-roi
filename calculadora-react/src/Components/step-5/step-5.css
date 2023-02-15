@@ -65,3 +65,7 @@
     width: 100%;
   }
 }
+.boton-aceptar:hover {
+  background-color: #de6262;
+  color: white;
+}

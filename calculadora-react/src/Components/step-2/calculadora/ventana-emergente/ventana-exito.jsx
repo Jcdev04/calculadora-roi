@@ -17,26 +17,25 @@ const CSS = {
     justifyContent: "center",
     alignItems: "center",
   },
-  formExito: {
-    maxWidth: 250,
-    margin: "0 10px",
-    width: "100%",
-    position: "relative",
-    padding: "20px 30px",
-    backgroundColor: "white",
-    borderRadius: 15,
-    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
 };
-function VentanaExito({ setBotonConfirmar }) {
+function VentanaExito({
+  setBotonEditar,
+  setBotonEditar2,
+  setBotonConfirmar,
+  rotation,
+  index,
+}) {
   useEffect(() => {
     setTimeout(() => {
       setBotonConfirmar(false);
     }, 2000);
   }, []);
+  const handleClick = () => {
+    setBotonEditar2(true);
+    setBotonConfirmar(false);
+    setBotonEditar(false);
+    rotation(index);
+  };
   return (
     <motion.div
       style={CSS.principalBox}
@@ -44,22 +43,18 @@ function VentanaExito({ setBotonConfirmar }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div style={CSS.formExito}>
-        <FontAwesomeIcon
-          style={{ fontSize: "50px", color: "#05BE50" }}
-          icon={faCheckCircle}
-        />
-        <h2
-          style={{
-            fontWeight: 400,
-            fontSize: "23px",
-            margin: "20px 0",
-            color: "#656565",
-            textAlign: "center",
-          }}
-        >
-          Enviado correctamente
-        </h2>
+      <div className="ventana-exito__container">
+        <section className="ventana-exito__message">
+          <FontAwesomeIcon icon={faCheckCircle} className="icon-exito" />
+          <h2 className="ventana-exito__title">Enviado Correctamente</h2>
+        </section>
+        <p className="ventana-exito__text">
+          Asegúrate de completar primero todos los campos antes ver los
+          resultados.
+        </p>
+        <button className="ventana-exito__button" onClick={handleClick}>
+          Ver tabla
+        </button>
       </div>
     </motion.div>
   );

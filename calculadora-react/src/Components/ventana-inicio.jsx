@@ -16,22 +16,23 @@ function VentanaInicio({
   setAsesores,
 }) {
   const [bienvenida, setBienvenida] = useState(false);
-  const cancelar = () => {
-    setNombreEmpresa("Empresa");
-    setNombrePersona("Usuario");
+
+  const animacionBienvenida = () => {
     setBienvenida(true);
     setTimeout(() => {
       setVentanaInicio(false);
     }, 3000);
   };
+  const cancelar = () => {
+    setNombreEmpresa("Empresa");
+    setNombrePersona("Usuario");
+    animacionBienvenida();
+  };
   const continuar = () => {
     if (nombreEmpresa === "" || nombrePersona === "") {
       alert("Por favor ingrese los datos solicitados");
     } else {
-      setBienvenida(true);
-      setTimeout(() => {
-        setVentanaInicio(false);
-      }, 3000);
+      animacionBienvenida();
     }
   };
   return (
@@ -48,7 +49,7 @@ function VentanaInicio({
             animate={{ opacity: 1 }}
             className="bienvenida"
           >
-            <h1>Bienvenid@ {nombrePersona}</h1>
+            <h1 className="title-bienvenida">Hola, {nombrePersona}</h1>
           </motion.div>
         )}
       </AnimatePresence>
