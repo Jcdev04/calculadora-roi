@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/calculadora-roi/precache-manifest.e5e1135f5fffb6ace3608aa5ba9b43bc.js"
+  "/calculadora-roi/precache-manifest.2edc92aa5fa13da535d12710c05cc325.js"
 );
 
 workbox.clientsClaim();
