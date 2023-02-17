@@ -29,7 +29,18 @@ function ventanaFelicitaciones({ setVentanaFelicidades, ventanaFelicidades }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <video autoPlay loop style={{ height: "100%", opacity: "0.5" }}>
+      <video
+        autoPlay
+        loop
+        style={{
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          opacity: "0.5",
+        }}
+      >
         <source src={video} type="video/mp4" />
       </video>
       <div

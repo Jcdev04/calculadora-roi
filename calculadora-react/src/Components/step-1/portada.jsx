@@ -60,7 +60,7 @@ function Portada({ setOption, nombreEmpresa, nombrePersona }) {
                 onClick={() => handleOption("areas")}
                 className="button-2"
               >
-                <span>B.</span> Decides que Dignita elige el proceso candidato a
+                <span>B.</span> Decides que Dignita elija el proceso candidato a
                 la automatización.
               </button>
             </div>

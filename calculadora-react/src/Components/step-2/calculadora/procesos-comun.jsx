@@ -28,16 +28,17 @@ const CSS = {
     marginBottom: 40,
   },
   precios: {
-    fontSize: 20,
     fontWeight: 400,
     margin: "15px 0",
     color: "#2E2E2E",
+    display: "flex",
   },
   boxProceso: {
     borderTop: "1px solid #8D8D8E",
     padding: "0 20px",
     display: "flex",
     justifyContent: "space-between",
+    gap: 15,
   },
 };
 const dropIn = {
@@ -102,18 +103,25 @@ class ProcesosComun extends Component {
                   sumaTotal += total;
                   return (
                     <div key={`${nanoid(4)}`} style={CSS.boxProceso}>
-                      <h2 style={CSS.precios}>
+                      <h2 className="proceso-comun-name" style={CSS.precios}>
                         {valores.nombreProceso !== ""
                           ? `${valores.nombreProceso}`
                           : `Proceso ${String(i + 1).padStart(3, "0")}`}
                       </h2>
-                      <h2 style={CSS.precios}>
+                      <span
+                        className="proceso-comun-name"
+                        style={{
+                          ...CSS.precios,
+                          lineHeight: "1.1",
+                          marginTop: 18,
+                        }}
+                      >
                         <FontAwesomeIcon
                           style={{ color: "#43CA40" }}
                           icon={faDollarSign}
                         />
                         {total.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                      </h2>
+                      </span>
                     </div>
                   );
                 })
@@ -129,19 +137,31 @@ class ProcesosComun extends Component {
                 }}
               >
                 <h2
-                  style={{ ...CSS.precios, color: "#FC4D19", fontWeight: 500 }}
+                  className="proceso-comun-name"
+                  style={{
+                    ...CSS.precios,
+                    color: "#FC4D19",
+                    fontWeight: 500,
+                  }}
                 >
                   Suma total
                 </h2>
-                <h2
-                  style={{ ...CSS.precios, color: "#FC4D19", fontWeight: 500 }}
+                <span
+                  className="proceso-comun-name"
+                  style={{
+                    ...CSS.precios,
+                    color: "#FC4D19",
+                    fontWeight: 500,
+                    lineHeight: "1.1",
+                    marginTop: 18,
+                  }}
                 >
                   <FontAwesomeIcon
                     style={{ color: "#43CA40" }}
                     icon={faDollarSign}
                   />
                   {sumaTotal.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </h2>
+                </span>
               </div>
             </motion.div>
           </div>

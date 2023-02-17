@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 /* REDUX */
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
@@ -283,7 +284,6 @@ function VentanaPrincipal({
     let FTEresultado =
       (nOpDiarias * tXOperacionMinutos) / (hTrabajadasXDia * 60 * rateEmpleado);
     FTEresultado = (FTEresultado * 100).toFixed(2);
-    /* let porcentajeAutomatizable = FTEvalue.FTE.porcentajeAutomatizable; */
     if (isNaN(FTEresultado)) {
       FTEresultado = 0;
     }
@@ -440,7 +440,11 @@ function VentanaPrincipal({
             justifyContent: "center",
           }}
         >
-          <button className="btnCalcular" disabled={pristine || submitting}>
+          <button
+            onClick={() => procesarDatos(FTEvalue)}
+            className="btnCalcular"
+            disabled={pristine || submitting}
+          >
             Calcular
           </button>
         </div>

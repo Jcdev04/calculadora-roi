@@ -375,9 +375,25 @@ class VentanaDatosBrutos extends Component {
               </div>
               {/* VERMAS 2 Nombres */}
               {verMas2 && (
-                <div style={{ ...CSS.verMasContainer, height: 120 }}>
+                <div
+                  style={{
+                    ...CSS.verMasContainer,
+                    height: 80,
+                    overflow: "auto",
+                  }}
+                >
                   {datos.costosExtras.map((item, index) => {
-                    return <p key={`${nanoid(4)}`}>{item.nombreExtra}</p>;
+                    return (
+                      <p key={`${nanoid(4)}`}>
+                        {item.nombreExtra === ""
+                          ? item.nombreExtra
+                          : `Costo extra ${index}`}
+                        :{" "}
+                        <span style={{ color: "#FC4D19" }}>
+                          {item.precioExtra}
+                        </span>
+                      </p>
+                    );
                   })}
                 </div>
               )}
@@ -422,14 +438,10 @@ class VentanaDatosBrutos extends Component {
                 <div
                   style={{
                     ...CSS.verMasContainer,
-                    height: 120,
+                    height: 80,
                     textAlign: "center",
                   }}
-                >
-                  {datos.costosExtras.map((item) => {
-                    return <p key={`${nanoid(4)}`}>{item.precioExtra}</p>;
-                  })}
-                </div>
+                ></div>
               )}
             </div>
             {/* TERCERA COLUMNA */}
@@ -449,7 +461,7 @@ class VentanaDatosBrutos extends Component {
                 </p>
               </div>
               {/* VERMAS 1 box */}
-              {verMas1 && <div style={{ height: 108 }}></div>}
+              {verMas1 && <div style={{ height: 136 }}></div>}
 
               <div style={{ ...CSS.content1, justifyContent: "center" }}></div>
               <div style={{ ...CSS.content2, justifyContent: "center" }}></div>
@@ -464,7 +476,7 @@ class VentanaDatosBrutos extends Component {
                 </p>
               </div>
               {/* VERMAS 2 box */}
-              {verMas2 && <div style={{ height: 120 }}></div>}
+              {verMas2 && <div style={{ height: 80 }}></div>}
             </div>
           </div>
           <button style={CSS.btnCerrar} onClick={setTrigger}>

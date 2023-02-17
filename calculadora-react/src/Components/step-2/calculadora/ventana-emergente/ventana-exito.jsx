@@ -11,7 +11,7 @@ const CSS = {
     left: 0,
     backgroundColor: "rgba(0,0,0,0.5)",
     width: "100vw",
-    zIndex: 300,
+    zIndex: 230,
     height: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -19,23 +19,23 @@ const CSS = {
   },
 };
 function VentanaExito({
-  setBotonEditar,
-  setBotonEditar2,
+  /* setBotonEditar,
+  setBotonEditar2, */
   setBotonConfirmar,
-  rotation,
-  index,
+  /* rotation,
+  index, */
 }) {
   useEffect(() => {
     setTimeout(() => {
       setBotonConfirmar(false);
     }, 2000);
   }, []);
-  const handleClick = () => {
+  /*  const handleClick = () => {
     setBotonEditar2(true);
     setBotonConfirmar(false);
     setBotonEditar(false);
     rotation(index);
-  };
+  }; */
   return (
     <motion.div
       style={CSS.principalBox}
@@ -52,9 +52,9 @@ function VentanaExito({
           Asegúrate de completar primero todos los campos antes ver los
           resultados.
         </p>
-        <button className="ventana-exito__button" onClick={handleClick}>
+        {/* <button className="ventana-exito__button" onClick={handleClick}>
           Ver tabla
-        </button>
+        </button> */}
       </div>
     </motion.div>
   );

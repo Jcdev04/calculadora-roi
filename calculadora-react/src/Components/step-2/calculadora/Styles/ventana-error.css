@@ -43,6 +43,7 @@
 .icon-error {
   font-size: 2.5rem;
   color: white;
+  line-height: 1.2;
 }
 .ventana-error__text,
 .ventana-exito__text {

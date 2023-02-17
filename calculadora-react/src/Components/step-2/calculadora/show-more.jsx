@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { toast } from "react-hot-toast";
 import {
   agregarProceso,
   eliminarProceso,
@@ -96,8 +97,35 @@ function ShowMore({
     setBotonEditar2(true);
     setIndex(i); //will log the index of the clicked item
     rotation(i);
+    toast(
+      (t) => (
+        <span style={{ display: "flex", alignItems: "center" }}>
+          <span>
+            Para una correcta estimación del ROI, es necesario contactarse con
+            un consultor de RPA. ¡Contáctanos!
+          </span>
+          <button
+            style={{
+              borderRadius: "15px",
+              color: "white",
+              backgroundColor: "#fc4d19",
+              border: "none",
+              padding: "5px 10px",
+            }}
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Dismiss
+          </button>
+        </span>
+      ),
+      {
+        icon: "👀",
+      },
+      {
+        duration: 6000,
+      }
+    );
   };
-
   return (
     <div className="principal-container" id="calculator">
       <AnimatePresence>
@@ -165,6 +193,7 @@ function ShowMore({
                     Eliminar
                   </button>
                   {/* DESPLEGAR */}
+
                   <FontAwesomeIcon
                     onClick={desplegar(i, objeto.rotation)}
                     icon={faCaretDown}

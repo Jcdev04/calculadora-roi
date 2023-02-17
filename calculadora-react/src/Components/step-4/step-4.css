@@ -9,15 +9,35 @@
   max-width: 1200px;
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 20px;
   color: var(--negro);
 }
 .asesoramiento-personalizado .first-section {
   align-self: start;
-  width: 100%;
+  width: 65%;
 }
+
+.button-group-4 {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(10px, 4vw, 20px);
+}
+.button-group-4 button {
+  font-size: clamp(10px, 3.5vw, 20px);
+  padding: clamp(5px, 4vw, 20px) clamp(25px, 4vw, 35px);
+  border-radius: 20px;
+  border: 1px solid var(--negro);
+  background-color: white;
+  font-weight: bold;
+  transition: var(--default-animation);
+}
+.button-group-4 button:hover {
+  background-color: var(--negro);
+  color: white;
+}
+
 .asesoramiento-personalizado .first-section h3 {
   font-size: clamp(1.8rem, 5vw, 3rem);
   font-weight: bold;
@@ -26,7 +46,7 @@
   margin-bottom: clamp(10px, 2vw, 30px);
 }
 .asesoramiento-personalizado .first-section p {
-  font-size: clamp(13px, 2vw, 18px);
+  font-size: clamp(13px, 1.5vw, 18px);
   text-align: justify;
   line-height: 1.3;
   color: var(--negro);
@@ -40,5 +60,11 @@
 @media (max-width: 1000px) {
   .asesoramiento-personalizado .first-section {
     text-align: center;
+    width: 100%;
+  }
+  .asesoramiento-personalizado {
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
   }
 }

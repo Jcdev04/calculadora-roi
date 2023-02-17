@@ -25,26 +25,10 @@
   font-size: clamp(13px, 2vw, 18px);
   text-align: justify;
   line-height: 1.3;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   color: var(--negro);
 }
-.button-group-4 {
-  display: flex;
-  justify-content: center;
-}
-.button-group-4 button {
-  font-size: clamp(10px, 5vw, 20px);
-  padding: clamp(5px, 4vw, 30px);
-  border-radius: 20px;
-  border: 1px solid var(--negro);
-  background-color: white;
-  font-weight: bold;
-  transition: var(--default-animation);
-}
-.button-group-4 button:hover {
-  background-color: var(--negro);
-  color: white;
-}
+
 .implementar .second-section {
   width: clamp(250px, 40vw, 500px);
   display: flex;
@@ -68,4 +52,18 @@
 .boton-aceptar:hover {
   background-color: #de6262;
   color: white;
+}
+
+.enviar-mensaje-container {
+  margin-bottom: 10px;
+}
+
+.enviar-mensaje-title {
+  font-size: clamp(15px, 2.5vw, 20px);
+  color: var(--negro);
+}
+.enviar-mensaje-copy {
+  font-size: clamp(13px, 2vw, 18px);
+  color: var(--negro);
+  text-align: start;
 }

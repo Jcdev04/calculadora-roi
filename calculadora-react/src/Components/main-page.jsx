@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
+import { Toaster } from "react-hot-toast";
+
 /* SWIPER */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
@@ -134,6 +136,7 @@ function MainPage(props) {
   /*  */
   return (
     <div>
+      <Toaster />
       <Burbujas />
       {/* VENTANA FELICITACIONES */}
       <AnimatePresence>
@@ -267,15 +270,11 @@ function MainPage(props) {
         </SwiperSlide>
         {/* Step4 */}
         <SwiperSlide>
-          <Step4 />
+          <Step4 setAsesores={setAsesores} />
         </SwiperSlide>
         {/* Step5 */}
         <SwiperSlide>
-          <Step5
-            setAsesores={setAsesores}
-            nombreEmpresa={nombreEmpresa}
-            nombrePersona={nombrePersona}
-          />
+          <Step5 nombreEmpresa={nombreEmpresa} nombrePersona={nombrePersona} />
         </SwiperSlide>
         {/* CONTACT */}
         <SwiperSlide>

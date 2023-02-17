@@ -1,6 +1,9 @@
+.proceso-comun-name {
+  font-size: clamp(15px, 2vw, 18px);
+}
 
 @media (max-width: 720px) {
-    .contenedorPrincipal{
-        padding: "10px",
-    }
+  .contenedorPrincipal {
+    padding: "10px";
+  }
 }
