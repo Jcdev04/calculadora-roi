@@ -24,10 +24,14 @@ function Section1({ handleTranslate }) {
             éxito. <strong>¡Comencemos juntos esta aventura!.</strong>
           </p>
           <div className="botones">
-            <a className="comencemos">
-              <button onClick={() => handleTranslate(1)}>Comencemos</button>
-            </a>
-            <a target="_blank" href="https://dignita.tech/nosotros/">
+            <button className="comencemos" onClick={() => handleTranslate(1)}>
+              Comencemos
+            </button>
+            <a
+              target="_blank"
+              href="https://dignita.tech/nosotros/"
+              rel="noopener noreferrer"
+            >
               <button className="conocenos">Conócenos</button>
             </a>
           </div>

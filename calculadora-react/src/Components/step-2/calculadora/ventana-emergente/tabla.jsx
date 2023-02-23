@@ -8,7 +8,6 @@ import {
   faEye,
   faPersonDigging,
   faCamera,
-  faPercentage,
 } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import VentanaFormula from "./ventana-formula";
@@ -117,7 +116,7 @@ function Tabla({
   const [triggerDB, setTriggerDB] = useState(false);
   const [triggerFTE, setTriggerFTE] = useState(false);
   const targetRef = useRef(null);
-  const [content, setContent] = useState({
+  const content = {
     costoAnual: {
       nombre: "Costo anual",
       formula: "P x F x SA",
@@ -167,7 +166,7 @@ function Tabla({
         "A = año - 1",
       ],
     },
-  });
+  };
   const [contentMostrarAux, setContentMostrarAux] = useState({});
   let notANumber = true;
   /* CONTENIDO que irá dentro de la fórmula */

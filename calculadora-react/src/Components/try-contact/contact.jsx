@@ -115,12 +115,20 @@ function Contact({ setAsesores }) {
             </div>
             <nav className="menu-2">
               <li>
-                <a href="https://dignita.tech/" target="_blank">
+                <a
+                  href="https://dignita.tech/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Inicio
                 </a>
               </li>
               <li>
-                <a href="https://dignita.tech/nosotros/" target="_blank">
+                <a
+                  href="https://dignita.tech/nosotros/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Nosotros
                 </a>
               </li>
@@ -128,17 +136,26 @@ function Contact({ setAsesores }) {
                 <a
                   href="https://cliente.dignita.tech/index.php/signin"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Área de Cliente
                 </a>
               </li>
               <li>
-                <a href="https://dignita.tech/rpa/" target="_blank">
+                <a
+                  href="https://dignita.tech/rpa/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Servicios
                 </a>
               </li>
               <li>
-                <a href="https://dignita.tech/blog/" target="_blank">
+                <a
+                  href="https://dignita.tech/blog/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Blog
                 </a>
               </li>
@@ -149,25 +166,39 @@ function Contact({ setAsesores }) {
               robótica de proceso
             </p>
             <div className="iconos-social-media-dignita">
-              <a target="_blank" href="https://www.facebook.com/dignita.tech">
+              <a
+                target="_blank"
+                href="https://www.facebook.com/dignita.tech"
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon className="iconos" icon={faFacebook} />
               </a>
               <a
                 target="_blank"
                 href="https://wa.me/+51930591017?text=urlencodedtext"
+                rel="noopener noreferrer"
               >
                 <FontAwesomeIcon className="iconos" icon={faWhatsapp} />
               </a>
-              <a target="_blank" href="https://www.instagram.com/dignita.tech/">
+              <a
+                target="_blank"
+                href="https://www.instagram.com/dignita.tech/"
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon className="iconos" icon={faInstagram} />
               </a>
               <a
                 target="_blank"
                 href="https://www.linkedin.com/in/dignita-tech-b045b1232/"
+                rel="noopener noreferrer"
               >
                 <FontAwesomeIcon className="iconos" icon={faLinkedin} />
               </a>
-              <a target="_blank" href="https://www.tiktok.com/@dignitatech">
+              <a
+                target="_blank"
+                href="https://www.tiktok.com/@dignitatech"
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon className="iconos" icon={faTiktok} />
               </a>
             </div>
@@ -189,12 +220,20 @@ function Contact({ setAsesores }) {
         <div className="columna2">
           <nav className="menu">
             <li>
-              <a href="https://dignita.tech/" target="_blank">
+              <a
+                href="https://dignita.tech/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Inicio
               </a>
             </li>
             <li>
-              <a href="https://dignita.tech/nosotros/" target="_blank">
+              <a
+                href="https://dignita.tech/nosotros/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Nosotros
               </a>
             </li>
@@ -202,17 +241,26 @@ function Contact({ setAsesores }) {
               <a
                 href="https://cliente.dignita.tech/index.php/signin"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 Área de Cliente
               </a>
             </li>
             <li>
-              <a href="https://dignita.tech/rpa/" target="_blank">
+              <a
+                href="https://dignita.tech/rpa/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Servicios
               </a>
             </li>
             <li>
-              <a href="https://dignita.tech/blog/" target="_blank">
+              <a
+                href="https://dignita.tech/blog/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Blog
               </a>
             </li>
@@ -232,6 +280,7 @@ function Contact({ setAsesores }) {
                 <div className="redes-sociales">
                   <a
                     target="_blank"
+                    rel="noopener noreferrer"
                     href="https://www.linkedin.com/in/jose-eduardo-de-la-guardia-c-a78b9678/"
                   >
                     <FontAwesomeIcon
@@ -239,7 +288,11 @@ function Contact({ setAsesores }) {
                       icon={faLinkedinIn}
                     />
                   </a>
-                  <a target="_blank" href="">
+                  <a
+                    target="_blank"
+                    href="https://doodle.com/bp/joseeduardodelaguardiacivallero/reunin-de-conexin-"
+                    rel="noopener noreferrer"
+                  >
                     <FontAwesomeIcon icon={faCalendar} />
                   </a>
                 </div>
@@ -259,13 +312,18 @@ function Contact({ setAsesores }) {
                   <a
                     target="_blank"
                     href="https://www.linkedin.com/in/uzielsoto/"
+                    rel="noopener noreferrer"
                   >
                     <FontAwesomeIcon
                       className="fa-brands fa-linkedin-in"
                       icon={faLinkedinIn}
                     />
                   </a>
-                  <a target="_blank" href="">
+                  <a
+                    target="_blank"
+                    href="https://doodle.com/bp/uzielsotohernandez/agenda-de-reunion"
+                    rel="noopener noreferrer"
+                  >
                     <FontAwesomeIcon icon={faCalendar} />
                   </a>
                 </div>
@@ -285,13 +343,18 @@ function Contact({ setAsesores }) {
                   <a
                     target="_blank"
                     href="https://www.linkedin.com/in/leonidasyauri/"
+                    rel="noopener noreferrer"
                   >
                     <FontAwesomeIcon
                       className="fa-brands fa-linkedin-in"
                       icon={faLinkedinIn}
                     />
                   </a>
-                  <a target="_blank" href="">
+                  <a
+                    target="_blank"
+                    href="https://doodle.com/bp/leonidasyuriyaurivillanueva/reunion-de-conexion"
+                    rel="noopener noreferrer"
+                  >
                     <FontAwesomeIcon icon={faCalendar} />
                   </a>
                 </div>
@@ -300,11 +363,9 @@ function Contact({ setAsesores }) {
           </div>
 
           <div className="boton-contacto">
-            <a href="#">
-              <button className="boton" onClick={() => setAsesores(true)}>
-                Solicitar una asesoría
-              </button>
-            </a>
+            <button className="boton" onClick={() => setAsesores(true)}>
+              Solicitar una asesoría
+            </button>
           </div>
         </div>
       </div>

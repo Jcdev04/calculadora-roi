@@ -22,14 +22,14 @@ function Portada({ setAsesores }) {
         <div className="first-section">
           <h3>#2 Conoce cada detalle del proceso</h3>
           <div className="comunicar-asesor">
-            <a onClick={() => setAsesores(true)}>
+            <h5 onClick={() => setAsesores(true)}>
               <FontAwesomeIcon
                 style={{ marginRight: 10 }}
                 icon={faTriangleExclamation}
               />
               Para este paso es necesario de que usted se comunique con un
               asesor.
-            </a>
+            </h5>
           </div>
           <p>
             Calcula las inversiones para saber si la implementación del robot se

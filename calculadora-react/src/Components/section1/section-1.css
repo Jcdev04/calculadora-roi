@@ -69,7 +69,7 @@
   background: transparent;
   transition: var(--default-animation);
 }
-.portada .comencemos button {
+.portada .comencemos {
   background-color: var(--anaranjado);
   color: #fff;
   border: none;

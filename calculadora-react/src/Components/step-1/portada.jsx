@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandPointer } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion/dist/framer-motion";
-import primeraSeccion from "../../img/primera-seccion.svg";
 import "./portada.css";
 function Portada({ setOption, nombreEmpresa, nombrePersona }) {
   function handleOption(option) {

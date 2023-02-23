@@ -57,26 +57,24 @@ function ventanaExito({ setActivateSuccess, handleTranslate }) {
           Ahora puedes comenzar a editar la información de tu proceso en la
           calculadora.
         </p>
-        <a>
-          <button
-            className="exito-button"
-            onClick={() => {
-              setActivateSuccess(false);
-              handleTranslate(3);
-              setTimeout(() => {
-                const element = document.getElementById("calculator");
-                const offsetTop = 100;
-                window.scrollTo({
-                  top: element.offsetTop + -offsetTop,
-                  left: element.offsetLeft,
-                  behavior: "smooth",
-                });
-              }, 300);
-            }}
-          >
-            Ir a la calculadora
-          </button>
-        </a>
+        <button
+          className="exito-button"
+          onClick={() => {
+            setActivateSuccess(false);
+            handleTranslate(3);
+            setTimeout(() => {
+              const element = document.getElementById("calculator");
+              const offsetTop = 100;
+              window.scrollTo({
+                top: element.offsetTop + -offsetTop,
+                left: element.offsetLeft,
+                behavior: "smooth",
+              });
+            }, 300);
+          }}
+        >
+          Ir a la calculadora
+        </button>
       </section>
     </motion.div>
   );

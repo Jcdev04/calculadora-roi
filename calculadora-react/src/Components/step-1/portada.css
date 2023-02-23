@@ -96,7 +96,7 @@
 .area-automatizar-opciones section {
   display: flex;
   justify-content: space-around;
-  align-items: start;
+  align-items: flex-start;
   position: relative;
 }
 .area-automatizar-opciones .buttons {

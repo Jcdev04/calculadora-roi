@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion/dist/framer-motion";
 import Template from "./input-component/template";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -59,7 +59,6 @@ function NavButtons({ activeIndex, handleTranslate, pasos, setPasos }) {
   function enablePaso(paso) {
     const aux = { ...pasos };
     aux["paso" + paso] = true;
-    console.log(aux);
     setPasos(aux);
   }
   return (

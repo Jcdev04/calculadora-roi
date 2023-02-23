@@ -48,8 +48,8 @@
   font-size: 13px;
   text-align: center;
   line-height: 1.2;
+  width: 100%;
 }
-
 .asesores .asesor-contact {
   width: clamp(70px, 14vw, 120px);
 }
@@ -69,7 +69,7 @@
   box-shadow: none;
   overflow: visible;
 }
-.asesores span {
+.asesores .container-social-media {
   display: flex;
   gap: 10px;
 }

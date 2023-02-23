@@ -18,7 +18,6 @@ function ventanaFelicitaciones({ setVentanaFelicidades, ventanaFelicidades }) {
   useEffect(() => {
     const audio = new Audio(sonido);
     audio.play();
-    console.log("se ejecuto el audio");
     return () => audio.pause();
   }, [ventanaFelicidades]);
   return (

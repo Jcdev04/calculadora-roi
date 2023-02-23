@@ -71,11 +71,9 @@ function Ofrecemos({ handleTranslate }) {
           </ul>
 
           <div className="botones">
-            <a href="#">
-              <button onClick={() => handleTranslate(2)} className="empecemos">
-                Empecemos
-              </button>
-            </a>
+            <button onClick={() => handleTranslate(2)} className="empecemos">
+              Empecemos
+            </button>
             <a href="#generar">
               <button>Leer más</button>
             </a>

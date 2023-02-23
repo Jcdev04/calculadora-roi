@@ -89,10 +89,12 @@ function VentanaInicio({
                 onChange={(e) => setNombreEmpresa(e.target.value)}
               />
               <div className="texto">
-                <a style={{ cursor: "pointer" }}>
+                <p style={{ cursor: "pointer" }}>
                   ¿Necesitas ayuda?{" "}
-                  <span onClick={() => setAsesores(true)}>Contáctanos</span>
-                </a>
+                  <span onClick={() => setAsesores(true)}>
+                    <strong>Contáctanos</strong>
+                  </span>
+                </p>
               </div>
               <div className="botones">
                 <button className="anterior" onClick={() => cancelar()}>

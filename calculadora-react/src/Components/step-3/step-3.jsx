@@ -24,14 +24,14 @@ function Step3({ nombreEmpresa, setAsesores }) {
         <div className="first-section">
           <h3>#3 Construcción del proyecto</h3>
           <div className="comunicar-asesor">
-            <a onClick={() => setAsesores(true)}>
+            <h5 onClick={() => setAsesores(true)}>
               <FontAwesomeIcon
                 style={{ marginRight: 10 }}
                 icon={faTriangleExclamation}
               />
               Para este paso es necesario de que usted se comunique con un
               asesor.
-            </a>
+            </h5>
           </div>
           <p>
             Implementa RPA y automatiza tareas repetitivas en
@@ -46,7 +46,7 @@ function Step3({ nombreEmpresa, setAsesores }) {
             <button
               onClick={() =>
                 popUp(
-                  "1eEFo3R1w7OPO2EzOAuGSP74iUE4rXIUkmgjT7lZrhww",
+                  "1m-yr6Ho7lJ90lJfQVd40izoX5x3XfZiDZzy-YuVb-TU",
                   "Mi primer proyecto RPA"
                 )
               }
@@ -65,7 +65,7 @@ function Step3({ nombreEmpresa, setAsesores }) {
             <button
               onClick={() =>
                 popUp(
-                  "1m-yr6Ho7lJ90lJfQVd40izoX5x3XfZiDZzy-YuVb-TU",
+                  "1eEFo3R1w7OPO2EzOAuGSP74iUE4rXIUkmgjT7lZrhww",
                   "Mi proyecto RPA"
                 )
               }

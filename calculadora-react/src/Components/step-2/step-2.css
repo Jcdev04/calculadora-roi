@@ -24,10 +24,10 @@
 }
 .comunicar-asesor {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 5px;
 }
-.comunicar-asesor a {
+.comunicar-asesor h5 {
   /* dangerous color */
   color: #b00020;
   text-align: start;

@@ -75,7 +75,6 @@ function ShowMore({
   setIndex,
 }) {
   const todosProcesos = procesos.user.procesos;
-  /* console.log(todosProcesos) */
   let objeto = {};
 
   /* EDITAR */

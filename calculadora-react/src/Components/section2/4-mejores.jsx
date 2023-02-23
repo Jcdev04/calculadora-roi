@@ -123,6 +123,7 @@ function Mejores() {
                   style={{ color: "white", textDecoration: "underline" }}
                   href="https://www.verisure.pe/lp/m/alarma-oferta.php?gclsrc=ds&gclsrc=ds"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Verisure
                 </a>
@@ -131,6 +132,7 @@ function Mejores() {
                   style={{ color: "white", textDecoration: "underline" }}
                   href="https://www.fitesa.com/es/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Fitesa
                 </a>
@@ -139,6 +141,7 @@ function Mejores() {
                   style={{ color: "white", textDecoration: "underline" }}
                   href="https://www.idegostd.com/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Idego
                 </a>

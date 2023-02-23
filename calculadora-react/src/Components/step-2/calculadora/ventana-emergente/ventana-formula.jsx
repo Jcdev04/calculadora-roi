@@ -72,9 +72,6 @@ const dropIn = {
   },
 };
 export default class VentanaFormula extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { setTrigger, contentMostrar } = this.props;
     return (

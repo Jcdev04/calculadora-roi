@@ -48,7 +48,10 @@ function Asesores({ setAsesores }) {
           </h3>
           <p className="asesor-subtitle">
             Y si no encuentras el tuyo, siéntete libre de escoger a cualquiera
-            de los 3 😁
+            de los 3
+            <span role="img" aria-label="smiley face">
+              😁
+            </span>
           </p>
         </div>
         <section className="Leonidas-container">
@@ -79,14 +82,19 @@ function Asesores({ setAsesores }) {
               <h4>Leonidas</h4>
               <img src={peru} alt="" />
             </section>
-            <span>
+            <span className="container-social-media">
               <a
                 target="_blank"
                 href="https://www.linkedin.com/in/leonidasyauri/"
+                rel="noopener noreferrer"
               >
                 <FontAwesomeIcon icon={faLinkedin} />
               </a>
-              <a target="_blank" href="">
+              <a
+                target="_blank"
+                href="https://doodle.com/bp/leonidasyuriyaurivillanueva/reunion-de-conexion"
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon icon={faCalendar} />
               </a>
             </span>
@@ -116,11 +124,19 @@ function Asesores({ setAsesores }) {
               <h4>Uziel</h4>
               <img src={mexico} alt="" />
             </section>
-            <span>
-              <a target="_blank" href="https://www.linkedin.com/in/uzielsoto/">
+            <span className="container-social-media">
+              <a
+                target="_blank"
+                href="https://www.linkedin.com/in/uzielsoto/"
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon icon={faLinkedin} />
               </a>
-              <a target="_blank" href="">
+              <a
+                target="_blank"
+                href="https://doodle.com/bp/uzielsotohernandez/agenda-de-reunion"
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon icon={faCalendar} />
               </a>
             </span>
@@ -153,14 +169,19 @@ function Asesores({ setAsesores }) {
               <h4>Jose Eduardo</h4>
               <img src={mexico} alt="" />
             </section>
-            <span>
+            <span className="container-social-media">
               <a
                 target="_blank"
                 href="https://www.linkedin.com/in/jose-eduardo-de-la-guardia-c-a78b9678/"
+                rel="noopener noreferrer"
               >
                 <FontAwesomeIcon icon={faLinkedin} />
               </a>
-              <a target="_blank" href="">
+              <a
+                target="_blank"
+                href="https://doodle.com/bp/joseeduardodelaguardiacivallero/reunin-de-conexin-"
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon icon={faCalendar} />
               </a>
             </span>
