@@ -17,14 +17,23 @@ function GoogleSlide({ setShow, id, nameSlide }) {
   const templateID = id;
   useEffect(() => {
     gapi.load("client:auth2", () => {
-      gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        scope: SCOPE,
-        discoveryDocs: [
-          "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
-        ],
-      });
+      gapi.client
+        .init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          scope: SCOPE,
+          discoveryDocs: [
+            "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
+          ],
+        })
+        .then(
+          () => {
+            // La biblioteca se ha inicializado correctamente, puedes llamar a las funciones de la API de Google Slides aquí
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
     });
   }, []);
 

@@ -66,8 +66,8 @@ function Step5({ nombreEmpresa, nombrePersona }) {
             Ahora sí <strong>{nombrePersona}</strong>, como paso final tendrás
             que enviar tu proyecto a <strong>{nombreEmpresa}</strong> para que
             lo evalúen y puedas comenzar a trabajar. En la parte inferior, te
-            dejamos unos mensajes para que puedes{" "}
-            <strong>copiar al dar click</strong>. ¡Mucha suerte!
+            dejamos unos mensajes para que puedas{" "}
+            <strong>copiar dándole click al mensaje</strong>. ¡Mucha suerte!
           </p>
           <div className="group-mensajes-personalizados">
             <Mensajes
