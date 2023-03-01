@@ -17,6 +17,7 @@ function GoogleSlide({ setShow, id, nameSlide }) {
   const templateID = id;
   useEffect(() => {
     gapi.load("client:auth2", () => {
+      console.log(gapi);
       gapi.client
         .init({
           apiKey: API_KEY,
@@ -28,7 +29,7 @@ function GoogleSlide({ setShow, id, nameSlide }) {
         })
         .then(
           () => {
-            // La biblioteca se ha inicializado correctamente, puedes llamar a las funciones de la API de Google Slides aquí
+            console.log("listo");
           },
           (error) => {
             console.error(error);
@@ -38,6 +39,7 @@ function GoogleSlide({ setShow, id, nameSlide }) {
   }, []);
 
   const createFile = () => {
+    console.log(gapi);
     const auth2 = gapi.auth2.getAuthInstance();
     if (auth2.isSignedIn.get()) {
       gapi.client.drive.files
