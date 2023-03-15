@@ -46,7 +46,7 @@ function Step3({ nombreEmpresa, setAsesores }) {
             <button
               onClick={() =>
                 popUp(
-                  "1m-yr6Ho7lJ90lJfQVd40izoX5x3XfZiDZzy-YuVb-TU",
+                  "1JNFECAjSiMTPoGR83y112yi77_jtU4zC55cdQ02c9ow",
                   "Mi primer proyecto RPA"
                 )
               }

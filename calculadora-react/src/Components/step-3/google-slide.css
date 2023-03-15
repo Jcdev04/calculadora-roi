@@ -122,6 +122,11 @@
   width: 80%;
   height: 45px;
   position: relative;
+  /* !ELIMINAR LUEGO DE HACER API */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* !FIN */
   border: none;
   border-radius: 20px;
   box-shadow: rgba(136, 136, 136, 0.48) 6px 2px 16px 0px,

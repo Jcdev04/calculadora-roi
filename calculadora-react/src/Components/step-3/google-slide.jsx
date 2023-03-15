@@ -17,7 +17,6 @@ function GoogleSlide({ setShow, id, nameSlide }) {
   const templateID = id;
   useEffect(() => {
     gapi.load("client:auth2", () => {
-      console.log(gapi);
       gapi.client
         .init({
           apiKey: API_KEY,
@@ -27,19 +26,11 @@ function GoogleSlide({ setShow, id, nameSlide }) {
             "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
           ],
         })
-        .then(
-          () => {
-            console.log("listo");
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
+        .then(() => {});
     });
   }, []);
 
   const createFile = () => {
-    console.log(gapi);
     const auth2 = gapi.auth2.getAuthInstance();
     if (auth2.isSignedIn.get()) {
       gapi.client.drive.files
@@ -60,39 +51,8 @@ function GoogleSlide({ setShow, id, nameSlide }) {
       auth2.signIn();
     }
   };
-  /* const requestBody = {
-    title: "SLIDES_DIGNITA",
-    parents: [templateID],
-  }; */
-  /*
-  async function createFile() {
-    try {
-       let accessToken = gapi.auth.getToken().access_token;
-      fetch(`https://www.googleapis.com/drive/v3/files`, {
-        method: "POST",
-        headers: new Headers({ Authorization: "Bearer " + accessToken }),
-        body: JSON.stringify(requestBody),
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then(function (data) {
-          console.log(data);
-          setNewPresentationID(data.presentationId);
-          window.open(
-            "https://docs.google.com/presentation/d/" +
-              data.presentationId +
-              "/edit",
-            "_blank"
-          ); 
-        });
-      const response = await copyPresentation(templateID, "SLIDES_DIGNITA");
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-    */
-
+  /* Accedere el link donde se encuentra alojado los templates */
+  const link = `https://docs.google.com/presentation/d/${id}/edit`;
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -195,26 +155,36 @@ function GoogleSlide({ setShow, id, nameSlide }) {
             <h3>¡Hola!</h3>
             <p>Inicia Sesión En Tu Cuenta</p>
           </section>
-          <Login setIsSignedIn={setIsSignedIn} />
-          <button
-            className="create-button"
-            onClick={() => {
+          {/* <Login setIsSignedIn={setIsSignedIn} /> */}
+          <a className="create-button" href={link} target="_blank">
+            {/*<button
+
+             onClick={() => {
               createFile();
               toast.success(
                 "¡Tu presentación está lista!, espera un momento y se abrirá en una nueva pestaña",
                 { position: "top-center", duration: 5000 }
               );
             }}
-            disabled={!isSignedIn}
-          >
+            disabled={!isSignedIn} 
+            >*/}
             Abre tu presentación
-          </button>
+            {/* </button> */}
+          </a>
           <p>
             Hagamos esto realidad juntos{" "}
             <span role="img" aria-label="strong muscle and a heart">
               💪❤️
             </span>
           </p>
+          {/* <a
+            className="problemas-duplicando"
+            rel="noopener noreferrer"
+            href={link}
+            target="_blank"
+          >
+            ¿Problemas al duplicar el slide? Hazlo tú mismo
+          </a> */}
         </div>
       </section>
     </motion.div>

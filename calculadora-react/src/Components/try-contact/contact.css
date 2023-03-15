@@ -403,6 +403,13 @@
   }
 }
 
+.problemas-duplicando {
+  color: crimson;
+  font-size: clamp(10px, 2vw, 13px);
+  text-align: center;
+  font-weight: 600;
+}
+
 @media screen and (max-width: 767px) {
   .mancha1 {
     left: -300px;
