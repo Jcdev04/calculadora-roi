@@ -153,7 +153,13 @@ function GoogleSlide({ setShow, id, nameSlide }) {
           />
           <section>
             <h3>¡Hola!</h3>
-            <p>Inicia Sesión En Tu Cuenta</p>
+            {/* <p>Inicia Sesión En Tu Cuenta</p> */}
+            <p>
+              Hagamos esto realidad juntos{" "}
+              <span role="img" aria-label="strong muscle and a heart">
+                💪❤️
+              </span>
+            </p>
           </section>
           {/* <Login setIsSignedIn={setIsSignedIn} /> */}
           <a className="create-button" href={link} target="_blank">
@@ -171,12 +177,7 @@ function GoogleSlide({ setShow, id, nameSlide }) {
             Abre tu presentación
             {/* </button> */}
           </a>
-          <p>
-            Hagamos esto realidad juntos{" "}
-            <span role="img" aria-label="strong muscle and a heart">
-              💪❤️
-            </span>
-          </p>
+
           {/* <a
             className="problemas-duplicando"
             rel="noopener noreferrer"

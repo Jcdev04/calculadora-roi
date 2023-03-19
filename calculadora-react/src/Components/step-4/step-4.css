@@ -1,70 +1,74 @@
-.asesoramiento-personalizado-container {
+.implementar-container {
   padding: 0px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-.asesoramiento-personalizado {
+.implementar {
   max-width: 1200px;
   width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-  color: var(--negro);
+  gap: 40px;
 }
-.asesoramiento-personalizado .first-section {
-  align-self: start;
+.implementar .first-section {
   width: 65%;
 }
-
-.button-group-4 {
-  display: flex;
-  justify-content: center;
-  margin-top: clamp(10px, 4vw, 20px);
-}
-.button-group-4 button {
-  font-size: clamp(10px, 3.5vw, 20px);
-  padding: clamp(5px, 4vw, 20px) clamp(25px, 4vw, 35px);
-  border-radius: 20px;
-  border: 1px solid var(--negro);
-  background-color: white;
-  font-weight: bold;
-  transition: var(--default-animation);
-}
-.button-group-4 button:hover {
-  background-color: var(--negro);
-  color: white;
-}
-
-.asesoramiento-personalizado .first-section h3 {
+.implementar .first-section h3 {
   font-size: clamp(1.8rem, 5vw, 3rem);
   font-weight: bold;
   line-height: 1.1;
   color: var(--negro);
   margin-bottom: clamp(10px, 2vw, 30px);
 }
-.asesoramiento-personalizado .first-section p {
-  font-size: clamp(13px, 1.5vw, 18px);
+.implementar .first-section p {
+  font-size: clamp(13px, 2vw, 18px);
   text-align: justify;
   line-height: 1.3;
+  margin-bottom: 20px;
   color: var(--negro);
 }
-.asesoramiento-personalizado .second-section {
+
+.implementar .second-section {
   width: clamp(250px, 40vw, 500px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.asesoramiento-personalizado img {
+
+.implementar .second-section img {
   width: 100%;
 }
 @media (max-width: 1000px) {
-  .asesoramiento-personalizado .first-section {
-    text-align: center;
-    width: 100%;
-  }
-  .asesoramiento-personalizado {
+  .implementar {
     flex-direction: column;
     align-items: center;
-    gap: 0px;
+    text-align: center;
   }
+  .implementar .first-section {
+    width: 100%;
+  }
+}
+.boton-aceptar:hover {
+  background-color: #de6262;
+  color: white;
+}
+
+.enviar-mensaje-container {
+  margin-bottom: 10px;
+}
+
+.enviar-mensaje-title {
+  font-size: clamp(15px, 2.5vw, 20px);
+  color: var(--negro);
+}
+.enviar-mensaje-copy {
+  font-size: clamp(13px, 2vw, 18px);
+  color: var(--negro);
+  text-align: start;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }

@@ -31,7 +31,7 @@ import VentanaExito from "./step-2/calculadora/ventana-emergente/ventana-exito";
 import VentanaError from "./step-2/calculadora/ventana-emergente/ventana-error";
 import VentanaPrincipal from "./step-2/calculadora/ventana-emergente/ventana-principal";
 import Asesores from "./try-contact/asesores";
-import VentanaFelicitaciones from "./step-5/ventana-felicitaciones";
+import VentanaFelicitaciones from "./step-4/ventana-felicitaciones";
 /* REDUX */
 import { modificarInputs, rotation } from "../Reducers/inputs";
 import { connect } from "react-redux";
@@ -140,7 +140,7 @@ function MainPage(props) {
       <Burbujas />
       {/* VENTANA FELICITACIONES */}
       <AnimatePresence>
-        {ventanaFelicidades && activeIndex === 6 && (
+        {ventanaFelicidades && activeIndex === 5 && (
           <VentanaFelicitaciones
             setVentanaFelicidades={setVentanaFelicidades}
             ventanaFelicidades={ventanaFelicidades}
@@ -274,7 +274,11 @@ function MainPage(props) {
         </SwiperSlide>
         {/* Step5 */}
         <SwiperSlide>
-          <Step5 nombreEmpresa={nombreEmpresa} nombrePersona={nombrePersona} />
+          <Step5
+            setAsesores={setAsesores}
+            nombreEmpresa={nombreEmpresa}
+            nombrePersona={nombrePersona}
+          />
         </SwiperSlide>
         {/* CONTACT */}
         <SwiperSlide>

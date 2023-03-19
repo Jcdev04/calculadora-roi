@@ -53,7 +53,7 @@ function Mensajes({ active, showMore, setShowMore, copies, persona }) {
                     style={{ cursor: "pointer" }}
                     onClick={() => toast.success("Copiado en portapapeles")}
                   >
-                    {copy.texto}
+                    <strong>-</strong> {copy.texto}
                   </li>
                 </CopyToClipboard>
               );
