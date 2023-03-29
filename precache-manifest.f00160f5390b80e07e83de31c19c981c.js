@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "735794bacfb37ce5cfe0",
+    "revision": "c9640068de443baeaedc",
     "url": "/static/css/main.3b6d8ef3.chunk.css"
   },
   {
-    "revision": "735794bacfb37ce5cfe0",
-    "url": "/static/js/main.fb9d24b0.chunk.js"
+    "revision": "c9640068de443baeaedc",
+    "url": "/static/js/main.dd2e95d8.chunk.js"
   },
   {
     "revision": "cb4acb0476d67dad5d6b",
@@ -112,8 +112,8 @@ self.__precacheManifest = [
     "url": "/static/media/cuarta-seccion.9f307b16.svg"
   },
   {
-    "revision": "593038a68e9a334360986e0e94eee6dd",
-    "url": "/static/media/logodignita.593038a6.svg"
+    "revision": "bb12b3a535dc896dce122da4d0da1d46",
+    "url": "/static/media/logodignita.bb12b3a5.jpg"
   },
   {
     "revision": "c0ff85d942184cec77ff88b1c18262df",
@@ -176,7 +176,7 @@ self.__precacheManifest = [
     "url": "/static/media/diamond-sparkle.08189076.mp3"
   },
   {
-    "revision": "5337fe9e547a320e2bd32b60332148d0",
+    "revision": "f1d42c830420ed90aa04d279cf016b31",
     "url": "/index.html"
   }
 ];
