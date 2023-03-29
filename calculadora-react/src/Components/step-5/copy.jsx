@@ -92,7 +92,7 @@ function CopyJefe({ setShowCopy }) {
                           <span
                             key={sentence}
                             style={{
-                              fontWeight: index == 0 && "600",
+                              fontWeight: index === 0 && "600",
                             }}
                           >
                             {text}
@@ -121,6 +121,7 @@ function CopyJefe({ setShowCopy }) {
                 </div>
               );
             }
+            return "";
           })}
         </div>
       </motion.div>

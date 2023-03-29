@@ -41,7 +41,7 @@ function Correos({ setPopUp, messagePopUp }) {
           {mesageSplit.map((item, index) => {
             let word = "oracion" + index;
             return (
-              <p key={word} style={{ fontWeight: index == 0 && "600" }}>
+              <p key={word} style={{ fontWeight: index === 0 && "600" }}>
                 {item}
                 <br />
                 <br />
