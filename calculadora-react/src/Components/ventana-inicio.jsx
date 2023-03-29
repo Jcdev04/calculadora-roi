@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ventana-inicio.css";
-import logodignita from "../img/logodignita.svg";
+import logodignita from "../img/logodignita.jpg";
 import login from "../img/login.png";
 import digni from "../img/artificial-intelligence-head.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
