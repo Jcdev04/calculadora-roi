@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Portada from "./portada";
-import Areas from "./components/areas";
+import Areas from "./components/1.areas";
 import AreaPersonalizada from "./components/area-personalizada";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 import "./step-1.css";
@@ -145,24 +145,30 @@ const proceso1 = {
       added: false,
     },
     {
+      // proceso con IA
       key: "proceso-1-2-3",
       nombre:
         "Reciba pagos y registre los importes pagados en las cuentas de los clientes.",
       added: false,
+      IA: true,
     },
   ],
   proceso3: [
     {
+      // Proceso con IA
       key: "proceso-1-3-1",
       nombre:
         "Calcule términos de crédito, descuentos, cargos de envío o tarifas de bienes o servicios para completar los documentos de facturación.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-1-3-2",
       nombre:
         "Cree documentos de facturación, etiquetas de envío, memorandos de crédito o formularios de crédito.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-1-3-3",
@@ -176,10 +182,12 @@ const proceso1 = {
         "Publicar avisos de suspensión de pago para evitar el pago de cheques protestados.",
     },
     {
+      // Proceso con IA
       key: "proceso-1-3-5",
       nombre:
         "Preparar estados de cuenta, facturas o facturas detalladas y registrar los montos adeudados por los artículos comprados o los servicios prestados.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-1-3-6",
@@ -231,10 +239,12 @@ const proceso1 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-1-4-3",
       nombre:
         "Calcular, preparar y emitir facturas, facturas, estados de cuenta y otros estados financieros de acuerdo con los procedimientos establecidos.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-1-4-4",
@@ -278,15 +288,19 @@ const proceso1 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-1-4-11",
       nombre:
         "Prepare depósitos bancarios compilando datos de cajeros, verificando y equilibrando recibos, y enviando efectivo, cheques u otras formas de pago a los bancos.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-1-4-12",
       nombre: "Preparar órdenes de compra e informes de gastos.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-1-4-13",
@@ -294,9 +308,11 @@ const proceso1 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-1-4-14",
       nombre: "Recibir, registrar y depositar efectivo, cheques y cupones.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-1-4-15",
@@ -440,10 +456,12 @@ const proceso2 = {
   ],
   proceso2: [
     {
+      // Proceso con IA
       key: "proceso-2-2-1",
       nombre:
         "Desarrollar o mantener sistemas de pago para garantizar la precisión de los pagos de los proveedores.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-2-2-2",
@@ -504,10 +522,12 @@ const proceso2 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-2-4-4",
       nombre:
         "Gestione las actividades relacionadas con compras estratégicas o tácticas, planificación de requisitos de materiales, control de inventario, almacenamiento o recepción",
       added: false,
+      IA: true,
     },
   ],
 };
@@ -546,14 +566,18 @@ const proceso3 = {
   ],
   proceso2: [
     {
+      // Proceso con IA
       key: "proceso-3-2-1",
       nombre: "Aprobar y pagar facturas.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-3-2-2",
       nombre: "Calcular los costes de los pedidos y crear facturas.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-3-2-3",
@@ -596,15 +620,19 @@ const proceso3 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-3-2-10",
       nombre: "Preparar órdenes de compra",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-3-2-11",
       nombre:
         "Preparar, mantener y revisar archivos de compras, informes y listas de precios.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-3-2-12",
@@ -621,15 +649,19 @@ const proceso3 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-3-3-2",
       nombre: "Organizar el pago de los derechos y fletes.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-3-3-3",
       nombre:
         "Desarrollar planes de compra que faciliten el acceso de los empleados a los suministros.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-3-3-4",
@@ -640,28 +672,38 @@ const proceso3 = {
     {
       key: "proceso-3-3-5",
       nombre:
-        "Mantener y revisar registros computarizados o manuales de los artículos comprados y los costos.",
+        "Mantener y revisar registros computarizados o manuales de inventarios.",
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-3-3-6",
+      nombre:
+        "Mantener y revisar registros computarizados o manuales de los artículos comprados y los costos.",
+      added: false,
+      IA: true,
+    },
+    {
+      key: "proceso-3-3-7",
       nombre:
         "Supervise los envíos para asegurarse de que las mercancías lleguen a tiempo.",
       added: false,
     },
     {
-      key: "proceso-3-3-7",
+      // Proceso con IA
+      key: "proceso-3-3-8",
       nombre: "Preparar órdenes de compra.",
       added: false,
+      IA: true,
     },
     {
-      key: "proceso-3-3-8",
+      key: "proceso-3-3-9",
       nombre:
         "Estudiar los niveles de inventario de las existencias actuales para desarrollar planes de compra que faciliten el acceso de los empleados a los suministros.",
       added: false,
     },
     {
-      key: "proceso-3-3-9",
+      key: "proceso-3-3-10",
       nombre:
         "Estudie los registros de ventas para desarrollar planes de compra que faciliten el acceso de los empleados a los suministros.",
       added: false,
@@ -680,9 +722,11 @@ const proceso3 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-3-4-3",
       nombre: "Preparar y procesar órdenes de compra de suministros y equipos.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-3-4-4",
@@ -704,15 +748,19 @@ const proceso3 = {
   ],
   proceso5: [
     {
+      // Proceso con IA
       key: "proceso-3-5-1",
       nombre: "Autorizar el pago de facturas o devolución de mercancía.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-3-5-2",
       nombre:
         "Examinar, seleccionar, ordenar o comprar mercancía consistente con la calidad, cantidad, requisitos de especificación u otros factores, como la solidez ambiental.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-3-5-3",
@@ -765,10 +813,12 @@ const proceso4 = {
   ],
   proceso3: [
     {
+      // Proceso con IA
       key: "proceso-4-3-1",
       nombre:
         "Dirigir o coordinar las actividades de producción, procesamiento, distribución o comercialización de las organizaciones industriales.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-4-3-2",
@@ -791,10 +841,12 @@ const proceso4 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-4-4-3",
       nombre:
         "Estimar costos, tiempos de producción o requisitos de personal para nuevos diseños.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-4-4-4",
@@ -815,9 +867,11 @@ const proceso4 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-4-4-7",
       nombre: "Comprar equipos, materiales o piezas.",
       added: false,
+      IA: true,
     },
   ],
   proceso5: [
@@ -864,22 +918,28 @@ const proceso4 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-4-5-8",
       nombre:
         "Planifique compromisos de producción o cronogramas para unidades de negocio, programas específicos o trabajos, utilizando pronósticos de ventas.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-4-5-9",
       nombre:
         "Registre los datos de producción, incluido el volumen producido, el consumo de materias primas o las medidas de control de calidad.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-4-5-10",
       nombre:
         "Requisar y mantener inventarios de materiales o suministros necesarios para satisfacer las demandas de producción.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-4-5-11",
@@ -892,10 +952,12 @@ const proceso4 = {
 const proceso5 = {
   proceso1: [
     {
+      // Proceso con IA
       key: "proceso-5-1-1",
       nombre:
         "Archivar recibos de venta en los libros mayores de los clientes para fines de facturación.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-1-2",
@@ -922,10 +984,12 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-2-2",
       nombre:
         "Determinar los cargos por los servicios solicitados, cobrar depósitos o pagos, o organizar la facturación.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-2-3",
@@ -942,15 +1006,19 @@ const proceso5 = {
   ],
   proceso3: [
     {
+      // Proceso con IA
       key: "proceso-5-3-1",
       nombre:
         "Inventario de existencias y reordene cuando los inventarios caigan a niveles especificados.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-5-3-2",
       nombre: "Mantener registros relacionados con las compras",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-3-3",
@@ -958,9 +1026,11 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-3-4",
       nombre: "Mantener registros relacionados con las ventas",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-3-5",
@@ -971,10 +1041,12 @@ const proceso5 = {
   ],
   proceso4: [
     {
+      // Proceso con IA
       key: "proceso-5-4-1",
       nombre:
         "Cobrar depósitos y tarifas de los clientes y emitir recibos, utilizando computadoras.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-4-2",
@@ -994,10 +1066,12 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-4-5",
       nombre:
         "Registre los depósitos y tarifas de los clientes y emita recibos, utilizando computadoras.",
       added: false,
+      IA: true,
     },
   ],
   proceso5: [
@@ -1020,15 +1094,19 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-5-4",
       nombre:
         "Cobrar el pago de mercancías, registrar transacciones y enviar artículos, como cheques o giros postales para su posterior procesamiento.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-5-5-5",
       nombre:
         "Calcule los cargos totales de mercancía o servicios y los gastos de envío.",
+      IA: true,
     },
     {
       key: "proceso-5-5-6",
@@ -1049,10 +1127,12 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-5-9",
       nombre:
         "Archivar copias de los pedidos recibidos o publicar los pedidos en los registros.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-5-10",
@@ -1060,15 +1140,19 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-5-11",
       nombre:
         "Obtenga los nombres, direcciones e información de facturación de los clientes, los números de producto y las especificaciones de los artículos que se comprarán, e ingrese esta información en los formularios de pedido.",
       added: false,
+      IA: true,
     },
     {
+      // Proceso con IA
       key: "proceso-5-5-12",
       nombre: "Preparar facturas.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-5-13",
@@ -1114,10 +1198,12 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-6-3",
       nombre:
         "Documente las actividades de la cuenta, genere informes y mantenga registros de las transacciones comerciales con clientes y proveedores.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-6-4",
@@ -1126,9 +1212,11 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-6-5",
       nombre: "Asegure y renueve los pedidos y organice la entrega.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-6-6",
@@ -1186,10 +1274,12 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-8-2",
       nombre:
         "Compre productos de fabricantes o firmas de corretaje y distribúyalos a clientes mayoristas y minoristas.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-8-3",
@@ -1238,10 +1328,12 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-9-3",
       nombre:
         "Calcular los costos de instalación o producción de los clientes.",
       added: false,
+      IA: true,
     },
     {
       key: "proceso-5-9-4",
@@ -1310,10 +1402,12 @@ const proceso5 = {
       added: false,
     },
     {
+      // Proceso con IA
       key: "proceso-5-10-6",
       nombre:
         "Requisar y almacenar materiales y suministros de envío para mantener el inventario de existencias.",
       added: false,
+      IA: true,
     },
   ],
 };

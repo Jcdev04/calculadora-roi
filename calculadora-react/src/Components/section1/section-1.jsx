@@ -9,7 +9,7 @@ function Section1({ handleTranslate }) {
       <section className="portada">
         <div className="columna1">
           <h1>
-            Genera tu proyecto RPA:{" "}
+            Genera tu proyecto RPA<span style={{ color: "#d60718" }}>+</span>IA:{" "}
             <span className="container-title">
               <span className="title-blink-1">
                 <h3 className="first-title">

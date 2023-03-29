@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import quintaSeccion from "../../img/quinta-seccion.svg";
 import "./step-4.css";
+import Correos from "./correos";
 import Mensajes from "./mensajes";
+import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 const copies1 = [
   {
@@ -57,6 +59,8 @@ const copies3 = [
 
 function Step5({ nombreEmpresa, nombrePersona }) {
   const [showMore, setShowMore] = useState([false, false, false]);
+  const [popUp, setPopUp] = useState(false);
+  const [messagePopUp, setMessagePopUp] = useState("");
   return (
     <div className="implementar-container">
       <div className="implementar">
@@ -72,6 +76,8 @@ function Step5({ nombreEmpresa, nombrePersona }) {
           <div className="group-mensajes-personalizados">
             <Mensajes
               active={0}
+              setPopUp={setPopUp}
+              setMessagePopUp={setMessagePopUp}
               showMore={showMore}
               setShowMore={setShowMore}
               persona="Para los Miembros de tu equipo"
@@ -79,13 +85,17 @@ function Step5({ nombreEmpresa, nombrePersona }) {
             />
             <Mensajes
               active={1}
+              setPopUp={setPopUp}
+              setMessagePopUp={setMessagePopUp}
               showMore={showMore}
               setShowMore={setShowMore}
-              persona="Para la Junta directiva"
+              persona="Para el Jefe"
               copies={copies2}
             />
             <Mensajes
               active={2}
+              setPopUp={setPopUp}
+              setMessagePopUp={setMessagePopUp}
               showMore={showMore}
               setShowMore={setShowMore}
               persona="Para el Cliente"
@@ -97,6 +107,9 @@ function Step5({ nombreEmpresa, nombrePersona }) {
           <img src={quintaSeccion} alt="implementación" />
         </div>
       </div>
+      <AnimatePresence>
+        {popUp && <Correos setPopUp={setPopUp} messagePopUp={messagePopUp} />}
+      </AnimatePresence>
     </div>
   );
 }

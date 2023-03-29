@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import SubAreas from "./sub-areas";
+import SubAreas from "./2.sub-areas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronCircleRight,
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
-import "./areas.css";
+import "./1.areas.css";
 import { motion, AnimatePresence } from "framer-motion/dist/framer-motion";
 
 function Areas({ setOption, setActivateSuccess, style, areasProcesos }) {

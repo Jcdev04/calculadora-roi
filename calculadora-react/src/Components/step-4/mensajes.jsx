@@ -5,7 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence } from "framer-motion/dist/framer-motion";
 
-function Mensajes({ active, showMore, setShowMore, copies, persona }) {
+function Mensajes({
+  setPopUp,
+  setMessagePopUp,
+  active,
+  showMore,
+  setShowMore,
+  copies,
+  persona,
+}) {
   function activar() {
     let newShowMore = [...showMore];
     newShowMore = newShowMore.map((item, index) => {
@@ -16,6 +24,12 @@ function Mensajes({ active, showMore, setShowMore, copies, persona }) {
     });
     setShowMore(newShowMore);
   }
+
+  function verEnFormatoDeCorreo(correo) {
+    setMessagePopUp(correo);
+    setPopUp(true);
+  }
+
   return (
     <section className="enviar-mensaje-container">
       <h4
@@ -45,17 +59,29 @@ function Mensajes({ active, showMore, setShowMore, copies, persona }) {
               overflow: "hidden",
             }}
           >
-            {copies.map((copy) => {
+            {copies.map((copy, index) => {
               return (
-                <CopyToClipboard key={copy.id} text={copy.texto}>
-                  <li
-                    className="enviar-mensaje-copy"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => toast.success("Copiado en portapapeles")}
+                <li
+                  className="correo-container-buttons"
+                  key={copy.id}
+                  style={{ display: "flex", gap: "10px" }}
+                >
+                  <button
+                    className="btn_verCorreo"
+                    onClick={() => verEnFormatoDeCorreo(copy.texto)}
                   >
-                    <strong>-</strong> {copy.texto}
-                  </li>
-                </CopyToClipboard>
+                    Ver correo {index + 1}
+                  </button>
+                  <CopyToClipboard key={copy.id} text={copy.texto}>
+                    <button
+                      className="btn_copiarCorreo"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => toast.success("Copiado en portapapeles")}
+                    >
+                      Copiar correo {index + 1}
+                    </button>
+                  </CopyToClipboard>
+                </li>
               );
             })}
           </motion.ul>

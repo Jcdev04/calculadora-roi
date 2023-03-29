@@ -13,7 +13,7 @@ function Dudas() {
               <p>¿No sabes como justificar el proyecto a implementar?</p>
             </section>
             <section>
-              <p> ¿Te toma mucho tiempo generar un proyecto de RPA?</p>
+              <p>¿Te toma mucho tiempo generar un proyecto de RPA+IA?</p>
             </section>
           </div>
           <div className="imagen">

@@ -72,3 +72,18 @@
   line-clamp: 2;
   overflow: hidden;
 }
+.correo-container-buttons {
+  margin-bottom: 10px;
+}
+.correo-container-buttons button {
+  width: 120px;
+  height: 30px;
+  border-radius: 20px;
+  border: 1px solid #de6262;
+  background-color: transparent;
+  transition: 100ms all ease-in-out;
+}
+.correo-container-buttons button:hover {
+  background-color: #de6262;
+  color: white;
+}

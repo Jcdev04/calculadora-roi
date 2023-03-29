@@ -52,6 +52,7 @@ class VentanaFTE extends Component {
       setChangeValue,
       modificarRateEmpleado,
       index,
+      setBotonConfirmar,
     } = this.props;
     const regresar = () => {
       openVentanaFTE();
@@ -155,7 +156,9 @@ class VentanaFTE extends Component {
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
-          <button style={CSS.btnListo}>¡Listo!</button>
+          <button style={CSS.btnListo} onClick={() => setBotonConfirmar(true)}>
+            ¡Listo!
+          </button>
         </div>
       </>
     );

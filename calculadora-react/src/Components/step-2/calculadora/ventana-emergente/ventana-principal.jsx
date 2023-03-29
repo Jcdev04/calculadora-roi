@@ -250,6 +250,7 @@ function VentanaPrincipal({
   submitting,
   FTEvalue,
   index,
+  setBotonConfirmar,
 }) {
   const [popUp, setPopUp] = useState(false);
   const [triggerPorcentaje, setTriggerPorcentaje] = useState(false);
@@ -394,7 +395,6 @@ function VentanaPrincipal({
                 ...CSS.btnRegistrar,
                 ...CSS.btnGeneral,
               }}
-              type="button"
             >
               Editar
             </button>
@@ -441,7 +441,10 @@ function VentanaPrincipal({
           }}
         >
           <button
-            onClick={() => procesarDatos(FTEvalue)}
+            onClick={() => {
+              procesarDatos(FTEvalue);
+              setBotonConfirmar(true);
+            }}
             className="btnCalcular"
             disabled={pristine || submitting}
           >
@@ -476,6 +479,7 @@ function VentanaPrincipal({
             changeValue={changeValue}
             setChangeValue={setChangeValue}
             index={index}
+            setBotonConfirmar={setBotonConfirmar}
           />
         </div>
       </motion.div>

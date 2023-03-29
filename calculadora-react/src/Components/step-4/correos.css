@@ -1,0 +1,36 @@
+.correos-container {
+  position: absolute;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.37);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.correos-content {
+  width: 90%;
+  max-width: 500px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.correos-text {
+  max-height: 400px;
+  overflow: auto;
+}
+.correos-botones-auxiliares {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.btn_copiarElCorreo {
+  background-color: rgb(11, 150, 11);
+  padding: 3px 15px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+}

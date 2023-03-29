@@ -32,8 +32,8 @@ function Portada({ setAsesores }) {
             </h5>
           </div>
           <p>
-            Calcula las inversiones para saber si la implementación del robot se
-            justifica con tu presupuesto. Dignita no quiere que pierdas,
+            Calcula las inversiones para saber si la implementación del robot+IA
+            se justifica con tu presupuesto. Dignita no quiere que pierdas,
             queremos que <strong> tu empresa sea más productiva.</strong> Por
             eso, <strong>estima el resultado del ROI</strong> utilizando la
             <strong>calculadora</strong> que nosotros ponemos a tu total

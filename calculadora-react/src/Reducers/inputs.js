@@ -237,7 +237,6 @@ export default function inputs(state = { ...initialState }, action) {
         ...state,
         procesos: state.procesos.map(({ ...value }, i) => {
           if (action.payload.index === i) {
-            console.log(action.payload.automatizable);
             const objectToReturn = value;
             objectToReturn.automatizable = action.payload.automatizable;
             return objectToReturn;

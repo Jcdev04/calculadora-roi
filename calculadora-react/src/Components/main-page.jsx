@@ -131,7 +131,6 @@ function MainPage(props) {
   /* SUBMIT */
   const submit = (payload) => {
     props.modificarInputs(parseInt(index), payload);
-    setBotonConfirmar(true);
   };
   /*  */
   return (
@@ -193,6 +192,7 @@ function MainPage(props) {
               FTEvalue={todosProcesos[index]}
               onSubmit={(payload) => submit(payload)}
               setTrigger={setBotonEditar}
+              setBotonConfirmar={setBotonConfirmar}
             />
           )}
         </AnimatePresence>

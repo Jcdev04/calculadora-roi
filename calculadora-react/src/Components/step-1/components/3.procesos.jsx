@@ -2,6 +2,10 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion/dist/framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+// Buttons
+import ButtonTemplate from "./buttonTemplate";
+import imgRPA from "../../../img/Procesos/img-rpa.svg";
+import imgIA from "../../../img/Procesos/img-ia.svg";
 import {
   agregarProceso,
   modificarProceso1,
@@ -77,6 +81,23 @@ function Procesos({
                 }}
               >
                 {proceso.nombre}
+                <span
+                  className="buttons-process"
+                  style={{ display: "flex", gap: "5px" }}
+                >
+                  <ButtonTemplate
+                    text="RPA"
+                    image={imgRPA}
+                    backGroundColor="linear-gradient(95.66deg, #399BE2 10.95%, #0783DB 27.63%, #1892DF 44.46%, #64D5DB 66.35%, #BBEDEF 86.64%)"
+                  />
+                  {proceso.hasOwnProperty("IA") && (
+                    <ButtonTemplate
+                      text="IA"
+                      image={imgIA}
+                      backGroundColor="linear-gradient(90.21deg, #FFA57A 0.22%, #F8905F 49%, #FF6060 99.85%)"
+                    />
+                  )}
+                </span>
               </h3>
             </motion.div>
           );

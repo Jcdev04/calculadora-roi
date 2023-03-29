@@ -34,13 +34,13 @@ function Step3({ nombreEmpresa, setAsesores }) {
             </h5>
           </div>
           <p>
-            Implementa RPA y automatiza tareas repetitivas en
+            Implementa RPA+IA y automatiza tareas repetitivas en
             <strong> {nombreEmpresa}</strong> para mejorar la precisión de
             datos, lo que reduce errores y aumenta el rendimiento y las
             ganancias. Ofrecemos dos opciones de plantillas, A para usuarios
-            experimentados en RPA y B para usuarios nuevos. Nuestro objetivo es
-            asegurar el éxito del proyecto y brindar una experiencia de usuario
-            eficiente.
+            experimentados en RPA+IA y B para usuarios nuevos. Nuestro objetivo
+            es asegurar el éxito del proyecto y brindar una experiencia de
+            usuario eficiente.
           </p>
           <div className="button-group-3">
             <button
